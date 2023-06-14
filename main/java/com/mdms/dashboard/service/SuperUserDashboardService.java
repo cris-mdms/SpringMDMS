@@ -336,9 +336,10 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 			break;
 		
 		
-		case "LU":querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending from public.total_data_loco a"
+		case "LU":querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending ,e.uncleansed from public.total_data_loco a"
 				+ " 			left outer join public.cleansed_data_loco b on a.zone_code=b.zone_code"
 				+ "			left outer join public.draft_data_loco c on a.zone_code=c.zone_code"
+				+ "			left outer join public.uncleansed_data_loco e on a.zone_code=e.zone_code"
 				+ "			left outer join public.pending_data_loco d on a.zone_code=d.zone_code order by zone_code";
 		    	    	  
 			
@@ -362,6 +363,7 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 	                               rs.getString("zone_name"),
 	                               rs.getInt("cleansed"),
 	                               rs.getInt("draft"),
+	                               rs.getInt("uncleansed"),
 	                               rs.getInt("pending")
 	     
 	                              
