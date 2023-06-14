@@ -17,9 +17,6 @@ public class UserPrivilegeModel {
 	@Column(name="user_code")                  
 	public String user_code; 
 	
-	@Column(name="name")                  
-	public String uname; 
-	
 	@Column(name="privilege_name")                  
 	public String privilege_name; 
 	
@@ -33,8 +30,15 @@ public class UserPrivilegeModel {
 	@Column(name="current_status")                  
 	public String current_status; 	
 	
+	@Column(name="additional_role_type")                  
+	public String additional_role_type; 
 	
+    
+    @Column(name="additional_role_active")                  
+	public String additional_role_active;
 
+	@Column(name="name")                  
+	public String uname; 
 
 	public String getUname() {
 		return uname;
@@ -46,12 +50,7 @@ public class UserPrivilegeModel {
 	}
 
 
-	@Column(name="additional_role_type")                  
-	public String additional_role_type; 
-	
-    
-    @Column(name="additional_role_active")                  
-	public String additional_role_active;
+
 
 
 	public String getUser_id() {
