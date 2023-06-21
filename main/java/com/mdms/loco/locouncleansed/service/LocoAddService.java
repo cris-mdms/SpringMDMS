@@ -36,7 +36,7 @@ public class LocoAddService {
 	public String saveDieselBoardZonalData(LocoUncleansedDataAddNewLoco dieselLocoBoardZonal) {
 		try {
 			String returnValue = null;
-			int locoNo = dieselLocoBoardZonal.getLoco_no();
+			long locoNo = dieselLocoBoardZonal.getLoco_no();
 			String locoPermanentDomain = dieselLocoBoardZonal.getLoco_permanent_domain();
 			String locoType = dieselLocoBoardZonal.getLoco_type();
 			String locoOwningZone = dieselLocoBoardZonal.getLoco_owning_zone();
@@ -72,6 +72,57 @@ public class LocoAddService {
 		}
 
 	}
+	
+	
+	 @Transactional(rollbackOn = Exception.class)
+	public String saveDraftNewLoco(LocoUncleansedDataAddNewLoco draftrecord)throws Exception
+	{
+		String returnstmt=null;
+		boolean ispresent;
+		ispresent=obj_LocoNewRepo.findById((long) draftrecord.getLoco_no()).isPresent();
+		if(!ispresent)
+		{		int i=obj_LocoNewRepo.saveDraftNewLoco(draftrecord.getLoco_traction_code(),
+				draftrecord.getLoco_no() , draftrecord.getLoco_type(), draftrecord.getLoco_permanent_domain(),
+				draftrecord.getLoco_owning_shed()  ,draftrecord.getLoco_owning_zone() , draftrecord.getLoco_owning_division(), draftrecord.getLoco_manufacturing_date(), draftrecord.getLoco_receiving_date()
+				, draftrecord.getLoco_initial_cost(), draftrecord.getLoco_poh_cost(), draftrecord.getLoco_lease_type(), draftrecord.getGauge_type(),draftrecord.getLoco_hauling_power()
+				, draftrecord.getLoco_manufacturing_country(), draftrecord.getLoco_cabin_ac(), draftrecord.getLoco_commissioning_date(),
+				draftrecord.getElec_locoHotelLoad(), draftrecord.getLoco_manufacturer(), draftrecord.getIs_gps_enabled(), 
+				draftrecord.getFlag_type(), draftrecord.getLoco_auxilary(), draftrecord.getLoco_boogie_type(), draftrecord.getLoco_traction_motor_type(), 
+				draftrecord.getLoco_control_type(), draftrecord.getLoco_brake_type(), draftrecord.getUser_id(),"D","N")	;
+		
+					if(i>0)
+							{returnstmt="DRAFT CREATED SUCCESSFULLY";}
+					else  {returnstmt="ERROR OCCURRED";}
+		}
+		
+		else 
+		{
+			String status=obj_LocoNewRepo.findById((long) draftrecord.getLoco_no()).get().getStatus();
+//			String userid=obj_LocoNewRepo.findById((long) draftrecord.getLoco_no()).get().getUser_id();
+			
+			if(status.equals("D"))
+			{
+//				if(userid.equals(draftrecord.getUser_id())) {
+					
+				int i=obj_LocoNewRepo.updateDraftNewLoco(draftrecord.getLoco_traction_code(),draftrecord.getLoco_no() , draftrecord.getLoco_type(), draftrecord.getLoco_permanent_domain(),
+						draftrecord.getLoco_owning_shed()  ,draftrecord.getLoco_owning_zone() , draftrecord.getLoco_owning_division(), draftrecord.getLoco_manufacturing_date(), draftrecord.getLoco_receiving_date()
+					, draftrecord.getLoco_initial_cost(), draftrecord.getLoco_poh_cost(), draftrecord.getLoco_lease_type(), draftrecord.getGauge_type(),draftrecord.getLoco_hauling_power()
+						, draftrecord.getLoco_manufacturing_country(), draftrecord.getLoco_cabin_ac(), draftrecord.getLoco_commissioning_date(),
+						draftrecord.getElec_locoHotelLoad(), draftrecord.getLoco_manufacturer(), draftrecord.getIs_gps_enabled(), 
+						draftrecord.getFlag_type(), draftrecord.getLoco_auxilary(), draftrecord.getLoco_boogie_type(), draftrecord.getLoco_traction_motor_type(), 
+						draftrecord.getLoco_control_type(), draftrecord.getLoco_brake_type(), draftrecord.getUser_id());
+				if(i>0)
+				{returnstmt="DRAFT UDATED SUCCESSFULLY";}
+		else  {returnstmt="ERROR OCCURRED";}
+				}
+				else returnstmt="DRAFT NOT SAVED . RECORD PRESENT WITH STATUS= "+status;
+					
+				
+			}
+		return returnstmt;
+				
+	}
+	
 
 	public String updateDieselBoardZonalData(LocoUncleansedDataAddNewLoco dieselLocoBoardZonal) {
 		try {
@@ -97,7 +148,7 @@ public class LocoAddService {
 			Date locotxndate = dieselLocoBoardZonal.getTxn_date();
 			Date locoentrydate = dieselLocoBoardZonal.getLoco_entry_date();
 			String remarks=dieselLocoBoardZonal.getRemarks();
-			int locoNo = dieselLocoBoardZonal.getLoco_no();
+			long locoNo = dieselLocoBoardZonal.getLoco_no();
 			obj_dieselocoaddrepo.updateDieselBoardZonalRecord(locoPermanentDomain, locoType, locoOwningZone,
 					locoOwningDivision, locoMfgDt, locOwningShed,locorecddate,  locoLeasetype,locoInitialCost,
 					locoPOHCost, tractionCode, gaugeType, locoHaulingPower, locoMfgCountry, recordstatus,status, uid, locotxndate,locoentrydate,
@@ -116,7 +167,7 @@ public class LocoAddService {
 		try {
 			String returnValue = null;
 
-			int locoNo = electricLocoBoardZonal.getLoco_no();
+			long locoNo = electricLocoBoardZonal.getLoco_no();
 			String locoPermanentDomain = electricLocoBoardZonal.getLoco_permanent_domain();
 			String locoType = electricLocoBoardZonal.getLoco_type();
 			String locoOwningZone = electricLocoBoardZonal.getLoco_owning_zone();
@@ -196,7 +247,7 @@ public class LocoAddService {
 
 	}
 
-	public boolean checkloconoexist(int locono) {
+	public boolean checkloconoexist(long locono) {
 
 		int tmp = obj_dieselocoaddrepo.checklocoNoExist(locono);
 		if (tmp == 0) {
@@ -295,7 +346,7 @@ public class LocoAddService {
 			String uid = dieselLocoNewShedUser.getUser_id();
 			Date locotxndate = dieselLocoNewShedUser.getTxn_date();
 			Date locoEntryDate = dieselLocoNewShedUser.getLoco_entry_date();
-			int locoNo = dieselLocoNewShedUser.getLoco_no();
+			long locoNo = dieselLocoNewShedUser.getLoco_no();
 			obj_LocoNewRepo.updateWithDieselNewLocoShedData( locoControlType, locoBrakeSubtype,  locoBrakeType, 
 					locoDateOfCommision, locoEntryDate, locoManfacturer, locoGPSEnableflag, flagtype,
 					locoTractionMotorType, axleload,  status, uid, locotxndate, locoNo);
@@ -330,7 +381,7 @@ public class LocoAddService {
 			String uid = electricLocoNewShedUser.getUser_id();
 			Date locotxndate = electricLocoNewShedUser.getTxn_date();
 			Date locoEntryDate = electricLocoNewShedUser.getLoco_entry_date();
-			int locoNo = electricLocoNewShedUser.getLoco_no();
+			long locoNo = electricLocoNewShedUser.getLoco_no();
 			obj_LocoNewRepo.updateWithElectricNewLocoShedData(locoAuxiliaryOutput, locoBoogieType, locoBrakeSubtype,
 					locoBrakeType, locoCabac, gpsflagtype, locoControlType, locoTractionMotorType,locoDateOfCommision,
 					locoEntryDate, locoHotelLoad, locoManfacturer, locoGPSEnable,  status,uid, locotxndate, locoNo);
@@ -394,7 +445,7 @@ public class LocoAddService {
 	public String savegoldenrecord(LocoUncleansedDataAddNewLoco objnewloco) {
 		try {
 
-			int locoNo = objnewloco.getLoco_no();
+			long locoNo = objnewloco.getLoco_no();
 			String locoType = objnewloco.getLoco_type();
 			String locoOwningZone = objnewloco.getLoco_owning_zone();
 			String locoOwningDivision = objnewloco.getLoco_owning_division();
@@ -450,7 +501,7 @@ public class LocoAddService {
 
 	}
 	
-	public List<LocoUncleansedDataAddNewLoco> getLocoDetailOnLocoNo(Integer loco_no){
+	public List<LocoUncleansedDataAddNewLoco> getLocoDetailOnLocoNo(Long loco_no){
 		
 		List<LocoUncleansedDataAddNewLoco> listt = new ArrayList<LocoUncleansedDataAddNewLoco>();
 		
@@ -464,5 +515,50 @@ public List<LocoUncleansedDataAddNewLoco> findlocoDetailforZonalDraft(){
 		list2.addAll(obj_LocoNewRepo.findlocoDetailforZonalDraft());
 		return list2;
 	}
+
+
+//Anshul 19-06-2023
+public List<LocoUncleansedDataAddNewLoco> findDraftNewLoco(String shed){		
+	List<LocoUncleansedDataAddNewLoco> listDraft = new ArrayList<LocoUncleansedDataAddNewLoco>();
+	listDraft.addAll(obj_LocoNewRepo.findDraftNewLoco(shed));
+	return listDraft;
+}
+
+
+public String forwardForApprovalNewLoco(LocoUncleansedDataAddNewLoco locoapp) {
+	int i ;
+	String returnstmt=null;
+	boolean ispresent;
+	ispresent=obj_LocoNewRepo.findById((long) locoapp.getLoco_no()).isPresent();
+	if(!ispresent)
+	{		 i=obj_LocoNewRepo.saveDraftNewLoco(locoapp.getLoco_traction_code(),
+			locoapp.getLoco_no() , locoapp.getLoco_type(), locoapp.getLoco_permanent_domain(),
+			locoapp.getLoco_owning_shed()  ,locoapp.getLoco_owning_zone() , locoapp.getLoco_owning_division(), locoapp.getLoco_manufacturing_date(), locoapp.getLoco_receiving_date()
+			, locoapp.getLoco_initial_cost(), locoapp.getLoco_poh_cost(), locoapp.getLoco_lease_type(), locoapp.getGauge_type(),locoapp.getLoco_hauling_power()
+			, locoapp.getLoco_manufacturing_country(), locoapp.getLoco_cabin_ac(), locoapp.getLoco_commissioning_date(),
+			locoapp.getElec_locoHotelLoad(), locoapp.getLoco_manufacturer(), locoapp.getIs_gps_enabled(), 
+			locoapp.getFlag_type(), locoapp.getLoco_auxilary(), locoapp.getLoco_boogie_type(), locoapp.getLoco_traction_motor_type(), 
+			locoapp.getLoco_control_type(), locoapp.getLoco_brake_type(), locoapp.getUser_id(),"U","N")	;
+	}
+	
+	else {	
+		 i=obj_LocoNewRepo.updateFwdApp(locoapp.getLoco_traction_code(),locoapp.getLoco_no() , locoapp.getLoco_type(), locoapp.getLoco_permanent_domain(),
+				locoapp.getLoco_owning_shed()  ,locoapp.getLoco_owning_zone() , locoapp.getLoco_owning_division(), locoapp.getLoco_manufacturing_date(), locoapp.getLoco_receiving_date()
+			, locoapp.getLoco_initial_cost(), locoapp.getLoco_poh_cost(), locoapp.getLoco_lease_type(), locoapp.getGauge_type(),locoapp.getLoco_hauling_power()
+				, locoapp.getLoco_manufacturing_country(), locoapp.getLoco_cabin_ac(), locoapp.getLoco_commissioning_date(),
+				locoapp.getElec_locoHotelLoad(), locoapp.getLoco_manufacturer(), locoapp.getIs_gps_enabled(), 
+				locoapp.getFlag_type(), locoapp.getLoco_auxilary(), locoapp.getLoco_boogie_type(), locoapp.getLoco_traction_motor_type(), 
+				locoapp.getLoco_control_type(), locoapp.getLoco_brake_type(), locoapp.getUser_id());
+
+	}
+	
+	if(i>0)
+	{returnstmt="RECORD FORWARDED FOR APPROVAL SUCCESSFULLY";}
+else  {returnstmt="ERROR OCCURRED";}
+		
+return returnstmt;
+	
+
+}
 
 }

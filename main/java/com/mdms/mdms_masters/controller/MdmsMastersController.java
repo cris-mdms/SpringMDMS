@@ -64,8 +64,15 @@ public class MdmsMastersController {
        return mdm_mstr_serv.findByDivision(division) ;
 	
 	
-	}    
+	} 
 	
+	@RequestMapping(method=RequestMethod.GET, value="/mdivisioncode")
+	List<String> getZonewiseDivisionCode(@RequestParam(value="zone_code" )String zone_code)throws Exception {
+		logger.error("controller : MdmsMastersController || Method : getZonewiseDivisionCode || input recieved zone: "+zone_code);		 
+	       return mdm_mstr_serv.getZonewiseDivisionCode(zone_code) ;
+		
+	
+	}
 	@RequestMapping(method=RequestMethod.POST, value="/zone")
 	public	 List<String> getAllZone(){
 		return mdm_mstr_serv.getAllZone();

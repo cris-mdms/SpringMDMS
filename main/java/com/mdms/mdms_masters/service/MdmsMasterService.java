@@ -94,6 +94,12 @@ private String div_code;
 		
 	}
 
+	
+	public List<String> getZonewiseDivisionCode(String zone) throws Exception{
+		
+		return divsn_repo.getZonewiseDivisionCode(zone);
+	}
+	
 //	public List<MDesignation> findDesignation(MDesignation desig) throws Exception
 //	{		
 //		List<MDesignation> temp=new ArrayList<>();

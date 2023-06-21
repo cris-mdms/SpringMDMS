@@ -11,14 +11,14 @@ public class ZonalUsersAssetModel {
 		
 	}
 	
-	public ZonalUsersAssetModel(String zonecode,int total,  String zonename,int cleansed,int draft,int uncleansed, int pending )
+	public ZonalUsersAssetModel(String zonecode,int total,  String zonename,int cleansed,int draft, int pending )
 	{
 		this.zone=zonecode;
 		this.count=total;
 		this.zone_name=zonename;
 		this.cleansed=cleansed;
 		this.draft=draft;
-		this.uncleansed=uncleansed;
+//		this.uncleansed=uncleansed;
 		this.pending= pending;
 	}
 	

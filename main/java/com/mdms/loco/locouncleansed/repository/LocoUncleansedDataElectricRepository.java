@@ -80,7 +80,7 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
 			"	 loco_doc,loco_entry_date, loco_hotel_load,loco_manufacturer,  \r\n" + 
 			"	 is_gps_enabled,flag_type, loco_traction_motor_type,status, user_id, txn_date, remarks, loco_flag, record_status)\r\n" + 
 			"	VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24,?25,?26.?27,?28,?29,?30,?31);", nativeQuery=true)
-	int insertNewLocoShedData(int locoNo, String locoType, String locoOwningZone, String locoOwningDivision,
+	int insertNewLocoShedData(long locoNo, String locoType, String locoOwningZone, String locoOwningDivision,
 			String locOwningShed, String locoPermanentDomain, Long locoInitialCost, Long locoPOHCost,
 			String locoAuxiliaryOutput, String leaseType, Date dateOfMfg, Date dateOfRcng,
 			String locoBoogieType, String locoBrakeSubtype, String locoBrakeType, String locoCabac,
