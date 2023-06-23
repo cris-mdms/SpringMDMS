@@ -23,6 +23,9 @@ import com.mdms.dashboard.repository.StationDashboardRepo;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
 import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
+
+import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
+
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachCMMDataRepository;
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachCleansedDataRepository;
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachTypeMappingRepository;
@@ -80,6 +83,11 @@ public class StationDashboardService {
 		@Autowired
 		private JdbcTemplate jdbcTemplate;
 		
+
+		@Autowired
+		private LocoUncleansedDataRepository obj_uncleansedcommonrepo;
+		
+
 		public HashMap<String, Integer> getStationStats() {
 			logger.info("Service : StationDashboardService || Method: getStationStats");
 
@@ -1128,6 +1136,7 @@ public class StationDashboardService {
 				public List<DashboardStationModel> getLocoCountZoneWise(DashboardStationModel obj1zone_code) {
 					String loco_owning_zone_code =obj1zone_code.getLoco_owning_zone_code();
 					
+
 					List<DashboardStationModel> list= new ArrayList<DashboardStationModel>();		
 					Collection<DashBoardLocoCountShedWiseModel> totalCountLists= loco_tbl_fois_repo.getLocoZoneShed(loco_owning_zone_code);
 						logger.info("Service : DashBoardStationService || Method: getLocoZoneShed || getLocoZoneShed Query list return : "+totalCountLists);
@@ -1135,7 +1144,8 @@ public class StationDashboardService {
 						totalCountLists.forEach(DashBoardLocoCountShedWiseModel -> setTotalZoneShed(DashBoardLocoCountShedWiseModel,list));
 
 					}	
-						
+
+					 						
 						Collection<DashBoardLocoCountShedWiseModel> uncleansedCountLists= loco_tbl_fois_repo.getUncleansedLocoZoneShed(loco_owning_zone_code);
 						logger.info("Service : DashBoardStationService || Method: getUncleansedLocoZoneShed || getUncleansedLocoZoneShed Query list return : "+uncleansedCountLists.size());
 
@@ -1765,10 +1775,6 @@ public List<DashBoardCoachCountDepoWiseModel> geCoachMapCount( DashBoardCoachCou
 	System.out.println(" End getuncleansedpending");
 	return temp;
 }
-
-
-
-
 
 
 }

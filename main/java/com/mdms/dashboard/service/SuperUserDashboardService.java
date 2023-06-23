@@ -2,7 +2,9 @@ package com.mdms.dashboard.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.mdms.app.mgmt.repository.UserProfileRegistrationRepository;
 
 import com.mdms.dahsboard.model.DailyIntegrationModel;
 import com.mdms.dahsboard.model.DivisonUsersAssetModel;
@@ -29,6 +33,10 @@ public class SuperUserDashboardService {
 	@Autowired
 	StationTableRbsRepository stn_db_repo;
 	
+
+	@Autowired
+	UserProfileRegistrationRepository user_repo;
+
 	
 	public HashMap<String, Integer> getTotalAssets() {
 		logger.info("Service : SuperUserDashboardService || Method: getTotalAssets");
@@ -43,7 +51,8 @@ public class SuperUserDashboardService {
 //		 final String no_stations = "SELECT count(DISTINCT stn_code) FROM mdms_station.station_table_rbs ";
 		    final int total_stations = (int)jdbcTemplate.queryForObject(no_stations,Integer.class);
 
-		    final String no_loco = "SELECT count(*) FROM mdms_loco.loco_data_fois where  loco_status is null";
+  		    final String no_loco = "SELECT count(*) FROM mdms_loco.loco_data_fois loco_status is null";
+
 		    final int total_loco = (int)jdbcTemplate.queryForObject(no_loco,Integer.class);
 		    final String no_coach = "select count( coach_no) from mdms_coach.coach_data_cmm where coach_status<>'CONDEMN'";
 		    final int total_coach = (int)jdbcTemplate.queryForObject(no_coach,Integer.class);
@@ -328,28 +337,31 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 		
 		switch(usertype)
 		{
-		case "SU":        querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending from public.total_data a"
-				+ " 			left outer join public.cleansed_data b on a.zone_code=b.zone_code"
-				+ "			left outer join public.draft c on a.zone_code=c.zone_code"
-				+ "			left outer join public.uncleansed d on a.zone_code=d.zone_code order by zone_code";
-		    	    	  
-			break;
-		
-		
-		case "LU":querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending  from public.total_data_loco a"
-				+ " 			left outer join public.cleansed_data_loco b on a.zone_code=b.zone_code"
-				+ "			left outer join public.draft_data_loco c on a.zone_code=c.zone_code"
-//				+ "			left outer join public.uncleansed_data_loco e on a.zone_code=e.zone_code"
-				+ "			left outer join public.pending_data_loco d on a.zone_code=d.zone_code order by zone_code";
-		    	    	  
-			
-	break;
-		case "CU":querystring="  Select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending from public.total_data_coach a"
-				+ " 			left outer join public.cleansed_data_coach b on a.zone_code=b.zone_code"
-				+ "			left outer join public.draft_data_coach c on a.zone_code=c.zone_code"
-				+ "			left outer join public.pending_data_coach d on a.zone_code=d.zone_code order by zone_code";
-		    	    	  
-			 break;
+		case "SU": querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending,e.uncleansed from public.total_data a"
+		+ " left outer join public.cleansed_data b on a.zone_code=b.zone_code"
+		+ " left outer join public.draft c on a.zone_code=c.zone_code"
+		+ " left outer join public.uncleansed_data_stn e on a.zone_code=e.zone_code"
+		+ " left outer join public.uncleansed d on a.zone_code=d.zone_code order by zone_code";
+		       
+		break;
+
+			case "LU": querystring="select distinct a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending ,e.uncleansed from public.total_data_loco a"
+		+  " left outer join public.cleansed_data_loco b on a.zone_code=b.zone_code"
+		+ " left outer join public.draft_data_loco c on a.zone_code=c.zone_code"
+		+ " left outer join public.uncleansed_data_loco e on a.zone_code=e.zone_code"
+		+ " left outer join public.pending_data_loco d on a.zone_code=d.zone_code order by zone_code";
+
+
+		         
+
+		       break;
+		case "CU": querystring="Select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending,e.uncleansed from public.total_data_coach a"
+		+ " left outer join public.cleansed_data_coach b on a.zone_code=b.zone_code"
+		+ " left outer join public.draft_data_coach c on a.zone_code=c.zone_code"
+		+ " left outer join public.uncleansed_data_coach e on a.zone_code=e.zone_code"
+		+ " left outer join public.pending_data_coach d on a.zone_code=d.zone_code order by zone_code";
+		       
+		break;
 
 		default:break;
 		}
@@ -363,7 +375,11 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 	                               rs.getString("zone_name"),
 	                               rs.getInt("cleansed"),
 	                               rs.getInt("draft"),
+
+
 //	                               rs.getInt("uncleansed"),
+
+
 	                               rs.getInt("pending")
 	     
 	                              
@@ -374,7 +390,10 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 		
 	public List<DivisonUsersAssetModel> getDivisionWiseRecords(String usertype,String zone) {
 		logger.info("Service : StationDashboardService || Method: getDivisionWiseRecords");
-		final String userdetails="select b.last_login_date,a.division ,a.depo,shed, a.user_id ,a.name , a.designation , a.department,a.from_date from mdms_app_mgmt.user_profile_registration_detail a\r\n"
+
+		final String userdetails="select b.last_login_date,a.division ,a.depo,shed, a.user_id ,a.name , a.designation , a.department,a.from_date, a.role_type from mdms_app_mgmt.user_profile_registration_detail a\r\n"
+
+
 				+ "	join mdms_app_mgmt.user_login_detail b on a.user_id=b.user_id where user_type='"+usertype+"' and zone='"+zone+"' order by division";	 
 		 return jdbcTemplate.query(
 				 userdetails,
@@ -388,11 +407,43 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 	                               rs.getString("designation"),
 	                               rs.getString("department"),
 	                               rs.getDate("from_date"),
-	                               rs.getDate("last_login_date")
+	                               rs.getDate("last_login_date"),
+	                               rs.getString("role_type")
+
+
   
 	                       )   );
 
 	}
+
+
+	
+	public List<DivisonUsersAssetModel> getDivisionWiseRecords1(String usertype,String division, String role) {
+		logger.info("Service : StationDashboardService || Method: getDivisionWiseRecords");
+		final String userdetails="select b.last_login_date,a.division ,a.depo,shed, a.user_id ,a.name , a.designation , a.department,a.from_date, a.role_type from mdms_app_mgmt.user_profile_registration_detail a\r\n"
+				+ "	join mdms_app_mgmt.user_login_detail b on a.user_id=b.user_id where user_type='"+usertype+"' and a.division='"+division+"' and a.role_type='"+role+"' order by division";	 
+		 return jdbcTemplate.query(
+				 userdetails,
+	               (rs, rowNum) ->
+	                       new DivisonUsersAssetModel(
+	                               rs.getString("division"),
+	                               rs.getString("depo"),
+	                               rs.getString("shed"),
+	                               rs.getString("user_id"),
+	                               rs.getString("name"),
+	                               rs.getString("designation"),
+	                               rs.getString("department"),
+	                               rs.getDate("from_date"),
+	                               rs.getDate("last_login_date"),
+	                               rs.getString("role_type")
+  
+	                       )   );
+
+	}
+
+	
+
+
 
 	public 	ArrayList<HashMap<String,String>> getCoachAssetRecords() {
 		logger.info("Service : StationDashboardService || Method: getCoachAssetRecords");
@@ -514,6 +565,8 @@ catch(Exception e) {
 	return null;
 }
 }
+
+
 	
 //public List<DailyIntegrationModel> getdailypublishintegration() {
 ////	String[] asset_name = new String[]{ "STATION_PUBLISHING","WAGON-PUBLISHING","COACH-PUBLISHING","COACH_TYPE-PUBLISHING"}; 	
@@ -535,44 +588,63 @@ catch(Exception e) {
 //	                       )   );
 //	}
 	
-public List<DailyIntegrationModel> getdailypublishintegration() {
-	
-	logger.info("Service : StationDashboardService || Method: getdailypublishintegration");
-	 
-//  final String noofusers ="select zone,count(*) as count from mdms_app_mgmt.user_profile_registration_detail where user_type='"+usertype+"' group by zone";
-  
-final String noofusers="Select * from public.daily_integration_publishingdata";
+	public List<DailyIntegrationModel> getdailypublishintegration() {
 
-return jdbcTemplate.query(
+		logger.info("Service : StationDashboardService || Method: getdailypublishintegration");
+
+		//  final String noofusers ="select zone,count(*) as count from mdms_app_mgmt.user_profile_registration_detail where user_type='"+usertype+"' group by zone";
+		 
+		final String noofusers="Select * from public.daily_integration_publishingdata";
+
+		return jdbcTemplate.query(
 		noofusers,
-          (rs, rowNum) ->
-                  new DailyIntegrationModel(
-                		  rs.getString("entity_name"),
-                		  rs.getString("group_name"),
-                          rs.getString("asset_name"),
-                          rs.getInt("c_count"),
-                         rs.getDate("publishing_date")
-                         ));
-}
+		          (rs, rowNum) ->
+		                  new DailyIntegrationModel(
+		                 rs.getString("entity_name"),
+		                 rs.getString("group_name"),
+		                          rs.getString("asset_name"),
+		                          rs.getInt("c_count"),
+		                         rs.getDate("publishing_date")
+		                         ));
+		}
 
 
-public List<DailyIntegrationModel> getdailysubscriptionintegration() {
-	
-	logger.info("Service : StationDashboardService || Method: getdailysubscriptionintegration"); 
+		public List<DailyIntegrationModel> getdailysubscriptionintegration() {
 
-  
-final String noofusers="Select * from public.daily_integration_subscriptiondata";
+		logger.info("Service : StationDashboardService || Method: getdailysubscriptionintegration");
 
-return jdbcTemplate.query(
+		 
+		final String noofusers="Select * from public.daily_integration_subscriptiondata";
+
+		return jdbcTemplate.query(
 		noofusers,
-          (rs, rowNum) ->
-                  new DailyIntegrationModel(
-                		  rs.getString("entity_name"),
-                		  rs.getString("group_name"),
-                          rs.getString("asset_name"),
-                          rs.getInt("c_count"),
-                         rs.getDate("publishing_date")
-                         ));
-}
+		          (rs, rowNum) ->
+		                  new DailyIntegrationModel(
+		                 rs.getString("entity_name"),
+		                 rs.getString("group_name"),
+		                          rs.getString("asset_name"),
+		                          rs.getInt("c_count"),
+		                         rs.getDate("publishing_date")
+		                         ));
+		}
+	
+	
+	// jyoti bisht 9-5-23
+	public int get_div_station(String div)
+	{
+		return stn_db_repo.get_division_station_count(div);
+	}
+	// jyoti bisht 10-5-23
+	public List<Object[]> get_stations(String div)
+	{
+		return stn_db_repo.get_stations(div);
+	}
+	
+	// jyoti bisht 10-5-23
+		public int get_usercount_by_div(String div, String user_type, String role_type)
+		{
+			return user_repo.get_count_by_usertype(div,user_type, role_type);
+		}
+
 
 }

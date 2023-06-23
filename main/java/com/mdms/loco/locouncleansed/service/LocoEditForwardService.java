@@ -57,9 +57,10 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 	@Autowired
 	LocoUncleansedDataElectricRepository obj_elec;
 
-//	   
 	@Autowired
 	private MLocoBrakeSubTypeRepo obj_subtype;
+//	   
+
 	@Autowired
 	private LocoUncleansedDataRepository obj_uncleansedcommonrepo;
 	
@@ -553,12 +554,12 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 							return mlocoshednew.get_div_by_zone(zone);
 						}
 						
-						
+
 						public List<MLocoBrakeSubtype> getallsubtype()
 						{
 							 List<MLocoBrakeSubtype> subtype = new ArrayList<>();		 
 							 obj_subtype.getallsubtype().forEach(subtype::add);
 							 return subtype;
 						}
-						
+
 }

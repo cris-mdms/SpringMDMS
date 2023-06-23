@@ -26,6 +26,7 @@ public interface StationCleansedDataRepository extends CrudRepository <StationCl
 	@Query(value="select station_code  from mdms_station.station_cleansed_data where station_code=?1",nativeQuery=true)
 	String   checkStnCodeExist(String stncode);
 	
+
 //	@Transactional
 //@Modifying
 //	@Query(value="INSERT INTO mdms_station.station_cleansed_data(\r\n"
@@ -68,6 +69,7 @@ public interface StationCleansedDataRepository extends CrudRepository <StationCl
 //			+ "	VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, "
 //			+ "?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24, ?25, ?26, ?27, ?28, ?29, ?30, ?31, ?32, ?33, ?34, ?35, ?36)",nativeQuery=true)
 //	void save();
+
 	
 	  @Query(value="select division_code, count(*) as cleansed_count " + 
 		  		"from mdms_station.station_cleansed_data where zone_code=?1 group by division_code",nativeQuery=true)

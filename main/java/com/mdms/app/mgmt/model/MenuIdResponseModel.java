@@ -30,6 +30,10 @@ public class MenuIdResponseModel {
     String additional_shed_active;
     
 
+    String email;
+    String phone;
+
+
 	public String getAdditional_shed() {
 		return additional_shed;
 	}
@@ -145,6 +149,21 @@ public class MenuIdResponseModel {
 	}
 	public void setDepartment(String department) {
 		this.department = department;
+	}
+
+	
+
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override

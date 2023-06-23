@@ -13,7 +13,12 @@ import java.util.*;
 @Entity()
 @Table(name="coach_type_mapping", schema="mdms_coach")
 public class CoachTypeMapping {	
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int sno;
+	
+
 	@Column(name="cmm_coach_type")
 	private String cmm_coach_type;
 	
@@ -23,6 +28,11 @@ public class CoachTypeMapping {
 	
 	@Column(name="capacity")
 	private String capacity;
+
+
+	@Column(name="coach_class")
+	private String coach_class;
+	
 
 	@Column(name="coach_type_description")
 	private String coach_type_description;
@@ -35,6 +45,11 @@ public class CoachTypeMapping {
 	
 	@Column(name="status")
 	private String status;
+
+	public int getSno() {
+		return sno;
+	}
+
 
 	public String getCmm_coach_type() {
 		return cmm_coach_type;
@@ -91,7 +106,15 @@ public class CoachTypeMapping {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
+
+	public String getCoach_class() {
+		return coach_class;
+	}
+
+	public void setCoach_class(String coach_class) {
+		this.coach_class = coach_class;
+	}
 	
 
 }

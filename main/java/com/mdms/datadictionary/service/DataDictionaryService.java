@@ -57,6 +57,7 @@ public class DataDictionaryService {
 		return publishtoMdms;
 	}
 	
+<<<<<<< HEAD
 public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
 		
 		List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
@@ -71,6 +72,31 @@ public List<ReferentialsDynamicmodel> getRefrentialsDynamicData(){
 		List<ReferentialsDynamicmodel> list4= refrentialDynamicTableRepo.getRefrentialDynamicData();
 		
 		return list4;
+=======
+	public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
+			
+			List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
+			return publishtoMdms;
+		}
+	
+		
+		
+	
+	public List<ReferentialsDynamicmodel> getRefrentialsDynamicData(){
+			
+			List<ReferentialsDynamicmodel> list4= refrentialDynamicTableRepo.getRefrentialDynamicData();
+			
+			return list4;
+			
+		}
+	
+	// JYOTI BISHT 28-3-23 DATA COLLATION
+	public List<StationDataDictionary> getAttributes(String asset, String group)
+	{
+		String asset_group=asset+"_"+group;
+		List<StationDataDictionary> stationDictionaryData= stationDataDictionaryRepo.getFilteredAttributes(asset, asset_group);
+		return stationDictionaryData;
+>>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 		
 	}
 

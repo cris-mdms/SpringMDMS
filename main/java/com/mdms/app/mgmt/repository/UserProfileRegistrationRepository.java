@@ -263,13 +263,30 @@ List<UserProfileRegistrationDetailModel> getReportdivisionuserallparameter(Strin
 	
 	@Query(value="select a.name, a.designation , b.user_id from mdms_app_mgmt.user_profile_registration_detail a join mdms_app_mgmt.user_privilege b on a.user_id=b.user_id where  b.shed='ELTD' and b.additional_role_type='SHED_ADMIN' and b.additional_role_active='Y' and b.current_status='ACTIVE' ",nativeQuery=true)
 	List<UserProfileRegistrationDetailModel> getshedadminuserdetail1(String shedid);
-	
-	
-	
-	
+
 	@Transactional
 	@Modifying
 	@Query(value="delete from mdms_app_mgmt.user_profile_registration_detail where user_id=?1",nativeQuery=true)
 		void delete_user(String uId);
 	
+
+	@Transactional
+	@Modifying
+	@Query(value="update mdms_app_mgmt.user_profile_registration_detail set email=?1, mobile_no=?2, user_type=?3 where user_id=?4",nativeQuery=true)
+		void update_user_profile(String email, String mobile, String user_type, String uId);
+	
+	/*
+	@Query(value="	select division_code, sum(e.user_count) from (\r\n"
+			+ "		\r\n"
+			+ "		select a.zone_code, COALESCE(r1.count,0) as \"user_count\"  from  mdms_masters.m_zone a left join \r\n"
+			+ "			(select zone,count(*) as count from mdms_app_mgmt.user_profile_registration_detail \r\n"
+			+ "		 where user_type='SU' AND role_type='DS' group by zone) r1 on r1.zone=a.zone_code \r\n"
+			+ "					 where a.fois_zone is not null AND zone_code='CR' order by zone_code ) e join mdms_station.rbs_division on\r\n"
+			+ "					 e.zone_code=mdms_station.rbs_division.zone_code group by division_code order by division_code", nativeQuery=true)
+	*/
+	
+	@Query(value="select count(*) from mdms_app_mgmt.user_profile_registration_detail where division=?1 and user_type=?2 and role_type=?3", nativeQuery = true)
+	int get_count_by_usertype(String division, String user_type, String role_type);
+	
+
 }

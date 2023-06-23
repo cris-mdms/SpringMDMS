@@ -121,6 +121,8 @@ public class StationEditForwardService {
 		return stn_tbl_rbs_repo.getDivisionalStnCodeDti(divno);
 	} 
 	
+
+
 	//Anshul 08-06-2023 // to select siding codes only 
 	public List<String>getDivisionalStnCodeDti(String division,String cateogory) {
 		int divno=	divsn_repo.getDivsionCode(division);
@@ -131,7 +133,7 @@ public class StationEditForwardService {
 	} 
 	
 
-	 @Transactional(rollbackOn = Exception.class)
+		 @Transactional(rollbackOn = Exception.class)
 	public StationTableRbs getStationRecordRBS(String station_code) throws Exception
 	{
 		return stn_tbl_rbs_repo.getStationRecordRBS(station_code);
@@ -202,11 +204,9 @@ public class StationEditForwardService {
 				String userid=stationdraftcmi.getUser_id_cmi();
 				  Date date = new Date();  
 			stn_unclsnd_repo.updateDraftCmiDti( userid,  cmi_station_code ,  cmi_valid_from ,  cmi_valid_upto , stationdraftcmi.getStation_numeric_code(),
-					stationdraftcmi.getStation_name(),	stationdraftcmi.getTraffic_type(),stationdraftcmi.getTranshipment_flag() ,
-					stationdraftcmi.getStation_class() ,
-					stationdraftcmi.getState(), stationdraftcmi.getPincode() , stationdraftcmi.getDistrict(),stationdraftcmi.getTehsil(), 
-					stationdraftcmi.getStation_short_name(), stationdraftcmi.getWorking_division(),
-					stationdraftcmi.getWeight_bridge(), stationdraftcmi.getSiding() , stationdraftcmi.getBooking_type() , stationdraftcmi.getCmi_status(), date ,stationdraftcmi.getBooking_resource() );
+					stationdraftcmi.getStation_name(),	stationdraftcmi.getTraffic_type(),stationdraftcmi.getTranshipment_flag() ,stationdraftcmi.getStation_class() ,
+					stationdraftcmi.getState(), stationdraftcmi.getPincode() , stationdraftcmi.getDistrict(),stationdraftcmi.getTehsil(), stationdraftcmi.getStation_short_name(), stationdraftcmi.getWorking_division(),
+                    stationdraftcmi.getWeight_bridge(), stationdraftcmi.getSiding() , stationdraftcmi.getBooking_type() , stationdraftcmi.getCmi_status(), date ,stationdraftcmi.getBooking_resource() );
 			returnstmt="DRAFT CREATED SUCCESSFULLY";	
 			}
 			
@@ -229,7 +229,11 @@ public class StationEditForwardService {
 	return returnstmt;
 		}catch(Exception e)
 		{
+
 			System.out.printf(e.getMessage(),e.getStackTrace());
+
+			//System.out.printf(e.getMessage(),e.getStackTrace());
+
 			return "EXCEPTION OCCURRED!!!";
 		}
 	}
@@ -262,7 +266,9 @@ public class StationEditForwardService {
 			returnstmt="RECORD FORWARDED TO DCM SUCCESSFULLY";
 				}
 				
+
 				else if(status.equals("N")||status.equals("R"))
+
 				{	String station_status="U";
 					// 3. this record is already initiated by dti. so update attributes but reply message as draft created
 		     		String cmi_station_code=stationdatadcm.getStn_Id().getStation_code();
@@ -272,9 +278,15 @@ public class StationEditForwardService {
 					  Date date = new Date();  
 				stn_unclsnd_repo.updateDraftCmiDti( userid,  cmi_station_code ,  cmi_valid_from ,  cmi_valid_upto , stationdatadcm.getStation_numeric_code(),
 						stationdatadcm.getStation_name(),	stationdatadcm.getTraffic_type(),stationdatadcm.getTranshipment_flag() ,
+
 						stationdatadcm.getStation_class() , 
 						stationdatadcm.getState(), stationdatadcm.getPincode() , stationdatadcm.getDistrict(),stationdatadcm.getTehsil(), 
 						stationdatadcm.getStation_short_name(), stationdatadcm.getWorking_division(),
+
+//						stationdatadcm.getStation_class() ,stationdatadcm.getJunction_flag(), stationdatadcm.getInterchange_flag() , 
+//						stationdatadcm.getState(), stationdatadcm.getPincode() , stationdatadcm.getDistrict(),stationdatadcm.getTehsil(), 
+//						stationdatadcm.getStation_short_name(), stationdatadcm.getInterlocking_standard() , stationdatadcm.getWorking_division(),
+
 						stationdatadcm.getWeight_bridge(), stationdatadcm.getSiding() , stationdatadcm.getBooking_type() , station_status, date ,stationdatadcm.getBooking_resource() );
 				returnstmt="RECORD FORWARDED TO DCM SUCCESSFULLY";	
 				}
@@ -325,7 +337,7 @@ public class StationEditForwardService {
 					
 					String booking_type=booking_type_repo.getBookingDescription(tmp.get(i).getBooking_type());
 					tmp.get(i).setBooking_type(booking_type);
-				 	
+
 					String station_class=station_class_repo.getStationClassDescription(tmp.get(i).getStation_class());
 					tmp.get(i).setStation_class(station_class);
 					
@@ -361,7 +373,9 @@ public class StationEditForwardService {
 String returnstmt=null;
 try {
 		int i= stn_unclsnd_repo.approvedByDcm(stationdatadcm);
+
 		System.out.println("Approved by DCM "+i);
+
 //				stationdatadcm.getStn_Id().getStation_valid_from(),stationdatadcm.getStn_Id().getStation_valid_upto());
 if(i>0)
 {
@@ -386,28 +400,37 @@ if(i>0)
 String returnstmt=null;
 try {
 		int i= stn_unclsnd_repo.approvedByDom(stationdatadcm);
+
 		System.out.println("Approved by DOM "+i);
+
 //				stationdatadcm.getStn_Id().getStation_valid_from(),stationdatadcm.getStn_Id().getStation_valid_upto());
 if(i>0)
 {
 	StationCleansedData stncldata=stn_clnsd_repo.findByStncode(stationdatadcm);
+
 	String cmi_sts=stncldata.getCmi_status();
 	if(cmi_sts.equals("A"))
 		{stn_clnsd_repo.save(stncldata);
 		
+
+	if(stncldata.getCmi_status().equals('A'))
+		{stn_clnsd_repo.save(stncldata);
+
 			returnstmt="RECORD APPROVED SUCCESSFULLY AND ADDED TO GOLDEN MASTER";}
 	else
 			returnstmt="RECORD APPROVED SUCCESSFULLY";
 
 }
 else
-	returnstmt="RECORD NOT APPROVED. CONTACT THE ADMINISTRATOR";
+	returnstmt="RECORD NOT APPROVED. CONTACT THE ADMINISTRATOR";}
 	return returnstmt; 
+
 }
 catch(Exception e)
 {
 	return "Exception Occurred!!!";
-	}}
+	}
+}
 	
 	
 	@Transactional(rollbackOn = Exception.class)
@@ -497,7 +520,9 @@ catch(Exception e)
 			if(ispresent)
 			{
 				String status=stn_unclsnd_repo.findById(stationdatadom.getStn_Id()).get().getDti_status();
+
 				System.out.println("status "+status);
+
 				if(status.equals("D"))
 				{
 					String dti_station_code=stationdatadom.getStn_Id().getStation_code();
@@ -512,8 +537,9 @@ catch(Exception e)
 					returnstmt="RECORD FORWARDED TO DOM SUCCESSFULLY";	
 		
 				}
-				
+
 				else if(status.equals("N")||status.equals("R"))
+
 				{	String station_status="U";
 					// 3. this record is already initiated by dti. so update attributes but reply message as draft created
 		     		String dti_station_code=stationdatadom.getStn_Id().getStation_code();
@@ -606,10 +632,15 @@ catch(Exception e)
 				
 				String traction=traction_repo.getTractionDescription(tmp.get(i).getTraction());
 				tmp.get(i).setTraction(traction);
+
 				
-				String interlocking_descrptn=interlockng_repo.getInterLockDescription((String)tmp.get(i).getInterlocking_standard());
+//				String interlocking_descrptn=interlockng_repo.getInterLockDescription((String)tmp.get(i).getInterlocking_standard());
+//				tmp.get(i).setInterlocking_standard(interlocking_descrptn);
+				
+
+				String interlocking_descrptn=interlockng_repo.getInterLockDescription(tmp.get(i).getInterlocking_standard());
 				tmp.get(i).setInterlocking_standard(interlocking_descrptn);
-				
+
 				String junctionflg=junction_repo.getStationJunctionDescription(tmp.get(i).getJunction_flag());
 				tmp.get(i).setJunction_flag(junctionflg);
 				
@@ -756,6 +787,17 @@ catch(Exception e)
 				return stn_clnsd_repo.getStationDetails(zone, division, status);
 				
 			}
+			
+
+        	// JYOTI BISHT 29-5-23
+			
+			public List<StationUncleansedData> get_draft_station_details(String user_id)
+			{
+
+				return stn_unclsnd_repo.getDraftStationByUser(user_id);
+				
+			}
+			
 			
 			
 			

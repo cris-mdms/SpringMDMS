@@ -77,8 +77,6 @@ public	void setdraft_forward_approval_count();
 	 @Value("#{args[0]+': '+target.total_loco_count}")	 
 	 public void setTotal_loco_count(Integer vgf);
 	
-	
-	
 }
 
 

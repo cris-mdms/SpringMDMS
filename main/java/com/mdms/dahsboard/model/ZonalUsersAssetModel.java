@@ -21,17 +21,12 @@ public class ZonalUsersAssetModel {
 //		this.uncleansed=uncleansed;
 		this.pending= pending;
 	}
-	
+		
 
-	
-	
 	public int uncleansed;
 	public String zone;
-	
 	public int count;
-
 	public String zone_name;
-
 	public int cleansed ;
 	public int draft ;
 	public int pending ;
@@ -45,6 +40,7 @@ public class ZonalUsersAssetModel {
 		this.zone = zone;
 	}
 
+
 	public int getUncleansed() {
 		return uncleansed;
 	}
@@ -52,6 +48,7 @@ public class ZonalUsersAssetModel {
 	public void setUncleansed(int uncleansed) {
 		this.uncleansed = uncleansed;
 	}
+
 
 	public int getCount() {
 		return count;

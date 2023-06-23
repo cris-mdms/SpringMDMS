@@ -1,11 +1,17 @@
 package com.mdms.loco.locouncleansed.repository;
 
+
+import java.util.Collection;
+
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import com.mdms.dahsboard.model.DashBoardLocoCountShedWiseModel;
+
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
 
@@ -50,14 +56,15 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 			+ "loco_entry_date, record_status, status, user_id, txn_date,\r\n"
 			+ "	remarks, loco_flag, loco_receiving_date)\r\n" + 
 			"VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14,?15,?16,?17,?18,?19,?20,?21,?22,?23);", nativeQuery=true)
+
 	int saveDieselBoardZonalLocoData(long locoNo, String locoPermanentDomain, String locoType, String locoOwningZone,
+
+//	int saveDieselBoardZonalLocoData(int locoNo, String locoPermanentDomain, String locoType, String locoOwningZone,
+
 			String locoOwningDivision, Date locoMfgDt, String locOwningShed, String locoManufacturer, String locoLeasetype,
 			long locoInitialCost, long locoPOHCost, String tractionCode, String gaugeType, Long locoHaulingPower,
 			String locoMfgCountry,Date locoEtryDt,String recordstatus,String status,String uid,Date txndate,String remarks,String locoflag, Date locoRecdDate);
 	
-	
-	
-
 	@Transactional
 	@Modifying
 	@Query(value="UPDATE mdms_loco.loco_uncleansed_data\r\n" + 
@@ -66,12 +73,19 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 	int updateDieselBoardZonalRecord( String locoPermanentDomain, String locoType, String locoOwningZone,
 			String locoOwningDivision, Date locoMfgDt, String locOwningShed, Date recddt,  String locoLeasetype,
 			 long locoInitialCost, long locoPOHCost, String flagCode, String gaugeType, Long locoHaulingPower,
+
 			String locoMfgCountry,String recordstatus,String status,String uid, Date locotxndate,Date locoentrydate ,String remarks, long locoNo);
 	
 	
 	@Query(value="select loco_no from mdms_loco.loco_uncleansed_data where loco_no=?1", nativeQuery=true)
 	int checklocoNoExist(long locoNo);
+
+//			String locoMfgCountry,String recordstatus,String status,String uid, Date locotxndate,Date locoentrydate ,String remarks, int locoNo);
 	
+	
+	@Query(value="select loco_no from mdms_loco.loco_uncleansed_data where loco_no=?1", nativeQuery=true)
+	Integer checklocoNoExist(int locoNo);
+
 	
 	@Transactional
 	@Modifying
@@ -79,7 +93,9 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 			" loco_no, loco_permanent_domain, loco_type,loco_owning_zone, loco_owning_division, loco_manufacturing_date,loco_owning_shed,"
 			+ "loco_lease_type, loco_initial_cost, loco_poh_cost,loco_receiving_date,loco_entry_date, record_status, status, user_id, txn_date,remarks, loco_flag)\r\n" + 
 			"VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12,?13,?14,?15,?16,?17,?18);", nativeQuery=true)
+
 	int saveElectricBoardZonalData( long locoNo, String locoPermanentDomain, String locoType,
+//	int saveElectricBoardZonalData( int locoNo, String locoPermanentDomain, String locoType,
 			String locoOwningZone, String locoOwningDivision, Date locoMfgDt, String locOwningShed,
 			String locoLeasetype, long locoInitialCost, long locoPOHCost, Date locoRcvdDate,Date locoEtryDt,String recordstatus,String status,String uid,Date txndate,String remarks,String locoflag);
 	
@@ -110,12 +126,13 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 			String locoFlag, String recordStatus);
 	
 
+   // JYOTI BISHT - FOR DASHBOARD ZONE-SHED WISE unapproved/uncleansed count 
 
+	  @Query(value="SELECT loco_owning_zone as loco_owning_zone_code, loco_owning_shed as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_uncleansed_data "
+	  		+ "WHERE status='U' and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY  loco_owning_zone ,loco_owning_shed ORDER BY loco_owning_zone",nativeQuery=true)
+	    Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshed1();
+	  
 
-	
-	
-	
-	
 
 	
 }

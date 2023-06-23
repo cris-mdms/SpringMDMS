@@ -6,6 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.PostMapping;
+>>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +27,10 @@ public class EmployeeDataHRMSController {
 		
 	   @RequestMapping(method=RequestMethod.POST, value="/getipassuserdata")
 		public  List<EmployeeDataHRMS>  getipassuserdetail(@RequestParam("ipas_id") String ipas_id) {
+<<<<<<< HEAD
 		   System.out.println(ipas_id);
+=======
+>>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 			return obj_service.getipassuserdetail(ipas_id);
 		}
 	   
@@ -45,4 +52,16 @@ public class EmployeeDataHRMSController {
 			return obj_service.integration_stats_insert(from, to);
 		}
 		
+<<<<<<< HEAD
+=======
+		//jyoti bisht 17-3-23
+		
+		@PostMapping("/get_designations")
+		public List<String> get_designation()
+		{
+			return obj_service.getDesignations();
+		}
+		
+		
+>>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 }

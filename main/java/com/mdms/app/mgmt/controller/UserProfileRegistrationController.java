@@ -13,11 +13,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -505,6 +511,16 @@ public class UserProfileRegistrationController {
 	 				return registrationServiceObj.delete_user_details(user_id);
 	 			}
 	 			
+
+	 	     	// Jyoti Bisht 23-02-23  for User profile update
+	 			@PostMapping("/update_user_profile")
+	 			public boolean update_user_profile(@RequestBody UserProfileRegistrationDetailModel user)
+	 			{
+	 				System.out.println("user email "+user.getEmail()+ user.getMobile_no()+ user.getUser_type()+ user.getUser_id());
+	 				return registrationServiceObj.update_user_profile(user.getEmail(), user.getMobile_no(), user.getUser_type(), user.getUser_id());
+	 			}
+	 			
+
 	 		
 	 		
 }

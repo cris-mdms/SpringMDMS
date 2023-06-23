@@ -56,22 +56,18 @@ public class LocoAddController {
 	
 	
 	
+
 	//Anshul.............19-06-2023
 	@RequestMapping(method=RequestMethod.POST, value="/savedraftnewloco")
 	public String saveDraftNewLoco(@RequestBody LocoUncleansedDataAddNewLoco locodraft) throws Exception 
 	{
 		logger.info("----------/saveDraftNewLoco");
 		
-		System.out.println("gauge"+locodraft.getGauge_type()+"  hotel"+locodraft.getElec_locoHotelLoad());
-		
-		
 		
 		return obj_newlocoservice.saveDraftNewLoco(locodraft);
 			}
 	
 	
-	
-
 	@RequestMapping(method=RequestMethod.POST, value="/updateelectricboardzonalloco")
 	public String updateelecbyboardzonaldata(@RequestBody BoardZonalApproval updateElectricLocoBoardZonal) throws JSONException, JsonMappingException, IOException 
 	{
@@ -83,7 +79,11 @@ public class LocoAddController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/checkloconoexist")
 	public boolean checklocono(@RequestBody LocoUncleansedDataAddNewLoco objlocono) {
+
 		long locono=objlocono.getLoco_no();
+
+//		int locono=objlocono.getLoco_no();
+
 	boolean flag= obj_newlocoservice.checkloconoexist(locono);
 	return flag;
 	}   
@@ -173,7 +173,11 @@ public class LocoAddController {
 	 
 	  @RequestMapping(method=RequestMethod.POST, value = "/getlocodetailforzonaldraft")
 	   public List<LocoUncleansedDataAddNewLoco> findlocoDetailforZonalDraft(){		  		  
+
 		 return obj_newlocoservice.findlocoDetailforZonalDraft();}
+	  
+	  
+	  //Anshul ........19-06-2023
 		 
 		  @RequestMapping(method=RequestMethod.GET, value = "/getdraftnloco")
 		   public List<LocoUncleansedDataAddNewLoco>  findDraftNewLoco(@RequestParam(value="shed") String shed)
@@ -192,6 +196,8 @@ public class LocoAddController {
 					} 
 			
 		
-			
-		  
+
+		 
+	 
+
 }

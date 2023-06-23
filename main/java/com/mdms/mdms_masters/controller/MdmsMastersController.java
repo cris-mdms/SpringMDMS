@@ -62,8 +62,7 @@ public class MdmsMastersController {
 	public String findByDivison(@RequestBody String division)throws Exception {
 		 logger.error("controller : MdmsMastersController || Method : findByDivison || input recieved findByDivison: "+division);		 
        return mdm_mstr_serv.findByDivision(division) ;
-	
-	
+
 	} 
 	
 	@RequestMapping(method=RequestMethod.GET, value="/mdivisioncode")
@@ -72,7 +71,11 @@ public class MdmsMastersController {
 	       return mdm_mstr_serv.getZonewiseDivisionCode(zone_code) ;
 		
 	
-	}
+	
+
+	}    
+	
+
 	@RequestMapping(method=RequestMethod.POST, value="/zone")
 	public	 List<String> getAllZone(){
 		return mdm_mstr_serv.getAllZone();
@@ -107,12 +110,33 @@ public class MdmsMastersController {
 	 @RequestMapping(method=RequestMethod.POST, value="/getlocoassetdesignation")
 		public List<MDesignationCode> getLocoUserDesig(@RequestBody MDesignationCode desig){ 
 		 System.out.println("DESIGNATION"+desig.getHrms_designation());
-		
+
 			    System.out.println( mdm_mstr_serv.getLocoUserDesig(desig));
 			    
 			    return mdm_mstr_serv.getLocoUserDesig(desig);
 		}
 	 
+
+	 @RequestMapping(method=RequestMethod.POST, value="/getdesignation")
+		public MDesignationCode getDesig(@RequestParam("designation") String desig){ 
+	//	 System.out.println("DESIGNATION"+desig.getHrms_designation());
+		 String new_design=null;
+		 System.out.println("...................designation is "+desig);
+			    if(desig.contains("&"))
+			    {
+			    	String old_desig[]=desig.split("&");
+			    	new_design=old_desig[0]+"%" ;// +"\\&"+old_desig[1];
+			    	System.out.println("new generated ..............."+new_design);
+			    	 	
+			    }
+			    if(new_design!=null)
+			    	return mdm_mstr_serv.getDesig(new_design);
+			    else
+			    	
+			    return mdm_mstr_serv.getDesig(desig);
+		}
+	 
+
 	 
 	 @RequestMapping(method=RequestMethod.POST, value="/checkassetcodeexist")
 		public boolean checkassetscodeexist(@RequestBody MDesignationCode assetcode){ 

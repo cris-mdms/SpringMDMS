@@ -322,12 +322,11 @@ public class LocoEditForwardController {
 			    		return obj_uncleasedservice.get_div_by_zone_name(zone);
 			    	}
 					
-			    	
+
 			    	@RequestMapping(method=RequestMethod.POST, value="/getbrakesubtype")	
 					public List<MLocoBrakeSubtype> getallsubtype(){
 					return obj_uncleasedservice.getallsubtype();
 					}
-					
-			    	
+
 			    	
 }

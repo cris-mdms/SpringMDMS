@@ -100,6 +100,10 @@ obj.setAdditional_shed_active(registrationObj.getAdditional_shed_active());
 obj.setSenior_id(profileRegistrationService.seniorID(registrationObj.getDesignation(), registrationObj.getDivision()));
 //System.out.println("asset_desig"+registrationObj.getAsset_designation_code());	
 	obj.setUser_type(user_type);
+
+	obj.setEmail(registrationObj.getEmail());
+	obj.setPhone(registrationObj.getMobile_no());
+
 //	System.out.println("menusize"+response.size());
 //	System.out.println("result"+result);
 		if(response.size()>0)

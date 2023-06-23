@@ -22,9 +22,11 @@ public class MDesignationCode {
 	@Column(name="exceptional_case")
 	private String exceptional_case;
 	
+
 	public String getHrms_designation() {
 		return hrms_designation;
 	}
+
 
 	public String getExceptional_case() {
 		return exceptional_case;
@@ -33,6 +35,7 @@ public class MDesignationCode {
 	public void setExceptional_case(String exceptional_case) {
 		this.exceptional_case = exceptional_case;
 	}
+
 
 	public void setHrms_designation(String hrms_designation) {
 		this.hrms_designation = hrms_designation;

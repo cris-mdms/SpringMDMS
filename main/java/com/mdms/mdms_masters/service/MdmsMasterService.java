@@ -94,12 +94,14 @@ private String div_code;
 		
 	}
 
+
 	
 	public List<String> getZonewiseDivisionCode(String zone) throws Exception{
 		
 		return divsn_repo.getZonewiseDivisionCode(zone);
 	}
 	
+
 //	public List<MDesignation> findDesignation(MDesignation desig) throws Exception
 //	{		
 //		List<MDesignation> temp=new ArrayList<>();
@@ -159,6 +161,21 @@ private String div_code;
 		   
 		}
 	
+
+	// New Service Jyoti Bisht 27-2-23
+	public MDesignationCode getDesig(String userdesig) {
+		  // String udesigname=userdesig.getHrms_designation();  
+		MDesignationCode result=null;
+		       
+		    	result=assetcode_repo.getDesignation(userdesig);
+		    	System.out.println("designation returned is......................"+result);
+		    	return result;
+		    
+		   
+		}
+	
+	
+
 	public List<MDepartment> getAllDepartment() {
 		// TODO Auto-generated method stub
 		return deprt_repo.findDept();
@@ -166,7 +183,11 @@ private String div_code;
 	
 	
 	public boolean checkassetscodeexist(MDesignationCode assetdesig) {
-		   String assetcode=assetdesig.getAsset_designation_code();       
+
+
+		   String assetcode=assetdesig.getAsset_designation_code();  
+		   System.out.println("code ........................................"+assetcode+"..................................");
+
 		   String assetcode1=assetcode_repo.checkassetscodeexist(assetcode);
 		   if((assetcode1!=null)&&(assetcode1.equals(assetcode1)) ){
 		    	return true;

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoApprovedDslData;
+import com.mdms.loco.locouncleansed.model.LocoUncleansedDataAddNewLoco;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
 import com.mdms.loco.locouncleansed.service.LocoApproveService;
 import java.text.ParseException;
@@ -87,8 +88,15 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  	 		System.out.println("flagtype"+ obj_approvedclass.getFlagType());
  	 		System.out.println("isgps"+ obj_approvedclass.getIsGPSEnabled()); 	
  	 		System.out.println("brakesubtype"+ obj_approvedclass.getElec_locoBrakeSubtype()); 
+
+
  	 		System.out.println("recddt"+ obj_approvedclass.getElec_locoRcvdDate()); 
  	 		System.out.println("axleload"+ obj_approvedclass.getLoco_Axleload()); 
+
+
+ 	 		System.out.println("recddt"+ obj_approvedclass.getElec_locoRcvdDate());  		
+
+
 	boolean flag = obj_cleasedservice.updateDGoldenRecord(obj_approvedclass);
  	 	return flag;
  	 	}
@@ -135,6 +143,38 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
 	    	return obj_cleasedservice.get_loco_details(zone, shed, status);
 				
 	    }
-	
-		
+	// Anhsul 21-06-2023 //get all unapproved records as per shed of user
+ 		
+ 		@RequestMapping(method=RequestMethod.POST, value="/getunappnewloco")
+ 		public List<LocoUncleansedDataAddNewLoco> getUnapprovedNewLoco(@RequestParam("shed") String owning_shed)
+ 		
+ 		{
+		return obj_cleasedservice.getUnapprovedNewLoco(owning_shed);
+}
+ 		
+ 		
+ 		@RequestMapping(method=RequestMethod.POST, value="/approvenewloco")
+ 		public  String approveNewLoco(@RequestBody String loco_no) throws Exception
+ 		{			
+ 			
+ 			logger.error("controller : LocoApproveController || Method : approveNewLoco || input recieved approvedByDom: "+loco_no);	
+ 			
+ 			long loco=Long.valueOf(loco_no);
+ 			
+ 			return obj_cleasedservice.approveNewLoco(loco);		
+ 			
+ 		}
+ 		
+ 		
+ 		@RequestMapping(method=RequestMethod.POST, value="/rejectnewloco")
+ 		public  String rejectNewLoco(@RequestBody String loco_no) throws Exception
+ 		{			
+ 			
+ 			logger.error("controller : LocoApproveController || Method : rejectNewLoco || input recieved : "+loco_no);	
+ 			
+ 			long loco=Long.valueOf(loco_no);
+ 			
+ 			return obj_cleasedservice.rejectNewLoco(loco);		
+ 			
+ 		}
 }

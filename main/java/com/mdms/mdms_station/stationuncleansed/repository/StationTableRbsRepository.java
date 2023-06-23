@@ -24,7 +24,7 @@ public interface StationTableRbsRepository  extends CrudRepository<StationTableR
 	List<String>getDivisionalStnCodeCmi(int divsno);
 	
 	
-	
+
 	//Anshul //modified to select / station /yard/ cabin on the basis of category .
 	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 and stn_status NOT in('A','B') except\r\n" + 
 			"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
@@ -32,10 +32,17 @@ public interface StationTableRbsRepository  extends CrudRepository<StationTableR
 	
 	
 	//Anshul 08-06-2023 // to select codes for siding only 
-	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 and stn_status=?2 except\r\n" + 
-			"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
+	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 and stn_status=?2 except\r\n" + 	
+	"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
 	List<String>getDivisionalStnCodeDti(int divsno,String cateogory);
 	
+
+	//Anshul
+//	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 except\r\n" + 
+//			"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
+//	List<String>getDivisionalStnCodeDti(int divsno);
+	
+
 	//Anshul
 	@Query(value="select * from  mdms_station.station_table_rbs where stn_code=?1 and stn_vld_upto=("
 			+ "select stn_vld_upto from mdms_station.station_table_rbs where stn_code=?1 order by stn_vld_upto DESC LIMIT 1)", nativeQuery = true)
@@ -187,8 +194,20 @@ Collection<DashBoardStationCountDivisionWiseModel> getTotalStationCountZoneDivis
 //	    		List<Object[]> getstndatatilldate();
 	    		List<Object[]> getstndatatilldate(@org.springframework.data.repository.query.Param("zone_code") String zone_code , @org.springframework.data.repository.query.Param("div_code")String div_code);
 	   	
-	    		
-	    		
+	    // JYOTI BISHT 9-5-23
+	    @Query(value="select count(*) from\r\n"
+	    				+ "	(select distinct stn_code,division_code from mdms_station.station_table_rbs join mdms_station.rbs_division on \r\n"
+	    				+ "	 div_ser_no=division_ser_no where current_date between stn_vld_from and stn_vld_upto) a\r\n"
+	    				+ "	group by a.division_code having rtrim(a.division_code)=?1", nativeQuery = true)
+	    int get_division_station_count(String div);
+	    	
+	    
+	    // JYOTI BISHT 10-5-23
+	    @Query(value="select stn_code,stn_name,stn_vld_from,stn_vld_upto from mdms_station.station_table_rbs join mdms_station.rbs_division on\r\n"
+	    		+ "	    				 div_ser_no=division_ser_no where rtrim(division_code)=?1  and  current_date between stn_vld_from and stn_vld_upto order by stn_code", nativeQuery = true)
+	    List<Object[]> get_stations(String div);
+	    
+
 	    		
 }
 

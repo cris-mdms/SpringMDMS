@@ -14,5 +14,15 @@ public interface StationDataDictionaryRepo extends CrudRepository<StationDataDic
 	
 	@Query(value = "SELECT * FROM mdms_data_dictionary.station_attribute where asset_name=?1", nativeQuery = true)
 	List<StationDataDictionary> getStationDataDictionary(String assetName);
+<<<<<<< HEAD
+=======
+	
+	
+	
+	// JYOTI BISHT 28-3-23 DATA COLLATION
+	@Query(value = "SELECT * FROM mdms_data_dictionary.station_attribute where asset_name=?1 and attribute_name not in ( select mdms_attribute\r\n"
+			+ "	FROM mdms_data_dictionary.md_data_collation where entity_group=?2 and mdms_attribute is not null)", nativeQuery = true)
+	List<StationDataDictionary> getFilteredAttributes(String assetName, String asset_group);
+>>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 
 }
