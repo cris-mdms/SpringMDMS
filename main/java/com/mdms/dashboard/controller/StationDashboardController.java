@@ -163,6 +163,15 @@ Logger logger=LoggerFactory.getLogger(StationDashboardController.class);
 
 					}
 				
-				
+
+	
+
+//				//coach type mapping	 
+//				@RequestMapping(method=RequestMethod.POST, value = "/getcoachmapcount")
+//				public List<DashBoardCoachCountDepoWiseModel> getCoachMapCount(@RequestBody DashBoardCoachCountDepoWiseModel objdraft ){				
+//			    return stationServ_obj.geCoachMapCount(objdraft);	
+//				}
+
+
 
 }

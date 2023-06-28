@@ -3,6 +3,9 @@ package com.mdms.dashboard.repository;
 import java.util.Collection;
 
 import org.springframework.data.jpa.repository.Query;
+
+import org.springframework.data.jpa.repository.query.Procedure;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.mdms.dahsboard.model.DashBoardStationCountDivisionWiseModel;

@@ -15,6 +15,7 @@ public class MLocoBrakeSubtype {
 	@Column(name="brake_subtype")
 	private String brakesubtype;
 
+
 	public int getSrno() {
 		return srno;
 	}
@@ -23,6 +24,7 @@ public class MLocoBrakeSubtype {
 		this.srno = srno;
 	}
 
+
 	public String getBrakesubtype() {
 		return brakesubtype;
 	}
@@ -30,8 +32,7 @@ public class MLocoBrakeSubtype {
 	public void setBrakesubtype(String brakesubtype) {
 		this.brakesubtype = brakesubtype;
 	}
-	
-	
+
 	
 	
 }

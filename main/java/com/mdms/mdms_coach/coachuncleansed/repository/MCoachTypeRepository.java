@@ -18,6 +18,7 @@ List<String> getCoachTypes();
 // query updated by JYOTI BISHT 10-4-23
 //@Query(value="select coach_type from mdms_coach.m_coach_type_cmm except select cmm_coach_type from mdms_coach.coach_type_mapping ",nativeQuery = true)
 @Query(value="select coach_type from mdms_coach.m_coach_type_cmm",nativeQuery = true)
+
 List<String> getCoachTypesCmm();
 
 @Query(value="select coach_type from mdms_coach.m_coach_type_cmm except select cmmcoachtype from mdms_coach.cmm_type_layout ",nativeQuery = true)

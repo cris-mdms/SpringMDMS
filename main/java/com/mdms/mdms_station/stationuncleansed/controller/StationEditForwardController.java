@@ -6,7 +6,8 @@
  */
 package com.mdms.mdms_station.stationuncleansed.controller;
 
-
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,6 +22,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import com.mdms.loco.locouncleansed.model.LocoApprovedData;
+import com.mdms.mdms_station.stationuncleansed.model.StationCleansedData;
+import com.mdms.mdms_station.stationuncleansed.model.StationPKey;
+import com.mdms.mdms_station.stationuncleansed.model.StationRbsAPIJSONModel;
+import com.mdms.mdms_station.stationuncleansed.model.StationTableRbs;
+import com.mdms.mdms_station.stationuncleansed.model.StationUncleansedData;
+import com.mdms.mdms_station.stationuncleansed.model.StationUncleansedTest;
+import com.mdms.mdms_station.stationuncleansed.model.StnRBSTotalDataJSON;
+import com.mdms.mdms_station.stationuncleansed.repository.StationUncleansedDataRepository;
+import com.mdms.mdms_station.stationuncleansed.service.StationEditForwardService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat; 
+
 import com.mdms.mdms_station.stationuncleansed.model.StationCleansedData;
 
 import com.mdms.mdms_station.stationuncleansed.model.StationTableRbs;
@@ -30,6 +44,7 @@ import com.mdms.mdms_station.stationuncleansed.model.StationUncleansedTest;
 import com.mdms.mdms_station.stationuncleansed.repository.StationUncleansedDataRepository;
 import com.mdms.mdms_station.stationuncleansed.service.StationEditForwardService;
 import java.text.ParseException;
+
 
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
 
@@ -53,6 +68,14 @@ public class StationEditForwardController {
 		return stn_edit_fwd_serv.getDivisionalStnCodeDti(division);
 	}
 	
+
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sidingdti")
+	public List<String> getDivisionalStnCodeDti(@RequestParam(value="division") String division,@RequestParam(value="category") String category){
+		return stn_edit_fwd_serv.getDivisionalStnCodeDti(division,category);
+	}
+	
+
 	@RequestMapping(method=RequestMethod.GET, value="/stncoderbs")
 	public  StationTableRbs getStationRecordRBS(@RequestParam(value="station_code") String station_code) throws Exception
 	{
@@ -290,6 +313,7 @@ public class StationEditForwardController {
 				    	return stn_edit_fwd_serv.get_clean_station_details(zone, division, status);
 							
 				    }	
+
 			
 			//JYOTI BISHT 29-05-23		
 			 		
@@ -301,6 +325,7 @@ public class StationEditForwardController {
 				    }	
 			 		
 			 		
+
 			    	
 			    	
 			    	

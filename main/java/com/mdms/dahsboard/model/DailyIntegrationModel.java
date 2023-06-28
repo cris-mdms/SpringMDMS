@@ -1,6 +1,8 @@
 package com.mdms.dahsboard.model;
 
-import java.sql.Date;
+
+import java.util.Date;
+
 
 public class DailyIntegrationModel {
 
@@ -69,3 +71,4 @@ public void setPublishing_date(Date publishing_date) {
 
 
 }
+

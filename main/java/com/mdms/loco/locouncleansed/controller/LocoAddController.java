@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mdms.loco.locouncleansed.model.BoardZonalApproval;
@@ -56,6 +57,17 @@ public class LocoAddController {
 	
 	
 
+	//Anshul.............19-06-2023
+	@RequestMapping(method=RequestMethod.POST, value="/savedraftnewloco")
+	public String saveDraftNewLoco(@RequestBody LocoUncleansedDataAddNewLoco locodraft) throws Exception 
+	{
+		logger.info("----------/saveDraftNewLoco");
+		
+		
+		return obj_newlocoservice.saveDraftNewLoco(locodraft);
+			}
+	
+	
 	@RequestMapping(method=RequestMethod.POST, value="/updateelectricboardzonalloco")
 	public String updateelecbyboardzonaldata(@RequestBody BoardZonalApproval updateElectricLocoBoardZonal) throws JSONException, JsonMappingException, IOException 
 	{
@@ -67,7 +79,11 @@ public class LocoAddController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/checkloconoexist")
 	public boolean checklocono(@RequestBody LocoUncleansedDataAddNewLoco objlocono) {
-		int locono=objlocono.getLoco_no();
+
+		long locono=objlocono.getLoco_no();
+
+//		int locono=objlocono.getLoco_no();
+
 	boolean flag= obj_newlocoservice.checkloconoexist(locono);
 	return flag;
 	}   
@@ -157,8 +173,31 @@ public class LocoAddController {
 	 
 	  @RequestMapping(method=RequestMethod.POST, value = "/getlocodetailforzonaldraft")
 	   public List<LocoUncleansedDataAddNewLoco> findlocoDetailforZonalDraft(){		  		  
-		 return obj_newlocoservice.findlocoDetailforZonalDraft();
+
+		 return obj_newlocoservice.findlocoDetailforZonalDraft();}
+	  
+	  
+	  //Anshul ........19-06-2023
 		 
+		  @RequestMapping(method=RequestMethod.GET, value = "/getdraftnloco")
+		   public List<LocoUncleansedDataAddNewLoco>  findDraftNewLoco(@RequestParam(value="shed") String shed)
+		   {
+			  return obj_newlocoservice.findDraftNewLoco(shed);
 	 }
+
+		  
+		//Anshul.............19-06-2023
+			@RequestMapping(method=RequestMethod.POST, value="/fwdnewloco")
+			public String forwardForApprovalNewLoco(@RequestBody LocoUncleansedDataAddNewLoco locoapp) throws Exception 
+			{
+				logger.info("----------/forwardForApprovalNewLoco");
+				
+				return obj_newlocoservice.forwardForApprovalNewLoco(locoapp);
+					} 
+			
+		
+
+		 
 	 
+
 }

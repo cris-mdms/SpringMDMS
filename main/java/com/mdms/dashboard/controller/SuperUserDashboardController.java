@@ -10,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -104,8 +106,10 @@ public class SuperUserDashboardController {
 	public 	List<DivisonUsersAssetModel> getDivisionWiseRecords(@RequestParam (value="usertype") String usertype ,@RequestParam (value="zone") String zone ) {
 		
 		logger.info("controller : SuperUserDashboardController || Method : getDivisionWiseRecords");
-		return su_dash_servc.getDivisionWiseRecords(usertype,zone);
-		}
+
+		return su_dash_servc.getDivisionWiseRecords(usertype,zone);}
+
+	
 
 	@RequestMapping(method=RequestMethod.POST, value="/dailypublishdata")
 	public List<DailyIntegrationModel> getdailypublishintegration() {
@@ -126,6 +130,8 @@ public class SuperUserDashboardController {
 		return su_dash_servc.getDivisionWiseRecords1(usertype,division, role);
 		}
 	
+
+
 	
 	// 26-04-2021
 	@RequestMapping(method=RequestMethod.POST, value="/coachtypemappingcount")
@@ -143,10 +149,14 @@ public class SuperUserDashboardController {
 		
 		logger.info("controller : SuperUserDashboardController || Method : getCoachLayoutRecords");
 		return su_dash_servc.getCoachLayoutRecords();
+
+
 		
 	}
 	
 	
+
+
 	  // JYOTI BISHT 9-5-23s
 		@PostMapping("/get_station_count")
 		public int get_div_station_count(@RequestParam("division") String div)
@@ -171,4 +181,5 @@ public class SuperUserDashboardController {
 		
 		
 }
+
 

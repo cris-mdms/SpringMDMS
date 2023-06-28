@@ -11,11 +11,10 @@ public class ZonalUsersAssetModel {
 		
 	}
 	
-	public ZonalUsersAssetModel(String zonecode,int total,  String zonename,int cleansed,int draft, int uncleansed, int pending)
+
+	public ZonalUsersAssetModel(String zonecode, int total,  String zonename,int cleansed,int draft, int uncleansed, int pending)
 	{
 		this.zone=zonecode;
-		this.shed_code=null;
-		this.shed_name=null;
 		this.count=total;
 		this.zone_name=zonename;
 		this.cleansed=cleansed;
@@ -25,7 +24,6 @@ public class ZonalUsersAssetModel {
 	}
 	
 
-	
 	public ZonalUsersAssetModel(String zonecode, String shed_code, String shed_name, int total,  String zonename,int cleansed,int draft, int uncleansed, int pending)
 	{
 		this.zone=zonecode;
@@ -46,21 +44,13 @@ public class ZonalUsersAssetModel {
 	public String shed_code;
 	public String shed_name;
 	public String zone;
-	
-
-
-
+	public int uncleansed;
 	public int count;
-
 	public String zone_name;
-
 	public int cleansed ;
 	public int draft ;
 	public int pending ;
-	public int uncleansed;
 
-	
-	
 	
 	
 	
@@ -87,6 +77,16 @@ public class ZonalUsersAssetModel {
 	public void setZone(String zone) {
 		this.zone = zone;
 	}
+
+
+	public int getUncleansed() {
+		return uncleansed;
+	}
+
+	public void setUncleansed(int uncleansed) {
+		this.uncleansed = uncleansed;
+	}
+
 
 	public int getCount() {
 		return count;
@@ -128,16 +128,6 @@ public class ZonalUsersAssetModel {
 		this.pending = pending;
 	}
 	
-
-
-	public int getUncleansed() {
-		return uncleansed;
-	}
-
-	public void setUncleansed(int uncleansed) {
-		this.uncleansed = uncleansed;
-	}
-
 
 	
 	

@@ -1232,6 +1232,8 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 	// Jyoti Bisht 6-12-22
 
 	public boolean delete_user_details(String user_id)	{
+
+
 		try
 		{
 			profileRegistrationRepo.delete_user(user_id);
@@ -1242,7 +1244,13 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 			return false;
 		}
 		
+
+		
+		
+		
 	}
+
+	
 	
 	// Jyoti Bisht 23-02-23
 
@@ -1258,6 +1266,8 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 			}
 			
 		}
+
+
 
 	
 }
