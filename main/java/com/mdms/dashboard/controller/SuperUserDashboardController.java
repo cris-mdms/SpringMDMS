@@ -83,12 +83,22 @@ public class SuperUserDashboardController {
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/zonewiserec")
-	public 	List<ZonalUsersAssetModel> getZoneWiseRecords(@RequestBody String usertype) {
+	public 	List<ZonalUsersAssetModel> getZoneWiseRecords(@RequestBody (required = false) String usertype) {
 		
 		logger.info("controller : SuperUserDashboardController || Method : getZoneWiseRecords");
 		return su_dash_servc.getZoneWiseRecords(usertype);
 		
 	}
+	
+	
+	@RequestMapping(method=RequestMethod.POST, value="/shedwiserec")
+	public 	List<ZonalUsersAssetModel> getShedWiseRecords(@RequestBody (required = false) String usertype) {
+		
+		logger.info("controller : SuperUserDashboardController || Method : getZoneWiseRecords");
+		return su_dash_servc.getZoneWiseRecords1(usertype);
+		
+	}
+	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/divwiserec")
 	public 	List<DivisonUsersAssetModel> getDivisionWiseRecords(@RequestParam (value="usertype") String usertype ,@RequestParam (value="zone") String zone ) {
@@ -157,6 +167,7 @@ public class SuperUserDashboardController {
 			return su_dash_servc.get_usercount_by_div(div, user_type, role);
 		}
 		
+	
 		
 		
 }

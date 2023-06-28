@@ -4,6 +4,7 @@ package com.mdms.loco.locouncleansed.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoApprovedDslData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
 import com.mdms.loco.locouncleansed.service.LocoApproveService;
 import java.text.ParseException;
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
@@ -29,6 +31,10 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
 	
 	@Autowired
 	 private LocoApproveService obj_cleasedservice;
+	
+	@Autowired
+	LocoApprovedDataRepository loco_approve_repo;
+	
 	@RequestMapping(method=RequestMethod.POST,value="/savelocogoldenrecord")
 		public boolean adddata(@RequestBody LocoApprovedData objcleansed){		
 		boolean flag= obj_cleasedservice.adddata(objcleansed);
@@ -117,7 +123,7 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  			
  		}
 
-//JYOTI BISHT 17-10-22
+ 		//JYOTI BISHT 17-10-22
  	 	 
  		
  		@PostMapping("/get_loco_approved_count")
@@ -125,7 +131,7 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
 	    return obj_cleasedservice.getLocoApproved(from, to);	
 		}
  		
- //JYOTI BISHT 06-01-23
+ 		//JYOTI BISHT 06-01-23
  		
  		@PostMapping("/get_golden_loco_details")
 	    public List<LocoApprovedData> geteLocoDetails(@RequestParam("zone") String zone, @RequestParam("shed") String shed, @RequestParam("status") String status)
@@ -134,6 +140,27 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
 	    	return obj_cleasedservice.get_loco_details(zone, shed, status);
 				
 	    }
+ 		
+ 		
+       //JYOTI BISHT 23-06-23
+ 		
+ 		@PostMapping("/get_complete_loco_details")
+	    public LocoApprovedData geteLocoDetails(@RequestParam("loco_no")String loco_no)
+    	{
+ 			
+ 			LocoApprovedData loco=null;
+ 		
+ 		
+ 			loco=loco_approve_repo.getLocoCompletedetail(Integer.parseInt(loco_no));
+ 			if(loco!=null)
+ 			{
+ 				return loco;
+ 			}
+ 			else
+ 			return null;
+	    		
+	    }
+ 		
 	
 		
 }

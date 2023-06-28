@@ -74,5 +74,12 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code ,loco_owning_shed as loco_Owningshed, COUNT(*)  as cleansed_count FROM  mdms_loco.loco_approved_data "
 				+ "WHERE status='A' and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY loco_owning_zone,loco_owning_shed order by loco_owning_zone",nativeQuery=true)
 	Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShed1();
+	
+	// JYOTI BISHT 23-06-23
+	@Query(value="select * from mdms_loco.loco_approved_data  where loco_no=?",nativeQuery = true)
+	LocoApprovedData getLocoCompletedetail(int loco_no);
+		
+	
+	
 		
 }

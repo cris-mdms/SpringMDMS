@@ -195,7 +195,7 @@ public class LocoApproveService {
 				}
 				
 				
- // JYOTI BISHT 17-10-22
+                // JYOTI BISHT 17-10-22
 				
 				public int getLocoApproved(String from, String to) throws ParseException
 				{
@@ -211,6 +211,8 @@ public class LocoApproveService {
 				{
 					return approved_repo.getLocoDetails(zone, shed, status);
 				}
+				
+		
 				
 
 }

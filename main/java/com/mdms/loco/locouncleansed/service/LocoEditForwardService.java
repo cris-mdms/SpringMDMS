@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
@@ -92,6 +93,7 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 	@Autowired
 	private MLocoShedNewRepository mlocoshednew;
 	
+
 	
 	
 	/*
@@ -559,4 +561,21 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 							 obj_subtype.getallsubtype().forEach(subtype::add);
 							 return subtype;
 						}
+						
+
+						  //ritu  to get uncleansed loco 20june2023
+						public List<LocoDataFois> get_loco_uncleanseddetails(String zone, String shed )
+						{
+						return obj_uncleansedrepo.getLocouncleansedDetails(zone, shed);
+						}
+
+
+						//ritu  to get total  loco 20june2023
+						public List<LocoDataFois> get_loco_totaldetails(String zone, String shed )
+						{
+						return obj_uncleansedrepo.getLocototalDetails(zone, shed);
+						}
+
+					
+						
 }

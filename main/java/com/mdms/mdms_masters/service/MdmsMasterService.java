@@ -177,7 +177,7 @@ private String div_code;
 		   String assetcode=assetdesig.getAsset_designation_code();  
 		   System.out.println("code ........................................"+assetcode+"..................................");
 		   String assetcode1=assetcode_repo.checkassetscodeexist(assetcode);
-		   if((assetcode1!=null)&&(assetcode1.equals(assetcode1)) ){
+		   if((assetcode1!=null)&&(assetcode.equals(assetcode1)) ){
 		    	return true;
 		       	
 		    	

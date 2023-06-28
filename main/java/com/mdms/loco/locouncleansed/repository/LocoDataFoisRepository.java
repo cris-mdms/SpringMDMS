@@ -109,5 +109,13 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
     		  + "WHERE status is null and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY  loco_owning_zone_code ,loco_owning_shed_code ORDER BY loco_owning_zone_code ",nativeQuery=true)
     Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoZoneShed1();
     
+    @Query(value="select *  from mdms_loco.loco_data_fois where loco_owning_zone_code=?1 and loco_owning_shed_code=?2 and status is null ",nativeQuery = true)
+    List<LocoDataFois>  getLocouncleansedDetails(String zone, String shed);
+
+         
+     @Query(value="select *  from mdms_loco.loco_data_fois where loco_owning_zone_code=?1 and loco_owning_shed_code=?2 ",nativeQuery = true)
+    List<LocoDataFois>  getLocototalDetails(String zone, String shed);
+
+     
     
 }

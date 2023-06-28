@@ -330,27 +330,32 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 		
 		switch(usertype)
 		{
-		case "SU":querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending from public.total_data a"
-				+ " 			left outer join public.cleansed_data b on a.zone_code=b.zone_code"
-				+ "			left outer join public.draft c on a.zone_code=c.zone_code"
-				+ "			left outer join public.uncleansed d on a.zone_code=d.zone_code order by zone_code";
-		    	    	  
-			break;
+		case "SU": querystring="select a.zone_code, a.total , b.zone_name , b.cleansed , c.draft , d.pending, e.uncleansed from public.total_data a"
+				+ " left outer join public.cleansed_data b on a.zone_code=b.zone_code"
+				+ " left outer join public.draft c on a.zone_code=c.zone_code"
+				+ " left outer join public.uncleansed_data_stn e on a.zone_code=e.zone_code"
+				+ " left outer join public.uncleansed d on a.zone_code=d.zone_code order by zone_code";
+				         
+				break;
 		
-		
-		case "LU":querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending from public.total_data_loco a"
-				+ " 			left outer join public.cleansed_data_loco b on a.zone_code=b.zone_code"
-				+ "			left outer join public.draft_data_loco c on a.zone_code=c.zone_code"
-				+ "			left outer join public.pending_data_loco d on a.zone_code=d.zone_code order by zone_code";
+			
+		case "LU": querystring="select distinct a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending ,e.uncleansed from public.total_data_loco a"
+				+  " left outer join public.cleansed_data_loco b on a.zone_code=b.zone_code"
+				+ " left outer join public.draft_data_loco c on a.zone_code=c.zone_code"
+				+ " left outer join public.uncleansed_data_loco e on a.zone_code=e.zone_code"
+				+ " left outer join public.pending_data_loco d on a.zone_code=d.zone_code order by zone_code";
+				
+				
 		    	    	  
 			
 	        break;
-		case "CU":querystring="  Select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending from public.total_data_coach a"
-				+ " 			left outer join public.cleansed_data_coach b on a.zone_code=b.zone_code"
-				+ "			left outer join public.draft_data_coach c on a.zone_code=c.zone_code"
-				+ "			left outer join public.pending_data_coach d on a.zone_code=d.zone_code order by zone_code";
-		    	    	  
-		    break;
+		case "CU": querystring="Select a.zone_code, a.total , b.zone_name , b.cleansed , c.draft , d.pending,e.uncleansed from public.total_data_coach a"
+				+ " left outer join public.cleansed_data_coach b on a.zone_code=b.zone_code"
+				+ " left outer join public.draft_data_coach c on a.zone_code=c.zone_code"
+				+ " left outer join public.uncleansed_data_coach e on a.zone_code=e.zone_code"
+				+ " left outer join public.pending_data_coach d on a.zone_code=d.zone_code order by zone_code";
+				         
+				break;
 
 		default:break;
 		}
@@ -364,11 +369,65 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 	                               rs.getString("zone_name"),
 	                               rs.getInt("cleansed"),
 	                               rs.getInt("draft"),
+	                               rs.getInt("uncleansed"),
 	                               rs.getInt("pending")
 	     
 	                              
 	                       )   );
 	}
+
+public List<ZonalUsersAssetModel> getZoneWiseRecords1(String usertype) {
+		
+		logger.info("Service : StationDashboardService || Method: getZoneWiseRecords");
+		
+		String querystring=null;
+		
+		switch(usertype)
+		{
+		case "SU": querystring="select a.zone_code , a.zone_code as shed_code, a.zone_code as shed_name, a.total , b.zone_name , b.cleansed , c.draft , d.pending,e.uncleansed from public.total_data a"
+				+ " left outer join public.cleansed_data b on a.zone_code=b.zone_code"
+				+ " left outer join public.draft c on a.zone_code=c.zone_code"
+				+ " left outer join public.uncleansed_data_stn e on a.zone_code=e.zone_code"
+				+ " left outer join public.uncleansed d on a.zone_code=d.zone_code order by zone_code";
+				         
+				break;
+		
+		case "LU": 	querystring="SELECT loco_owning_zone_code as zone_code,loco_owning_shed_code as shed_code, shed_name, total_count as total, "
+								+ "b.zone_name, total_cleansed as cleansed, total_draft as draft, total_pending as pending , total_uncleansed as uncleansed \r\n"
+					+ "	FROM public.dashboard_loco_stats, mdms_loco.m_loco_shed b 	where loco_owning_zone_code=b.zone_code and loco_owning_shed_code=shed_code"; 
+		
+			    	    	  
+			
+	        break;
+		case "CU": querystring="Select a.zone_code ,a.zone_code as shed_code,a.zone_code as shed_name, a.total , b.zone_name , b.cleansed , c.draft , d.pending,e.uncleansed from public.total_data_coach a"
+				+ " left outer join public.cleansed_data_coach b on a.zone_code=b.zone_code"
+				+ " left outer join public.draft_data_coach c on a.zone_code=c.zone_code"
+				+ " left outer join public.uncleansed_data_coach e on a.zone_code=e.zone_code"
+				+ " left outer join public.pending_data_coach d on a.zone_code=d.zone_code order by zone_code";
+				         
+				break;
+
+		default:break;
+		}
+		 
+		  return jdbcTemplate.query(
+				   querystring,
+	               (rs, rowNum) ->
+	                       new ZonalUsersAssetModel(
+	                               rs.getString("zone_code"),
+	                               rs.getString("shed_code"),
+	                               rs.getString("shed_name"),
+	                               rs.getInt("total"),
+	                               rs.getString("zone_name"),
+	                               rs.getInt("cleansed"),
+	                               rs.getInt("draft"),
+	                               rs.getInt("uncleansed"),
+	                               rs.getInt("pending")
+	     
+	                              
+	                       )   );
+	}
+	
 	
 	
 		

@@ -3,6 +3,8 @@ package com.mdms.loco.locouncleansed.repository;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -115,6 +117,10 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 	  @Query(value="SELECT loco_owning_zone as loco_owning_zone_code, loco_owning_shed as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_uncleansed_data "
 	  		+ "WHERE status='U' and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY  loco_owning_zone ,loco_owning_shed ORDER BY loco_owning_zone",nativeQuery=true)
 	    Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshed1();
+
+   // Jyoti Bisht (for condemnation module)
+	  @Query(value="SELECT * from mdms_loco.loco_uncleansed_data WHERE loco_no=?1 ",nativeQuery = true)
+	  Optional<LocoUncleansedData> find_loco(int loco_no);
 	  
 	  
 
