@@ -63,6 +63,7 @@ public class CoachEditForwardController {
 	//-------------------------------------------return coachIds for a particular depot--------------------------------------------
 	
 	@RequestMapping(method=RequestMethod.GET, value="/getCoachesByDepot")
+
 	public List<String> getCoachesByDepot(@RequestParam (value="depotId")String depotId) {
 
 	logger.info("Controller : CoachEditForwardController || Method: getCoachesByDepot || getCoachForDepot: "+depotId);
@@ -92,6 +93,23 @@ public class CoachEditForwardController {
 //			logger.info("Controller : CoachEditForwardController || Method: getCoachesByDepot || getCoachDetailsforCoachId: "+coachId);
 //				return coachDetails;	
 //		}
+
+//	public List<String> getCoachesByDepot(@RequestParam (value="depotId")String depotId) {	
+//		
+//		logger.info("Controller : CoachEditForwardController || Method: getCoachesByDepot || getCoachForDepot: "+depotId);
+//		List<String> coachIds=coachEditFwdServ.getCoachesByDepot(depotId);
+//			return coachIds;	
+//	}
+	
+	//-------------------------------------------return coachDetails for a particular coach Id--------------------------------------------
+//	@RequestMapping(method=RequestMethod.GET, value="/getCoachByCoachId")
+//	public Optional<CoachDataCMM> getCoachByCoachId(@RequestParam String coachId) {	
+//		Optional<CoachDataCMM> coachDetails=coachEditFwdServ.getCoachByCoachId(coachId);
+//		logger.info("Controller : CoachEditForwardController || Method: getCoachesByDepot || getCoachDetailsforCoachId: "+coachId);
+//			return coachDetails;	
+//	}
+//	
+
 
 	//-------------------------------------------coach Details forwarded/saved as draft after cleaning of record--------------------------------------------
 	@RequestMapping(method=RequestMethod.POST, value="/unclndraft")

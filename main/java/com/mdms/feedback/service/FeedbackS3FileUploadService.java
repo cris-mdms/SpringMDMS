@@ -39,6 +39,10 @@ public class FeedbackS3FileUploadService {
 	@Autowired
 	private FeedbackSnapshortRepository objSnapRepo;
 	
+
+
+	@SuppressWarnings("deprecation")
+
 	@PostConstruct
 	private void initializeAmazon() {
 		AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);

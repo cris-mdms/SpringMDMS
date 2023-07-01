@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import com.mdms.app.mgmt.model.HrmsJsonModel;
 import com.mdms.app.mgmt.model.IPassIDModel;
-//import com.mdms.app.mgmt.model.UserJsonModel;
-import com.mdms.app.mgmt.model.UserRegistrationJsonModel;
-
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
 @RestController
 public class HRMSEmployeeDetailsController {
@@ -39,11 +36,13 @@ public class HRMSEmployeeDetailsController {
 				 try {
 				        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("admin09876", "dasd@1241!45"));
 				        //restTemplate.setr
-				        hrmsEmpData = restTemplate.postForObject(getHRMSUrl, ipassid,HrmsJsonModel.class);	
+				         hrmsEmpData = restTemplate.postForObject(getHRMSUrl, ipassid,HrmsJsonModel.class);	
 				     	System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@above logger"+ipassid);
 				    	logger.info("Controller : HRMSEmployeeDetailsController || Method : hrmsEmployeeDetail ||hrmsEmployeeInfo: "+hrmsEmpData.toString());			
 				    	System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@  below logger"+ipassid);
-						return hrmsEmpData;			      
+							        
+				        return hrmsEmpData;			      
+
 				    }
 				    catch (Exception eek) {
 				    	System.out.println(eek);

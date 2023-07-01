@@ -14,10 +14,15 @@ import com.mdms.mdms_coach.coachuncleansed.model.CoachDataCMM;
 
 public interface CoachCMMDataRepository extends CrudRepository<CoachDataCMM, String> {	
 
+
 	@Query(value="Select * from mdms_coach.coach_data_cmm where coach_no=?1", nativeQuery = true)
 	Optional<CoachDataCMM> findByCoachNo(String coachNo);
 //	@Query(value="Select * from mdms_coach.coach_data_cmm where coach_id=?1", nativeQuery = true)
 //	Optional<CoachDataCMM> findByCoachNo(String coachNo);
+
+	@Query(value="Select * from mdms_coach.coach_data_cmm where coach_id=?1", nativeQuery = true)
+	Optional<CoachDataCMM> findByCoachId(String coachId);
+
 	
 	//Shilpi 15-03-2021
 	

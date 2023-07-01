@@ -84,6 +84,7 @@ public class CoachEditForwardService {
 //	
 
 
+
 	 public List<String> getCoachesByDepot(String depotId) {
 		 String depot=depotId.toUpperCase();
 		 final String getCoachIdsByDepot = "select coach_id from mdms_coach.coach_data_cmm where base_depot=\'"+depotId+"\'"+" except select cast(coach_id as character varying) from \r\n" +
@@ -112,6 +113,19 @@ public class CoachEditForwardService {
 	public Optional<CoachDataCMM> getCoachByCoachNo(String coachNo) {
 		
 		Optional<CoachDataCMM> coachDetails=coach_cmm_repo.findByCoachNo(coachNo);
+
+		return coachDetails;
+	}
+//-------------------------------------------return coachIds for a particular depot--------------------------------------------
+	
+
+
+//-------------------------------------------return coachDetails for a particular coach--------------------------------------------
+
+	public Optional<CoachDataCMM> getCoachByCoachId(String coachId) {
+		
+		Optional<CoachDataCMM> coachDetails=coach_cmm_repo.findByCoachId(coachId);
+
 		return coachDetails;
 	}
 	

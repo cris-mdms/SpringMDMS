@@ -6,14 +6,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-
 import com.mdms.app.mgmt.model.UserProfileRegistrationDetailModel;
 import com.mdms.dahsboard.model.DashBoardCoachCountDepoWiseModel;
 import com.mdms.dahsboard.model.DashBoardLocoCountShedWiseModel;
@@ -1804,10 +1801,6 @@ public List<DashBoardCoachCountDepoWiseModel> geCoachMapCount( DashBoardCoachCou
 }
 
 
-
-
-
-
 public List<GetLocoZonewiseDashboardJsonModel> getLocoZonewiseReport() {
 	logger.info("Service : StationDashboardService || Method: getSingleLocoZoneWiseUsers");
 //	String utype=obj1.getUser_type();
@@ -1863,45 +1856,12 @@ return null;
 
 
 
-//public List<Object[]> getLocoZonewiseReport1() {
-//	logger.info("Service : StationDashboardService || Method : getLocoZonewiseReport ");	 
-//	GetLocoZonewiseDashboardJsonModel obj = new GetLocoZonewiseDashboardJsonModel();
-////  DashboardStationModel objk=new DashboardStationModel();
-//
-////	String zone_wise_data="";
-//	String loco_owningzone="";
-//	int tot_count=0;
-//	int unclen=0;
-//	int dft=0;
-//	int pend=0;
-//	int appv=0;
-//
-//	 System.out.println(locoobj.getLocozonewisereport());
-//	return null;
-//	
-//	
-//try {
-//	loco_owningzone= locoobj.getLocozonewisereport();
-//}catch(Exception ex) {
-//	
-//	logger.info("Service : StationDashboardService || Method : getLocoZonewiseReport ||Exception GET zone" + ex.getMessage());
-//	ex.getMessage();
-//}
-//try {
-//	obj.setLoco_owningzone(loco_owningzone);
-//	obj.setTot_count(tot_count);
-//	obj.setUnclen(unclen);
-//	obj.setDft(dft);
-//	obj.setPend(pend);
-//	obj.setAppv(appv);
-//
-//}catch(Exception ex) {
-//		
-//		ex.getMessage();
-//	}
-//
-//		 return obj ;
-//
-//
-//}
+
+
+
+
+
+
+
+
 

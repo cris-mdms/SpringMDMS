@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mdms.wagon.wagonuncleansed.model.PublishingWagonDataIrwmsModel;
+
 import com.mdms.wagon.wagonuncleansed.model.p_wagon_data_fmm;
 import com.mdms.wagon.wagonuncleansed.repository.PublishingWagonDataIrwmsRepo;
 import com.mdms.wagon.wagonuncleansed.repository.p_wagon_data_fmm_repo;
@@ -31,3 +32,4 @@ public class PublishingWagonDataIrwmsService {
 
 }
 }
+

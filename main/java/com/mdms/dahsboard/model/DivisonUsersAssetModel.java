@@ -29,6 +29,14 @@ public String role_type;
 		this.from_date=from_date;
 		this.last_login_date=last_login_date;
 		this.role_type=role_type;
+
+
+	
+	
+	
+//	public DivisonUsersAssetModel(String division,String depo,String shed,String user_id,String name, String designation, String department,Date from_date, Date last_login_date)
+
+
 	}
 	
 	

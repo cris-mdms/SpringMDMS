@@ -93,6 +93,7 @@ private String div_code;
     return zonecode;
 		
 	}
+
 	
 public List<String> getZonewiseDivisionCode(String zone) throws Exception{
 		
@@ -168,15 +169,123 @@ public List<String> getZonewiseDivisionCode(String zone) throws Exception{
 	public boolean checkassetscodeexist(MDesignationCode assetdesig) {
 		   String assetcode=assetdesig.getAsset_designation_code();       
 		   String assetcode1=assetcode_repo.checkassetscodeexist(assetcode);
-		   if((assetcode1!=null)&&(assetcode1.equals(assetcode1)) ){
-		    	return true;
-		       	
-		    	
-		    } else {
-		    	return false;
-		    }
+		   if((assetcode1!=null)&&(assetcode1.equals(assetcode1)) ){  
+			   return true;
+				 		       				 		    	
+				 		    } else {
+				 		    	return false;
+				 		    }
+				 		   
+				 		}
+			   
+			  
+			
+
+
+	
+//	public List<String> getZonewiseDivisionCode(String zone) throws Exception{
+//		
+//		return divsn_repo.getZonewiseDivisionCode(zone);
+//	}
+	
+
+//	public List<MDesignation> findDesignation(MDesignation desig) throws Exception
+//	{		
+//		List<MDesignation> temp=new ArrayList<>();
+//		desig_repo.findDesignation(desig)
+//		.forEach(temp::add);
+//		return temp;  		
+//	
+//	
+//	}
+//	public boolean verifyStnUserDesig(MDesignation userdesig) {
+//	   String udesigname=userdesig.getDesignation_name();       
+//	   String desig=desig_repo.findStnDesignation(udesigname);
+//	   if((desig!=null )&&(desig.equals(desig)) ){
+//	    	return true;
+//	       	
+//	    	
+//	    } else {
+//	    	return false;
+//	    }
+//	   
+//	}
+//	
+//	public boolean verifyCoachUserDesig(MDesignation userdesig) {
+//		   String udesigname=userdesig.getDesignation_name();       
+//		   String desig=desig_repo.findcoachDesignation(udesigname);
+//		   if((desig!=null )&&(desig.equals(desig)) ){
+//		    	return true;
+//		       	
+//		    	
+//		    } else {
+//		    	return false;
+//		    }
+//		   
+//		}
+//	public boolean verifyLocoUserDesig(MDesignation userdesig) {
+//		   String udesigname=userdesig.getDesignation_name();       
+//		   String desig=desig_repo.findLocoDesignation(udesigname);
+//		   if((desig!=null)&&(desig.equals(desig)) ){
+//		    	return true;
+//		       	
+//		    	
+//		    } else {
+//		    	return false;
+//		    }
+//		   
+//		}
+	// get asset designation code from designation table -- Developer : Ritu Dt. 17.6.22
+//	public List<MDesignationCode> getLocoUserDesig(MDesignationCode userdesig) {
+//		   String udesigname=userdesig.getHrms_designation();       
+//		   List<MDesignationCode> desig=assetcode_repo.getassetsLocoDesignation(udesigname);
+//		   if((desig!=null)&&(desig.equals(desig)) ){
+//		    	return assetcode_repo.getassetsLocoDesignation(udesigname);	       	
+//		    	
+//		    } else {
+//		    	return assetcode_repo.getassetsLocoDesignation(udesigname);
+//		    }
+//		   
+//		}
+	
+
+	// New Service Jyoti Bisht 27-2-23
+	public MDesignationCode getDesig(String userdesig) {
+		  // String udesigname=userdesig.getHrms_designation();  
+		MDesignationCode result=null;
+		       
+		    	result=assetcode_repo.getDesignation(userdesig);
+		    	System.out.println("designation returned is......................"+result);
+		    	return result;
+		    
 		   
 		}
+	
+	
+
+//	public List<MDepartment> getAllDepartment() {
+//		// TODO Auto-generated method stub
+//		return deprt_repo.findDept();
+//	}
+//	
+	
+//	public boolean checkassetscodeexist(MDesignationCode assetdesig) {
+//
+//
+//		   String assetcode=assetdesig.getAsset_designation_code();  
+//		   System.out.println("code ........................................"+assetcode+"..................................");
+//
+//		   String assetcode1=assetcode_repo.checkassetscodeexist(assetcode);
+//		   if((assetcode1!=null)&&(assetcode.equals(assetcode1)) ){
+//>>>>>>> branch 'master' of https://github.com/cris-mdms/SpringMDMS.git
+//		    	return true;
+//		       	
+//		    	
+//		    } else {
+//		    	return false;
+//		    }
+//		   
+//		}
 	
 	public List<String> getfoiszonelist()	{
 		List<String> fetchedList1 = new ArrayList<>();

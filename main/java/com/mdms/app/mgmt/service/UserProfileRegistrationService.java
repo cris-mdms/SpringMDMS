@@ -1232,6 +1232,7 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 	// Jyoti Bisht 6-12-22
 
 	public boolean delete_user_details(String user_id)	{
+
 		
 		try
 		{
@@ -1247,6 +1248,35 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 		
 		
 	}
+
+
+
+	
+
+		
+		
+		
+	
+
+	
+	
+	// Jyoti Bisht 23-02-23
+
+		public boolean update_user_profile(String email, String mobile, String user_type, String user_id)	{
+			try
+			{
+				profileRegistrationRepo.update_user_profile(email, mobile, user_type, user_id);
+			    return true;
+			}
+			catch(Exception e)
+			{
+				return false;
+			}
+			
+		}
+
+
+
 
 	
 }

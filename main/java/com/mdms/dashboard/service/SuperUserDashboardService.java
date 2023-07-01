@@ -2,6 +2,7 @@ package com.mdms.dashboard.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +39,6 @@ public class SuperUserDashboardService {
 		logger.info("Service : SuperUserDashboardService || Method: getTotalAssets");
 
  HashMap<String, Integer> map = new HashMap<>();
-
-		 
  try {
 //	 final String no_stations = "SELECT count(a.stn_code) FROM mdms_station.station_table_rbs as a where current_date between stn_vld_from and stn_vld_upto";
 	 final String no_stations = "SELECT r1.zone_code, count(DISTINCT r1.stn_code) AS total FROM ( SELECT a.zone_code,b.stn_code FROM (mdms_masters.m_division a"
@@ -607,22 +606,22 @@ return jdbcTemplate.query(
 
 
 
-//jyoti bisht 9-5-23
-public int get_div_station(String div)
-{
-return stn_db_repo.get_division_station_count(div);
-}
-//jyoti bisht 10-5-23
-public List<Object[]> get_stations(String div)
-{
-return stn_db_repo.get_stations(div);
-}
-
-//jyoti bisht 10-5-23
-public int get_usercount_by_div(String div, String user_type, String role_type)
-{
-return user_repo.get_count_by_usertype(div,user_type, role_type);
-}
+////jyoti bisht 9-5-23
+//public int get_div_station(String div)
+//{
+//return stn_db_repo.get_division_station_count(div);
+//}
+////jyoti bisht 10-5-23
+//public List<Object[]> get_stations(String div)
+//{
+//return stn_db_repo.get_stations(div);
+//}
+//
+////jyoti bisht 10-5-23
+//public int get_usercount_by_div(String div, String user_type, String role_type)
+//{
+//return user_repo.get_count_by_usertype(div,user_type, role_type);
+//}
 
 public List<DivisonUsersAssetModel> getDivisionWiseRecords1(String usertype,String division, String role) {
 logger.info("Service : StationDashboardService || Method: getDivisionWiseRecords");
@@ -647,4 +646,27 @@ userdetails,
 }
 
 
+
+
+	
+	
+	// jyoti bisht 9-5-23
+	public int get_div_station(String div)
+	{
+		return stn_db_repo.get_division_station_count(div);
+	}
+	// jyoti bisht 10-5-23
+	public List<Object[]> get_stations(String div)
+	{
+		return stn_db_repo.get_stations(div);
+	}
+	
+	// jyoti bisht 10-5-23
+		public int get_usercount_by_div(String div, String user_type, String role_type)
+		{
+			return user_repo.get_count_by_usertype(div,user_type, role_type);
+		}
+
+
 }
+

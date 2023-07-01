@@ -19,8 +19,6 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 
 	@Query(value="select * from mdms_loco.loco_approved_data where loco_owning_shed=?1 AND loco_flag=?2 AND status='A'AND (record_status='O' OR record_status='N')",nativeQuery=true)
 	List<LocoApprovedData> getApprovedLoco(String eshedid, String locoflag);
-	
-
 
 	//@Query(value="SELECT loco_owning_shed as loco_Owningshed,COUNT(*)  as cleansed_count FROM  mdms_loco.loco_approved_data WHERE loco_owning_shed=?1 AND record_status='O' AND LOCO_NO IN (SELECT DISTINCT  loco_no from  mdms_loco.loco_data_fois )AND LOCO_NO IN (SELECT DISTINCT  loco_no from  mdms_loco.loco_data_fois ) GROUP BY loco_owning_shed",nativeQuery=true)
 	@Query(value="SELECT loco_owning_shed as loco_Owningshed,COUNT(*)  as cleansed_count FROM  mdms_loco.loco_approved_data WHERE loco_owning_shed=?1 AND record_status='O'  GROUP BY loco_owning_shed",nativeQuery=true)
@@ -72,5 +70,20 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 	 List<LocoApprovedData>  getLocoDetails(String zone, String shed, String status);
 		
 		
+
+
+	//JYOTI BISHT for dashboard zone-shed wise loco approved count
+	
+	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code ,loco_owning_shed as loco_Owningshed, COUNT(*)  as cleansed_count FROM  mdms_loco.loco_approved_data "
+				+ "WHERE status='A' and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY loco_owning_zone,loco_owning_shed order by loco_owning_zone",nativeQuery=true)
+	Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShed1();
+
+	
+	// JYOTI BISHT 23-06-23
+	@Query(value="select * from mdms_loco.loco_approved_data  where loco_no=?",nativeQuery = true)
+	LocoApprovedData getLocoCompletedetail(int loco_no);
+		
+	
+
 		
 }

@@ -17,6 +17,7 @@ public class UserPrivilegeModel {
 	@Column(name="user_code")                  
 	public String user_code; 
 	
+
 	@Column(name="name")                  
 	public String uname; 
 	

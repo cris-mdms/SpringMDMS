@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 
@@ -35,5 +36,6 @@ public interface Wagon_data_FMM_Repo extends CrudRepository<Wagon_data_fmm,Strin
     //Ritu 20-03-23
     @Procedure(value="mdms_wagon.f_wagon_dashboard_total_ess")
   		String getWagonDashboardCount();
-    
+
+
 }

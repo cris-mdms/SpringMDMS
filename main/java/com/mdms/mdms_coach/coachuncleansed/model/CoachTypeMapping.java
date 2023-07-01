@@ -13,6 +13,7 @@ import java.util.*;
 @Entity()
 @Table(name="coach_type_mapping", schema="mdms_coach")
 public class CoachTypeMapping {	
+
 	@Id
 	@Column(name="cmm_coach_type")
 	private String cmm_coach_type;
@@ -92,6 +93,6 @@ public class CoachTypeMapping {
 		this.status = status;
 	}
 	
-	
+
 
 }

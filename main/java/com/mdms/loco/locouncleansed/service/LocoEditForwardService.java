@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
@@ -574,4 +575,5 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 							return obj_uncleansedrepo.getLocototalDetails(zone, shed);
 						}
 						
+
 }

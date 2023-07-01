@@ -30,6 +30,7 @@ public class MLocoShed {
 	@Column(name="shed_type")
 	private String shed_type;
 	
+
 	
 	@Column(name="ir_flag")
 	private String ir_flag;
@@ -109,6 +110,7 @@ public class MLocoShed {
 	public void setValidity(String validity) {
 		this.validity = validity;
 	}
+
 
 	public String getBaseshedCode() {
 		return baseshedCode;

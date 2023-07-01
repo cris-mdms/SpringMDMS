@@ -1,4 +1,5 @@
 package com.mdms.wagon.wagonuncleansed.controller;
+
 import java.text.ParseException;
 import java.util.List;
 
@@ -32,4 +33,7 @@ public class WagonPublishingData {
 	{
 				return publishingWagonDataIrwmsService.gettotalpublishwagoncount();
 	}
+
+
+
 }

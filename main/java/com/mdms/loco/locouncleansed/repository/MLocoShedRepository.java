@@ -10,6 +10,7 @@ import com.mdms.loco.locouncleansed.model.MLocoShed;
 
 
 public interface MLocoShedRepository extends CrudRepository <MLocoShed,Long>{
+
 	@Query(value="SELECT * FROM mdms_loco.m_loco_shed where shed_flag='E' and validity='Y'",nativeQuery=true)
 	List<MLocoShed> findAll();
 

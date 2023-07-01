@@ -10,15 +10,24 @@ import org.springframework.stereotype.Service;
 
 import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoApprovedDslData;
+import com.mdms.loco.locouncleansed.model.LocoUncleansedDataAddNewLoco;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedDslDataRepo;
+import com.mdms.loco.locouncleansed.repository.LocoApprovedRecordsRepository;
+import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataAddNewRepository;
 @Service
 public class LocoApproveService {	
 	@Autowired 
 	private LocoApprovedDataRepository approved_repo;
 	@Autowired 
 	private LocoApprovedDslDataRepo dslapproved_repo;
+	
+	@Autowired
+	private LocoUncleansedDataAddNewRepository obj_LocoNewRepo;
+	
+	@Autowired
+	private LocoApprovedRecordsRepository obj_LocoAppNewRepo;
 	public boolean adddata(LocoApprovedData objcleansed) {
 		try{
 			
@@ -211,6 +220,51 @@ public class LocoApproveService {
 				{
 					return approved_repo.getLocoDetails(zone, shed, status);
 				}
+
+				//Anshul 21-06-2023 //get unapproved new loco records
+				public List<LocoUncleansedDataAddNewLoco> getUnapprovedNewLoco(String owning_shed) {
+					 List<LocoUncleansedDataAddNewLoco> tmp = new ArrayList<>();
+					 obj_LocoNewRepo.getUnapprovedNewLoco(owning_shed).forEach(tmp::add);
+					
+					return tmp;
+				}
+				
+				//Anshul 21-06-2023 //Approve new loco records
+				public String approveNewLoco(long loco_no) {
+									
+				int i=	obj_LocoNewRepo.approveNewLoco(loco_no);
+				if(i>0)
+					
+				{ Date date = new Date();
+					LocoUncleansedDataAddNewLoco tmp=obj_LocoNewRepo.getApprovedRecord(loco_no);
+//					LocoApprovedRecords temp=new LocoApprovedRecords();
+					//save records to golden records table also
+					obj_LocoAppNewRepo.saveApprovedRecords(tmp.getLoco_traction_code(),
+							tmp.getLoco_no() , tmp.getLoco_type(), tmp.getLoco_permanent_domain(),
+							tmp.getLoco_owning_shed()  ,tmp.getLoco_owning_zone() , tmp.getLoco_owning_division(), tmp.getLoco_manufacturing_date(), tmp.getLoco_receiving_date()
+							, tmp.getLoco_initial_cost(), tmp.getLoco_poh_cost(), tmp.getLoco_lease_type(), tmp.getGauge_type(),tmp.getLoco_hauling_power()
+							, tmp.getLoco_manufacturing_country(), tmp.getLoco_cabin_ac(), tmp.getLoco_commissioning_date(),
+							tmp.getElec_locoHotelLoad(), tmp.getLoco_manufacturer(), tmp.getIs_gps_enabled(), 
+							tmp.getFlag_type(), tmp.getLoco_auxilary(), tmp.getLoco_boogie_type(), tmp.getLoco_traction_motor_type(), 
+							tmp.getLoco_control_type(), tmp.getLoco_brake_type(), tmp.getUser_id(),tmp.getStatus(),tmp.getRecord_status(),date);
+					
+					return "RECORD APPROVED SUCCESSFULLY";
+					
+				}
+					
+				else
+					return "ERROR OCCURRED";
+				}
+				public String rejectNewLoco(long loco) {
+					int i=	obj_LocoNewRepo.rejectNewLoco(loco);
+					if(i>0)
+						return "RECORD APPROVED SUCCESSFULLY";
+					else
+						return "ERROR OCCURRED";
+					
+				}
+
+
 				
 
 }

@@ -1,5 +1,6 @@
 package com.mdms.dahsboard.model;
 
+
 import java.util.Date;
 
 public class DailyIntegrationModel {
@@ -81,3 +82,4 @@ public int c_count;
 	
 	
 }
+
