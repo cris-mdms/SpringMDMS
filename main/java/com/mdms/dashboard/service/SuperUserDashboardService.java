@@ -383,7 +383,6 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 	                               rs.getInt("draft"),
 	                               rs.getInt("uncleansed"),
 //	                               rs.getInt("uncleansed"),
-
 	                               rs.getInt("pending")
 	     
 	                              
@@ -698,10 +697,10 @@ catch(Exception e) {
 	}
 	
 	// jyoti bisht 10-5-23
-		public int get_usercount_by_div(String div, String user_type, String role_type)
-		{
+	public int get_usercount_by_div(String div, String user_type, String role_type)
+	{
 			return user_repo.get_count_by_usertype(div,user_type, role_type);
-		}
+	}
 
 
 }

@@ -99,16 +99,21 @@ public class LocoS3FileUploadService {
 	}
 */
 	
-	public String uploadFileCondemn(MultipartFile multipartFile) throws IOException {
+	public String uploadFileCondemn(MultipartFile multipartFile1,MultipartFile multipartFile2,String loco_no) throws IOException {
 		  logger.info("UploadFile Service");
 		 String fileUrl = "";
 		try {
-			File file = convertMultiPartToFile(multipartFile);
-			String fileName = generateFileName(multipartFile);
+			File file1 = convertMultiPartToFile(multipartFile1);
+			String fileName1 = generateFileName(multipartFile1,loco_no);
 			
-			fileUrl = "RECORD SAVED AND UPLOADED AT : "+endpointUrl + "/" + bucketName + "/" + fileName;
-			uploadFileTos3bucket(fileName, file);
-			file.delete();
+			File file2 = convertMultiPartToFile(multipartFile2);
+			String fileName2 = generateFileName(multipartFile2,loco_no);
+			
+			fileUrl = "RECORD SAVED AND UPLOADED AT : "+endpointUrl + "/" + bucketName + "/" + fileName1+" and at "+endpointUrl + "/" + bucketName + "/" + fileName2;
+			uploadFileTos3bucket(fileName1, file1);
+			uploadFileTos3bucket(fileName2, file2);
+			file1.delete();
+			file2.delete();
 		
 				
 		} 
@@ -195,8 +200,8 @@ public class LocoS3FileUploadService {
 		return convFile;
 	}
 	
-	private String generateFileName(MultipartFile multiPart) {
-		return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
+	private String generateFileName(MultipartFile multiPart,String loco_no) {
+		return new Date().getTime() + "-" +loco_no+"-"+ multiPart.getOriginalFilename().replace(" ", "_");
 	}
 	
 	private void uploadFileTos3bucket(String fileName, File file) {

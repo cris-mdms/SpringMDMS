@@ -20,7 +20,7 @@ public class ZonalUsersAssetModel {
 		this.cleansed=cleansed;
 		this.draft=draft;
 		this.uncleansed= uncleansed;
-		this.pending= pending;
+		this.pending=pending;
 	}
 	
 
@@ -37,7 +37,6 @@ public class ZonalUsersAssetModel {
 		this.pending= pending;
 	}
 	
-
 
 
 

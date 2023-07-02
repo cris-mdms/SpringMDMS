@@ -76,10 +76,10 @@ public class LocoCondemnS3FileUploadController {
 	  
 	  
 		@PostMapping("/uploadCondemnFile")
-		public String uploadFileCondemn(@RequestPart(value = "file") MultipartFile file	) throws IOException {
+		public String uploadFileCondemn(@RequestPart(value = "proposal_file") MultipartFile file,@RequestPart(value = "approval_file") MultipartFile file2, @RequestParam("loco")String loco_no) throws IOException {
 		//	logger.info("controller : CoachS3FileUploadController || Method : uploadFileCMM||")	;
 			
-			return this.amazonClient.uploadFileCondemn(file);
+			return this.amazonClient.uploadFileCondemn(file,file2,loco_no);
 
 		}
 		

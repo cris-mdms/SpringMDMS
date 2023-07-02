@@ -135,8 +135,8 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 	    Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshed1();
 
    // Jyoti Bisht (for condemnation module)
-	  @Query(value="SELECT * from mdms_loco.loco_uncleansed_data WHERE loco_no=?1 ",nativeQuery = true)
-	  Optional<LocoUncleansedData> find_loco(int loco_no);
+	  @Query(value="SELECT * from mdms_loco.loco_uncleansed_data WHERE loco_no=?1 and loco_owning_shed=?2 ",nativeQuery = true)
+	  Optional<LocoUncleansedData> find_loco(int loco_no,String shed);
 	  
 
 

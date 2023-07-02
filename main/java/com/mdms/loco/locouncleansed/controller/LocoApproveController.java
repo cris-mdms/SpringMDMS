@@ -155,13 +155,13 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
        //JYOTI BISHT 23-06-23
  		
  		@PostMapping("/get_complete_loco_details")
-	    public LocoApprovedData geteLocoDetails(@RequestParam("loco_no")String loco_no)
+	    public LocoApprovedData geteLocoDetails(@RequestParam("loco_no")String loco_no, @RequestParam ("shed") String shed)
     	{
  			
  			LocoApprovedData loco=null;
  		
  		
- 			loco=loco_approve_repo.getLocoCompletedetail(Integer.parseInt(loco_no));
+ 			loco=loco_approve_repo.getLocoCompletedetail(Integer.parseInt(loco_no),shed);
  			if(loco!=null)
  			{
  				return loco;
@@ -181,7 +181,7 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  		
  		{
 		return obj_cleasedservice.getUnapprovedNewLoco(owning_shed);
-}
+       }
  		
  		
  		@RequestMapping(method=RequestMethod.POST, value="/approvenewloco")

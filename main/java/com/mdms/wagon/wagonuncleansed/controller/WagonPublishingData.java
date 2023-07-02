@@ -1,16 +1,14 @@
 package com.mdms.wagon.wagonuncleansed.controller;
-<<<<<<< HEAD
+
 import java.text.ParseException;
-=======
->>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.PostMapping;
-=======
->>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,14 +30,12 @@ public class WagonPublishingData {
 		
 	}
 
-<<<<<<< HEAD
+
 	// Ritu 21-03-2
   	@PostMapping("/wagonpublishcount")
 	public List<Object> getwagontypecount() throws ParseException
 	{
 				return publishingWagonDataIrwmsService.gettotalpublishwagoncount();
 	}
-=======
 
->>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 }

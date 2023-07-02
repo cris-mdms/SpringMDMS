@@ -111,7 +111,7 @@ public class LocoApprovedData {
 		@Column(name="loco_manufacturing_country")                  
 		private String loco_MfgCountry;
 		
-		@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") 
+	//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") 
 		 @Column(name="loco_manufacturing_date")                  
 		 private Date loco_Mfg_Dt; 
 		

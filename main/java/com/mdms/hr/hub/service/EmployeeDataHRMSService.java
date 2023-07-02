@@ -80,15 +80,14 @@ public class EmployeeDataHRMSService {
 				
 		}
 		
-<<<<<<< HEAD
-=======
+
 		// JYOTI BISHT 17-3-22
 		
 		public List<String> getDesignations()
 		{
 			return obj_repo.getdesignations();			
 		}
->>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
+
 		
 		
 		
