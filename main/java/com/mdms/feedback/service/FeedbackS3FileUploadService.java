@@ -39,8 +39,6 @@ public class FeedbackS3FileUploadService {
 	@Autowired
 	private FeedbackSnapshortRepository objSnapRepo;
 	
-
-
 	@SuppressWarnings("deprecation")
 
 	@PostConstruct

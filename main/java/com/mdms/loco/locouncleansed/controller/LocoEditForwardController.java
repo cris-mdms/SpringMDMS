@@ -420,6 +420,9 @@ public class LocoEditForwardController {
 			        	{
 			        		 LocalDateTime localDateTime = LocalDateTime.now();
 			        		 loco.setTxn_date(localDateTime);
+			        		 loco.setApproval_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getApproval_doc().replace(" ", "_"));
+			        		 loco.setProposal_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
+			        		 
 			        		 return condemn_repo.save(loco);
 			        	}
 			        	catch(Exception e)
@@ -468,11 +471,11 @@ public class LocoEditForwardController {
 				       } 
 			        
 			        @PostMapping("/check_in_uncleansed")
-			        Optional<LocoUncleansedData> check_loco_in_uncleansed(@RequestParam("loco_no")String loco_no)
+			        Optional<LocoUncleansedData> check_loco_in_uncleansed(@RequestParam("loco_no")String loco_no,@RequestParam("shed") String shed)
 			        {
-			        
-			        	Optional<LocoUncleansedData> loco= uncleansed_repo.find_loco(Integer.parseInt(loco_no));
-			        	//System.out.println("return value is "+loco);
+			        	//System.out.print("return value is "+loco_no,shed);
+			        	Optional<LocoUncleansedData> loco= uncleansed_repo.find_loco(Integer.parseInt(loco_no),shed);
+			        	
 			        	return loco;
 			        	
 			        }

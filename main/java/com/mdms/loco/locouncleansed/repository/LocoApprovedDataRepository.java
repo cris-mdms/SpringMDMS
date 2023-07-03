@@ -80,8 +80,8 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 
 	
 	// JYOTI BISHT 23-06-23
-	@Query(value="select * from mdms_loco.loco_approved_data  where loco_no=?",nativeQuery = true)
-	LocoApprovedData getLocoCompletedetail(int loco_no);
+	@Query(value="select * from mdms_loco.loco_approved_data where loco_no=?1 and loco_owning_shed=?2",nativeQuery = true)
+	LocoApprovedData getLocoCompletedetail(int loco_no,String shed);
 		
 	
 

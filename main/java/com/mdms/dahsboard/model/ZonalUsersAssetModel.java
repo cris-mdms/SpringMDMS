@@ -22,6 +22,7 @@ public class ZonalUsersAssetModel {
 		this.uncleansed=uncleansed;
 		this.pending= pending;
 		
+		
 	}
 	
 
@@ -39,6 +40,9 @@ public class ZonalUsersAssetModel {
 
 
 
+
+//	public String shed_code;
+//	public String shed_name;
 
 	public String zone;
 	

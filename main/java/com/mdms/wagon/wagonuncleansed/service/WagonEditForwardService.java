@@ -289,6 +289,9 @@ return rohPohDetailsRepo.getRohPohData( owningrly, groupname, vehicletype, vehic
 		}
 		   
 
+
+	// Ritu  7-11-22
+
 	   public List<Object[]>  getwagontypecount() 
 		{
 		 

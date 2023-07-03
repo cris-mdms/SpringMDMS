@@ -31,13 +31,17 @@ public class LocoCondemnation {
 	  
 	  Double loco_life;
 	 
-	  String proposal_no;
+	  String proposal_letter_no;
 	  
 	  Date condemnation_date;
 	 
 	  String  condemnation_proposal_type;
 	  
-	  String condemnation_doc;
+	  String proposal_doc;
+	  
+	  String approved_letter_no;
+	  
+	  String approval_doc;
 	
 	  String user_id;
 
@@ -120,13 +124,7 @@ public class LocoCondemnation {
 		this.loco_life = loco_life;
 	}
 
-	public String getProposal_no() {
-		return proposal_no;
-	}
 
-	public void setProposal_no(String proposal_no) {
-		this.proposal_no = proposal_no;
-	}
 
 	public Date getCondemnation_date() {
 		return condemnation_date;
@@ -144,13 +142,7 @@ public class LocoCondemnation {
 		this.condemnation_proposal_type = condemnation_proposal_type;
 	}
 
-	public String getCondemnation_doc() {
-		return condemnation_doc;
-	}
 
-	public void setCondemnation_doc(String condemnation_doc) {
-		this.condemnation_doc = condemnation_doc;
-	}
 
 	public String getUser_id() {
 		return user_id;
@@ -184,6 +176,39 @@ public class LocoCondemnation {
 		this.txn_date = txn_date;
 	}
 
+	public String getProposal_letter_no() {
+		return proposal_letter_no;
+	}
+
+	public void setProposal_letter_no(String proposal_letter_no) {
+		this.proposal_letter_no = proposal_letter_no;
+	}
+
+	public String getProposal_doc() {
+		return proposal_doc;
+	}
+
+	public void setProposal_doc(String proposal_doc) {
+		this.proposal_doc = proposal_doc;
+	}
+
+	public String getApproved_letter_no() {
+		return approved_letter_no;
+	}
+
+	public void setApproved_letter_no(String approved_letter_no) {
+		this.approved_letter_no = approved_letter_no;
+	}
+
+	public String getApproval_doc() {
+		return approval_doc;
+	}
+
+	public void setApproval_doc(String approval_doc) {
+		this.approval_doc = approval_doc;
+	}
+
+	
 
 
 

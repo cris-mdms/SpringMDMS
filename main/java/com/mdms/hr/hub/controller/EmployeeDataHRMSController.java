@@ -23,7 +23,13 @@ public class EmployeeDataHRMSController {
 	//getIPASSuserdetail 
 		@RequestMapping(method=RequestMethod.POST, value="/getipassuserdata")
 		public  List<EmployeeDataHRMS>  getipassuserdetail(@RequestParam("ipas_id") String ipas_id) {
+
 		   System.out.println("hello user"+ipas_id);
+
+
+		   System.out.println(ipas_id);
+
+
 			return obj_service.getipassuserdetail(ipas_id);
 		}
 	   
