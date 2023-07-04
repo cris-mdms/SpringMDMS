@@ -1,5 +1,6 @@
 package com.mdms.loco.locouncleansed.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +25,14 @@ public interface LocoCondemnRepo extends CrudRepository<LocoCondemnation, Intege
 		
 		@Modifying
 		@Transactional
-		@Query(value="update mdms_loco.loco_condemnation_mdms_user set status=?2, remarks=?3 where loco_no=?1", nativeQuery = true)
-		public int update_condemn_loco_status(int loco, String status, String remarks);
+		@Query(value="update mdms_loco.loco_condemnation_mdms_user set status=?2, remarks=?3, user_id=?4, txn_date=?5 where loco_no=?1", nativeQuery = true)
+		public int update_condemn_loco_status(int loco, String status, String remarks, String user_id, LocalDateTime date);
 	
+		@Modifying
+		@Transactional
+		@Query(value="insert into mdms_loco.loco_condemnation_mdms_user_history (select * from mdms_loco.loco_condemnation_mdms_user where loco_no=?1)",nativeQuery = true)
+		public int insert_into_history(int loco);
+		
+
 
 }

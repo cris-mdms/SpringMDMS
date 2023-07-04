@@ -95,15 +95,14 @@ public class LocoEditForwardController {
 				  return obj_uncleasedservice.getAllLocos(locos);		 	 	
 			}
 		 
-		 
-		 //get uncleanesd loco type list	 
-		 @RequestMapping(method=RequestMethod.POST, value="/getuncleansedlocotype")
-		 public List<MLocoType> getlocotypelist(){
-						 return obj_uncleasedservice.getlocotypelist();
 			 
-		 }
+			 //get uncleanesd loco type list	 
+			 @RequestMapping(method=RequestMethod.POST, value="/getuncleansedlocotype")
+			 public List<MLocoType> getlocotypelist(){
+							 return obj_uncleasedservice.getlocotypelist();
+				 
+			 }
 		 
-		
 			
 			@RequestMapping(method=RequestMethod.POST, value="/getelectricshedid")	
 			public List<MLocoShed> getbaseshed(){
@@ -134,9 +133,9 @@ public class LocoEditForwardController {
 			
 			@RequestMapping(method=RequestMethod.POST, value="/getallshedbyuserzone")	
 			public List<String> getAllShedbyuserZone(@RequestParam("userid") String userid, @RequestParam("zoneid")String zoneid, @RequestParam("zone")String zone){
-		System.out.println("userid"+ userid);
-		System.out.println("userid"+ zoneid);
-		System.out.println("userid"+ zone);
+			System.out.println("userid"+ userid);
+		    System.out.println("userid"+ zoneid);
+		    System.out.println("userid"+ zone);
 				List<String>  temp = obj_uncleasedservice.getAllShedbyuserZoneID(userid,zoneid,zone);
 						for(int i = 0; i < temp.size(); i++) {
 //				            System.out.println(temp.get(i).getZoneCode());
@@ -407,12 +406,16 @@ public class LocoEditForwardController {
 
 				       }
 			        @PostMapping("/update_condemn_loco_details")
-				       public int update_condemn_loco_details(@RequestParam("loco") String loco, @RequestParam("status") String status , @RequestParam("remarks") String remarks)
+				       public int update_condemn_loco_details(@RequestParam("loco") String loco, @RequestParam("status") String status , @RequestParam("remarks") String remarks, @RequestParam("user_id") String user_id)
 				        {
 				     
 				        try
 				        {
-				        	condemn_repo.update_condemn_loco_status(Integer.parseInt(loco),status,remarks);
+				        	condemn_repo.insert_into_history(Integer.parseInt(loco));
+				        	
+				        	 LocalDateTime localDateTime = LocalDateTime.now();
+			       
+				        	 condemn_repo.update_condemn_loco_status(Integer.parseInt(loco),status,remarks,user_id,localDateTime);
 				        	return 1;
 				       
 				        }catch(Exception e)

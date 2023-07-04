@@ -335,6 +335,7 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 		
 		String querystring=null;
 		
+		
 		switch(usertype)
 		{
 
@@ -405,6 +406,7 @@ public List<ZonalUsersAssetModel> getZoneWiseRecords1(String usertype) {
 				         
 				break;
 		
+				
 		case "LU": 	querystring="SELECT loco_owning_zone_code as zone_code,loco_owning_shed_code as shed_code, shed_name, total_count as total, "
 								+ "b.zone_name, total_cleansed as cleansed, total_draft as draft, total_pending as pending , total_uncleansed as uncleansed \r\n"
 					+ "	FROM public.dashboard_loco_stats, mdms_loco.m_loco_shed b 	where loco_owning_zone_code=b.zone_code and loco_owning_shed_code=shed_code"; 

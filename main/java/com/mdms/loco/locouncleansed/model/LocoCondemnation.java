@@ -23,7 +23,7 @@ public class LocoCondemnation {
 	  
 	  String  loco_permanent_domain;
 	  
-	  char  traction_code;
+	  String  traction_code;
 	 
 	  Date loco_commissiong_date;
 	  
@@ -45,7 +45,7 @@ public class LocoCondemnation {
 	
 	  String user_id;
 
-	  char status;
+	  String status;
 	  
 	  String remarks;
 	  
@@ -92,11 +92,11 @@ public class LocoCondemnation {
 		this.loco_permanent_domain = loco_permanent_domain;
 	}
 
-	public char getTraction_code() {
+	public String getTraction_code() {
 		return traction_code;
 	}
 
-	public void setTraction_code(char traction_code) {
+	public void setTraction_code(String traction_code) {
 		this.traction_code = traction_code;
 	}
 
@@ -152,11 +152,11 @@ public class LocoCondemnation {
 		this.user_id = user_id;
 	}
 
-	public char getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

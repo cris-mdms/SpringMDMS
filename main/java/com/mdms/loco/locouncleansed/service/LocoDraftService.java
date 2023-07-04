@@ -153,7 +153,7 @@ public class LocoDraftService {
 				String var4=obj_cleanseDieselLoco.getLoco_Manufac();
 				Date var5=obj_cleanseDieselLoco.getLoco_Recd_Dt();		
 
-				double var6=obj_cleanseDieselLoco.getLoco_Axleload();				
+				String var6=obj_cleanseDieselLoco.getLoco_Axleload();				
 				String var7=obj_cleanseDieselLoco.getLoco_Hauling_Power();
 			    String var8=obj_cleanseDieselLoco.getLoco_Owningzone();
 			    String var9=obj_cleanseDieselLoco.getLoco_Tractioncode();

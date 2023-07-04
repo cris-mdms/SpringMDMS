@@ -60,7 +60,7 @@ public class LocoUncleansedData {
 	private String loco_Hauling_Power; 
 	
 	@Column(name="loco_axle_load")                  
-	private Double loco_Axleload; 
+	private String loco_Axleload; 
 			
 		
 	@Column(name="loco_gauge_type")                  
@@ -214,11 +214,11 @@ public class LocoUncleansedData {
 		this.loco_Hauling_Power = loco_Hauling_Power;
 	}
 
-	public Double getLoco_Axleload() {
+	public String getLoco_Axleload() {
 		return loco_Axleload;
 	}
 
-	public void setLoco_Axleload(Double loco_Axleload) {
+	public void setLoco_Axleload(String loco_Axleload) {
 		this.loco_Axleload = loco_Axleload;
 	}
 
