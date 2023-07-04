@@ -27,7 +27,6 @@ public class MDesignationCode {
 		return hrms_designation;
 	}
 
-
 	public String getExceptional_case() {
 		return exceptional_case;
 	}

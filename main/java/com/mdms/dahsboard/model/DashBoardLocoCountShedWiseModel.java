@@ -12,14 +12,9 @@ public interface DashBoardLocoCountShedWiseModel {
  public	String getLoco_Owningshed();
 
 
-
 @JsonIgnore 
 @Value("#{target.uncleansed_count}")
 public	Integer getuncleansed_count();
-
-
-
-
 
 @JsonIgnore 
  @Value("#{target.cleansed_count}")
@@ -68,14 +63,27 @@ public	void setdraft_forward_approval_count();
 	@Value("#{target.loco_owning_zone_code}")
 	 public	String getLoco_owning_zone_code();
 	
+	
+	
 	@JsonIgnore 
 	 @Value("#{args[0]+': '+target.loco_owning_zone_code}")	 
 	 public void setLoco_owning_zone_code(String vgf);
 
 	
 	@JsonIgnore 
+	@Value("#{target.loco_owning_shed_code}")
+	 public	String getLoco_owning_shed_code();
+	
+	@JsonIgnore 
+	 @Value("#{args[0]+': '+target.loco_owning_shed_code}")	 
+	 public void setLoco_owning_shed_code(String vgf);
+
+	@JsonIgnore 
 	 @Value("#{args[0]+': '+target.total_loco_count}")	 
 	 public void setTotal_loco_count(Integer vgf);
+	
+	
+
 	
 }
 

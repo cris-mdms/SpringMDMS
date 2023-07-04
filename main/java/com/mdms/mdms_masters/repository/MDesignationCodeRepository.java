@@ -17,6 +17,7 @@ public interface MDesignationCodeRepository extends CrudRepository<MDesignationC
 	
 	
 
+
 //	@Query(value="select distinct asset_designation_code  from  mdms_masters.m_designation  where asset_designation_code like '%:?1%' and  is_active_designation ='Y'", nativeQuery = true)
 //	String checkassetscodeexist(String locodesig1); 
 	

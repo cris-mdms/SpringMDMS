@@ -58,11 +58,19 @@ public class DataDictionaryService {
 	}
 	
 
+
+//public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
+//		
+//		List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
+//		return publishtoMdms;
+//	}
+
 public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
 		
 		List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
 		return publishtoMdms;
 	}
+
 
 	
 	
@@ -72,9 +80,47 @@ public List<ReferentialsDynamicmodel> getRefrentialsDynamicData(){
 		List<ReferentialsDynamicmodel> list4= refrentialDynamicTableRepo.getRefrentialDynamicData();
 		
 		return list4;
+
+
 }
+//public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
+//		
+//		List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
+//		return publishtoMdms;
+//	}
+
+	
+	
+
+//public List<ReferentialsDynamicmodel> getRefrentialsDynamicData(){
+//		
+//		List<ReferentialsDynamicmodel> list4= refrentialDynamicTableRepo.getRefrentialDynamicData();
+//		
+//		return list4;
+//}
+//
+//	public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
+//			
+//			List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
+//			return publishtoMdms;
+//		}
+//	
+		
 		
 	
+//	public List<ReferentialsDynamicmodel> getRefrentialsDynamicData(){
+//			
+//			List<ReferentialsDynamicmodel> list4= refrentialDynamicTableRepo.getRefrentialDynamicData();
+//			
+//			return list4;
+//			
+//		}
+	
+
+//}
+		
+	
+
 	// JYOTI BISHT 28-3-23 DATA COLLATION
 	public List<StationDataDictionary> getAttributes(String asset, String group)
 	{

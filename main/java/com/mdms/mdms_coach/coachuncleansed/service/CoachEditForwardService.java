@@ -85,12 +85,24 @@ public class CoachEditForwardService {
 
 
 
-//-------------------------------------------return coachIds for a particular depot--------------------------------------------
-	public List<String> getCoachesByDepot(String depotId) {
-		String depot=depotId.toUpperCase();
-		 final String getCoachIdsByDepot = "select coach_id from mdms_coach.coach_data_cmm where base_depot=\'"+depotId+"\'"+" except select cast(coach_id as character varying) from \r\n" + 
-		 		"	mdms_coach.coach_uncleansed_data where status in('U','A')";
+	 public List<String> getCoachesByDepot(String depotId) {
+		 String depot=depotId.toUpperCase();
+		 final String getCoachIdsByDepot = "select coach_id from mdms_coach.coach_data_cmm where base_depot=\'"+depotId+"\'"+" except select cast(coach_id as character varying) from \r\n" +
+		 " mdms_coach.coach_uncleansed_data where status in('U','A')";
 
+		    final List<String> coachIds = jdbcTemplate.queryForList(getCoachIdsByDepot, String.class);
+		 return coachIds;
+		 }
+	
+	
+
+//-------------------------------------------return coachIds for a particular depot--------------------------------------------
+	public List<String> getCoachesByZone(String zone) {
+//		String coachtype1=coachtype.toUpperCase();
+//		String zone=zone.toUpperCase();
+//		String coachstatus=coachstatus.toUpperCase();
+		 final String getCoachIdsByDepot = "select coach_no from mdms_coach.coach_data_cmm where owning_rly=\'"+zone+"\'  and coach_status ='COMMISSIONED' except select cast(coach_no as character varying) from \r\n" + 
+		 		"mdms_coach.coach_uncleansed_data where status in('U','A')";
 		    final List<String> coachIds = jdbcTemplate.queryForList(getCoachIdsByDepot, String.class);
 		return coachIds;
 	}
@@ -98,9 +110,22 @@ public class CoachEditForwardService {
 
 //-------------------------------------------return coachDetails for a particular coach--------------------------------------------
 
+	public Optional<CoachDataCMM> getCoachByCoachNo(String coachNo) {
+		
+		Optional<CoachDataCMM> coachDetails=coach_cmm_repo.findByCoachNo(coachNo);
+
+		return coachDetails;
+	}
+//-------------------------------------------return coachIds for a particular depot--------------------------------------------
+	
+
+
+//-------------------------------------------return coachDetails for a particular coach--------------------------------------------
+
 	public Optional<CoachDataCMM> getCoachByCoachId(String coachId) {
 		
 		Optional<CoachDataCMM> coachDetails=coach_cmm_repo.findByCoachId(coachId);
+
 		return coachDetails;
 	}
 	

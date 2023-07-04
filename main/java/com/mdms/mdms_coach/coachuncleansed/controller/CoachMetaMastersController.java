@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,17 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mdms.loco.locouncleansed.model.MLocoType;
 import com.mdms.mdms_coach.coachuncleansed.model.CMMTypeLayout;
 import com.mdms.mdms_coach.coachuncleansed.model.CoachTypeMapping;
-
-import com.mdms.mdms_coach.coachuncleansed.model.MCoachType;
-import com.mdms.mdms_coach.coachuncleansed.model.MCoachTypePrs;
-import com.mdms.mdms_coach.coachuncleansed.model.PRSTypeLayout;
-
 import com.mdms.mdms_coach.coachuncleansed.model.MCoachClass;
 import com.mdms.mdms_coach.coachuncleansed.model.MCoachType;
 import com.mdms.mdms_coach.coachuncleansed.model.MCoachTypePrs;
 import com.mdms.mdms_coach.coachuncleansed.model.PRSTypeLayout;
 import com.mdms.mdms_coach.coachuncleansed.repository.MCoach_class_Repo;
-
 import com.mdms.mdms_coach.coachuncleansed.service.CoachMetaMastersService;
 
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
@@ -43,7 +35,7 @@ public class CoachMetaMastersController {
 
 	@Autowired
 	private CoachMetaMastersService coach_meta_serv;
-
+	
 	@Autowired
 	private MCoach_class_Repo coach_class;
 
@@ -106,6 +98,10 @@ public class CoachMetaMastersController {
 			return coach_meta_serv.getBrakeType();
 	}
 		
+		@RequestMapping(method=RequestMethod.POST, value="/mfgType")
+		public List<String> getMfgType(){
+			return coach_meta_serv.getMfgType();
+	}
 		
 		@RequestMapping(method=RequestMethod.POST, value="/coachtypeprs")
 		public List<String> getCoachTypesPrs(){

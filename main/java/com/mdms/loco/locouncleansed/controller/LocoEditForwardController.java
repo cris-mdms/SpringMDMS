@@ -13,7 +13,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 
 //All Service Method of Loco : Developer: Ritu on 24.10.2020//
 
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mdms.datadictionary.model.MD_DataCollation;
 import com.mdms.loco.locouncleansed.model.LocoCondemnation;
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
@@ -56,13 +54,13 @@ public class LocoEditForwardController {
 	
 	@Autowired
 	 private LocoEditForwardService obj_uncleasedservice;
+	
 
 	@Autowired
 	LocoCondemnRepo condemn_repo;
 	
 	@Autowired
 	LocoUncleansedDataRepository uncleansed_repo;
-	
 	
 	
 	//getloconominationtype
@@ -314,7 +312,56 @@ public class LocoEditForwardController {
 							
 				    }
 			    	
-			    	// JYOTI BISHT 7-1-23   for shed Code Creation from m_loco_shed_new table 
+//			    	// JYOTI BISHT 7-1-23   for shed Code Creation from m_loco_shed_new table 
+//			    	@PostMapping("/get_loco_shed_details")
+//				    public List<MLocoShedNew> geteLocoShedDetails(@RequestBody MLocoShedNew mlocoshed)
+//			    	{
+//				   
+//				    	return obj_uncleasedservice.get_loco_shed_details(mlocoshed);
+//							
+//				    }
+//			    	
+//			    	@PostMapping("/getallzoneid_new")	
+//					public List<Object[]> getAllZoneID_new(){
+//					return obj_uncleasedservice.getAllZone_names();
+//					}
+//					
+//			    	
+//			    	@PostMapping("/get_div_by_zone_new")
+//			    	public List<Object[]> get_shed_by_zone_div_new(@RequestParam("zone")String zone)
+//			    	{
+//			    		return obj_uncleasedservice.get_div_by_zone_name(zone);
+//			    	}
+					
+			    	
+//			    	@RequestMapping(method=RequestMethod.POST, value="/getbrakesubtype")	
+//					public List<MLocoBrakeSubtype> getallsubtype(){
+//					return obj_uncleasedservice.getallsubtype();
+//					}
+//					
+			    	
+			    	//ritu- 20june 2023
+			    	 
+			    	
+//			    	@PostMapping("/get_loco_uncleanseddetails")
+//				    public List<LocoDataFois> get_loco_uncleanseddetails(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+//			    	{
+//				   
+//				    	return obj_uncleasedservice.get_loco_uncleanseddetails(zone, shed);
+//							
+//				    }
+//			    	
+//                     //ritu to get total loco - 20june 2023
+//			    	 
+//			    	@PostMapping("/get_loco_totaldetails")
+//				    public List<LocoDataFois> get_loco_totaldetails(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+//			    	{
+//				   
+//				    	return obj_uncleasedservice.get_loco_totaldetails(zone, shed);
+//							
+//				    }
+//
+			      	// JYOTI BISHT 7-1-23   for shed Code Creation from m_loco_shed_new table 
 			    	@PostMapping("/get_loco_shed_details")
 				    public List<MLocoShedNew> geteLocoShedDetails(@RequestBody MLocoShedNew mlocoshed)
 			    	{
@@ -429,14 +476,27 @@ public class LocoEditForwardController {
 			        @PostMapping("/check_in_uncleansed")
 			        Optional<LocoUncleansedData> check_loco_in_uncleansed(@RequestParam("loco_no")String loco_no,@RequestParam("shed") String shed)
 			        {
-			        
+			        	//System.out.print("return value is "+loco_no,shed);
 			        	Optional<LocoUncleansedData> loco= uncleansed_repo.find_loco(Integer.parseInt(loco_no),shed);
-			        	//System.out.println("return value is "+loco);
+			        	
 			        	return loco;
 			        	
 			        }
 			        
-			        
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+
 			    	
 			    	
 }

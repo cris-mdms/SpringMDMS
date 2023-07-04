@@ -86,14 +86,18 @@ public class LocoUncleansedData {
 	 @Column(name="is_gps_enabled")                  
 	 private String isGPSEnabledDiesel; 
 
+	 
 	 @Column(name="flag_type")                  
 		private String flagTypeDiesel; 
 	
 	 @Column(name="status")                  
 	 private String vStatus; 
+	 	
 	 
 	 @Column(name="loco_lease_type")                  
-	 private String loco_lease_type;       
+	 private String loco_lease_type;
+	 
+	           
 	 
 	 @Column(name="record_status")                  
 	 private String recordstatus; 
@@ -106,17 +110,6 @@ public class LocoUncleansedData {
 	 
 	 @Column(name="txn_date")                  
 	 private Date txndate;
-	 
-	 private String loco_owning_division;
-	 
-
-	public String getLoco_owning_division() {
-		return loco_owning_division;
-	}
-
-	public void setLoco_owning_division(String loco_owning_division) {
-		this.loco_owning_division = loco_owning_division;
-	}
 
 	public int getLoco_No() {
 		return loco_No;
@@ -213,6 +206,7 @@ public class LocoUncleansedData {
 	public void setLoco_Hauling_Power(String loco_Hauling_Power) {
 		this.loco_Hauling_Power = loco_Hauling_Power;
 	}
+
 
 	public String getLoco_Axleload() {
 		return loco_Axleload;

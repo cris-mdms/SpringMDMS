@@ -31,6 +31,87 @@ public class MLocoShed {
 	private String shed_type;
 	
 
+	
+	@Column(name="ir_flag")
+	private String ir_flag;
+	
+	@Column(name="fois_flag")
+	private String fois_flag;
+	
+	@Column(name="old_shed_code")
+	private String old_shed_code;
+	
+	@Column(name="fois_old_zone_code")
+	private String fois_old_zone_code;
+	
+	@Column(name="fois_old_shed_code")
+	private String fois_old_shed_code;
+	
+	@Column(name="zone_name")
+	private String zone_name;
+	
+	@Column(name="validity")
+	private String validity;
+	
+
+	
+	public String getIr_flag() {
+		return ir_flag;
+	}
+
+	public void setIr_flag(String ir_flag) {
+		this.ir_flag = ir_flag;
+	}
+
+	public String getFois_flag() {
+		return fois_flag;
+	}
+
+	public void setFois_flag(String fois_flag) {
+		this.fois_flag = fois_flag;
+	}
+
+	public String getOld_shed_code() {
+		return old_shed_code;
+	}
+
+	public void setOld_shed_code(String old_shed_code) {
+		this.old_shed_code = old_shed_code;
+	}
+
+	public String getFois_old_zone_code() {
+		return fois_old_zone_code;
+	}
+
+	public void setFois_old_zone_code(String fois_old_zone_code) {
+		this.fois_old_zone_code = fois_old_zone_code;
+	}
+
+	public String getFois_old_shed_code() {
+		return fois_old_shed_code;
+	}
+
+	public void setFois_old_shed_code(String fois_old_shed_code) {
+		this.fois_old_shed_code = fois_old_shed_code;
+	}
+
+	public String getZone_name() {
+		return zone_name;
+	}
+
+	public void setZone_name(String zone_name) {
+		this.zone_name = zone_name;
+	}
+
+	public String getValidity() {
+		return validity;
+	}
+
+	public void setValidity(String validity) {
+		this.validity = validity;
+	}
+
+
 	public String getBaseshedCode() {
 		return baseshedCode;
 	}

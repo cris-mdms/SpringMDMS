@@ -10,14 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoApprovedDslData;
-import com.mdms.loco.locouncleansed.model.LocoApprovedRecords;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataAddNewLoco;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedDslDataRepo;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedRecordsRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataAddNewRepository;
-import com.mdms.mdms_station.stationuncleansed.model.StationUncleansedData;
 @Service
 public class LocoApproveService {	
 	@Autowired 
@@ -30,8 +28,6 @@ public class LocoApproveService {
 	
 	@Autowired
 	private LocoApprovedRecordsRepository obj_LocoAppNewRepo;
-	
-	
 	public boolean adddata(LocoApprovedData objcleansed) {
 		try{
 			
@@ -128,20 +124,12 @@ public class LocoApproveService {
 			String var9=approvedloco.getFlagType();
 			String var10=approvedloco.getElec_locoBrakeSubtype();
 			String txnDate1 = new SimpleDateFormat("yyyy-MM-dd").format(date);
-
-//			Date txnDate = date;
-//			String axleload=approvedloco.getLoco_Axleload();
-//			int locono=approvedloco.getElec_locoNo();
-//			System.out.println(locono);
-//			approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate, axleload,locono);
-
-			String axleload=approvedloco.getLoco_Axleload();
 			Date txnDate = date;
+			String axleload=approvedloco.getLoco_Axleload();
 			int locono=approvedloco.getElec_locoNo();
 			System.out.println(locono);
-			approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate,axleload, locono);
-
-//			System.out.println(approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate,axleload,locono));
+			approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate, axleload,locono);
+			System.out.println(approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate,axleload,locono));
 			
 			return  true ;			
 			}
@@ -170,11 +158,7 @@ public class LocoApproveService {
 					String axleload=approvedloco.getLoco_Axleload();
 					int locono=approvedloco.getElec_locoNo();
 					System.out.println(locono);
-
 					approved_repo.updateDGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, txnDate,axleload, locono);
-
-					approved_repo.updateDGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, txnDate, axleload,locono);
-
 					System.out.println(approved_repo.updateDGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, txnDate,axleload,locono));
 					
 					return  true ;			
@@ -192,7 +176,7 @@ public class LocoApproveService {
 					
 					
 					try {
-//						System.out.println("t one==========="+t);
+						System.out.println("t one==========="+t);
 						approved_repo.updateLocoApproveData(locoApprModel.getElec_locoOwningZone() ,locoApprModel.getElec_locoOwningShed(),locoApprModel.getElec_locoOwningdivision(),locoApprModel.getElec_locoNo());
 						t=true;
 						//System.out.println("i========="+i);
@@ -202,7 +186,7 @@ public class LocoApproveService {
 					 * if(i==1) { flag =true ; }
 					 */ 
 					
-//					System.out.println("t two==========="+t);
+					System.out.println("t two==========="+t);
 					return t;
 					
 					}catch(Exception e) {
@@ -220,7 +204,7 @@ public class LocoApproveService {
 				}
 				
 				
-                // JYOTI BISHT 17-10-22
+ // JYOTI BISHT 17-10-22
 				
 				public int getLocoApproved(String from, String to) throws ParseException
 				{
@@ -279,6 +263,7 @@ public class LocoApproveService {
 						return "ERROR OCCURRED";
 					
 				}
+
 
 				
 

@@ -10,12 +10,13 @@ import com.mdms.mdms_coach.coachuncleansed.model.MCoachTypePrs;
 
 public interface MCoachTypePrsRepository extends CrudRepository<MCoachTypePrs,String>{
 
+//	@Query(value="select coach_code from mdms_coach.m_coach_type_prs except select prs_coach_type from mdms_coach.coach_type_mapping ",nativeQuery = true)
+
 	
 	
 	// edited by Jyoti Bisht 10-4-23
 //	@Query(value="select coach_code from mdms_coach.m_coach_type_prs except select prs_coach_type from mdms_coach.coach_type_mapping ",nativeQuery = true)
 	@Query(value="select distinct coach_code from mdms_coach.m_coach_type_prs",nativeQuery = true)
-
 	List<String> getCoachTypesPrs();
 	
 	

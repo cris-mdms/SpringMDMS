@@ -109,6 +109,7 @@ private PRSTypeLayoutRepository prstyperepo;
 	}
 
 	
+
 	public String uploadFileCondemn(MultipartFile multipartFile) throws IOException {
 		  logger.info("UploadFile Service");
 		 String fileUrl = "";
@@ -147,6 +148,7 @@ private PRSTypeLayoutRepository prstyperepo;
 	
 	
 	
+
 	
 //	S3 File upload method- PRS
 	
