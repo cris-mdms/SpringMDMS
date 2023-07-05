@@ -1,4 +1,4 @@
-package com.mdms.mdms_coach.coachuncleansed.service;
+package com.mdms.loco.locouncleansed.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,33 +20,28 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
-import com.mdms.mdms_coach.coachuncleansed.repository.CMMTypeLayoutRepository;
-import com.mdms.mdms_coach.coachuncleansed.repository.PRSTypeLayoutRepository;
-import com.mdms.mdms_coach.coachuncleansed.model.CMMTypeLayout;
+
 
 @Service
-public class CoachS3FileUploadLayoutService {
-
+public class LocoS3FileUploadService {
+	
 	private AmazonS3 s3client;
-	private final String endpointUrl="http://coach-layout.s3-website.ap-south-1.amazonaws.com";
-	private final String bucketName="coach-layout";
+	private final String endpointUrl="http://loco-condemnation-data.s3-website.ap-south-1.amazonaws.com";
+	private final String bucketName="loco-condemnation-data";
 	private final String accessKey="AKIASFBV5NAHXITKSB2D";
 	private final String secretKey="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";
 	
-	private Logger logger = LoggerFactory.getLogger(CoachS3FileUploadLayoutService.class);
-@Autowired
+	private Logger logger = LoggerFactory.getLogger(LocoS3FileUploadService.class);
+
 	
-	private CMMTypeLayoutRepository cmmtyperepo;
 
-@Autowired
 
-private PRSTypeLayoutRepository prstyperepo;
+
 	@PostConstruct
 	private void initializeAmazon() {
 		AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
@@ -55,13 +50,10 @@ private PRSTypeLayoutRepository prstyperepo;
         .withCredentials(new AWSStaticCredentialsProvider(credentials))
         .build();
 
-		
-		
-//		this.s3client = new AmazonS3Client(credentials);
 	}
 
 //	S3 File upload method- CMM
-	
+	/*
 	public String uploadFileCMM(MultipartFile multipartFile,String sender, String coachtype,
 			String capacity,String description,String remarks) throws IOException {
 		  logger.info("UploadFile Service");
@@ -83,9 +75,7 @@ private PRSTypeLayoutRepository prstyperepo;
 				
 				
 				
-		} /*catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		} 
 		catch (AmazonServiceException ase) {
 	          logger.info("Caught an AmazonServiceException from GET requests, rejected reasons:");
 	          logger.info("Error Message:    " + ase.getMessage());
@@ -107,19 +97,23 @@ private PRSTypeLayoutRepository prstyperepo;
 		return fileUrl;
 
 	}
-
+*/
 	
-
-	public String uploadFileCondemn(MultipartFile multipartFile) throws IOException {
+	public String uploadFileCondemn(MultipartFile multipartFile1,MultipartFile multipartFile2,String loco_no) throws IOException {
 		  logger.info("UploadFile Service");
 		 String fileUrl = "";
 		try {
-			File file = convertMultiPartToFile(multipartFile);
-			String fileName = generateFileName(multipartFile);
+			File file1 = convertMultiPartToFile(multipartFile1);
+			String fileName1 = generateFileName(multipartFile1,loco_no);
 			
-		
-			uploadFileTos3bucket(fileName, file);
-			file.delete();
+			File file2 = convertMultiPartToFile(multipartFile2);
+			String fileName2 = generateFileName(multipartFile2,loco_no);
+			
+			fileUrl = "RECORD SAVED AND UPLOADED AT : "+endpointUrl + "/" + bucketName + "/" + fileName1+" and at "+endpointUrl + "/" + bucketName + "/" + fileName2;
+			uploadFileTos3bucket(fileName1, file1);
+			uploadFileTos3bucket(fileName2, file2);
+			file1.delete();
+			file2.delete();
 		
 				
 		} 
@@ -148,9 +142,9 @@ private PRSTypeLayoutRepository prstyperepo;
 	
 	
 	
-
 	
 //	S3 File upload method- PRS
+	/*
 	
 	public String uploadFilePRS(MultipartFile multipartFile,String sender, String coachtype,
 			String capacity,String description,String remarks) throws IOException {
@@ -171,9 +165,7 @@ private PRSTypeLayoutRepository prstyperepo;
 				
 				
 				
-		} /*catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		} 
 		catch (AmazonServiceException ase) {
 	          logger.info("Caught an AmazonServiceException from GET requests, rejected reasons:");
 	          logger.info("Error Message:    " + ase.getMessage());
@@ -195,7 +187,8 @@ private PRSTypeLayoutRepository prstyperepo;
 		return fileUrl;
 
 	}
-
+	
+*/
 	
 	
 	
@@ -207,8 +200,8 @@ private PRSTypeLayoutRepository prstyperepo;
 		return convFile;
 	}
 	
-	private String generateFileName(MultipartFile multiPart) {
-		return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
+	private String generateFileName(MultipartFile multiPart,String loco_no) {
+		return new Date().getTime() + "-" +loco_no+"-"+ multiPart.getOriginalFilename().replace(" ", "_");
 	}
 	
 	private void uploadFileTos3bucket(String fileName, File file) {

@@ -101,8 +101,11 @@ obj.setSenior_id(profileRegistrationService.seniorID(registrationObj.getDesignat
 //System.out.println("asset_desig"+registrationObj.getAsset_designation_code());	
 	obj.setUser_type(user_type);
 
+
+
 	obj.setEmail(registrationObj.getEmail());
 	obj.setPhone(registrationObj.getMobile_no());
+
 
 //	System.out.println("menusize"+response.size());
 //	System.out.println("result"+result);

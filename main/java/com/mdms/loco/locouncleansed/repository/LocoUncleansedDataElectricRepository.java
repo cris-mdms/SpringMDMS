@@ -81,17 +81,25 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
 			"	 is_gps_enabled,flag_type, loco_traction_motor_type,status, user_id, txn_date, remarks, loco_flag, record_status)\r\n" + 
 			"	VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22, ?23, ?24,?25,?26.?27,?28,?29,?30,?31);", nativeQuery=true)
 
-	int insertNewLocoShedData(long locoNo, String locoType, String locoOwningZone, String locoOwningDivision,
+		int insertNewLocoShedData(long locoNo, String locoType, String locoOwningZone, String locoOwningDivision,
+
+//			int insertNewLocoShedData(int locoNo, String locoType, String locoOwningZone, String locoOwningDivision,
+
+					String locOwningShed, String locoPermanentDomain, Long locoInitialCost, Long locoPOHCost,
+					String locoAuxiliaryOutput, String leaseType, Date dateOfMfg, Date dateOfRcng,
+					String locoBoogieType, String locoBrakeSubtype, String locoBrakeType, String locoCabac,
+					String locoCommissionedShedId, String locoControlType, Date locoDateOfCommision, Date locoEntryDate,
+					String locoHotelLoad,String locoManfacturer, String isGPSEnable,String flagtype, String locoTractionMotorType, String status, String userid,Date txndate,String remarks,String locoflag,String recordstatus);
 
 //	int insertNewLocoShedData(int locoNo, String locoType, String locoOwningZone, String locoOwningDivision,
+//			String locOwningShed, String locoPermanentDomain, Long locoInitialCost, Long locoPOHCost,
+//			String locoAuxiliaryOutput, String leaseType, Date dateOfMfg, Date dateOfRcng,
+//			String locoBoogieType, String locoBrakeSubtype, String locoBrakeType, String locoCabac,
+//			String locoCommissionedShedId, String locoControlType, Date locoDateOfCommision, Date locoEntryDate,
+//			String locoHotelLoad,String locoManfacturer, String isGPSEnable,String flagtype, String locoTractionMotorType, String status, String userid,Date txndate,String remarks,String locoflag,String recordstatus);
 
-			String locOwningShed, String locoPermanentDomain, Long locoInitialCost, Long locoPOHCost,
-			String locoAuxiliaryOutput, String leaseType, Date dateOfMfg, Date dateOfRcng,
-			String locoBoogieType, String locoBrakeSubtype, String locoBrakeType, String locoCabac,
-			String locoCommissionedShedId, String locoControlType, Date locoDateOfCommision, Date locoEntryDate,
-			String locoHotelLoad,String locoManfacturer, String isGPSEnable,String flagtype, String locoTractionMotorType, String status, String userid,Date txndate,String remarks,String locoflag,String recordstatus);
-
- // Shilpi 09-03-2021
+	
+	// Shilpi 09-03-2021
     
 
 //	@Query(value="SELECT loco_owning_shed as loco_Owningshed , COUNT(*)  as draft_forward_approval_count FROM  mdms_loco.loco_uncleansed_data WHERE loco_owning_shed=?1 AND (status='D' OR Status='R') AND LOCO_NO IN (SELECT DISTINCT  loco_no from  mdms_loco.loco_data_fois ) GROUP BY loco_owning_shed",nativeQuery=true)
@@ -155,7 +163,10 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
  	  
  	 @Query(value="select * from mdms_loco.loco_uncleansed_data where loco_owning_zone=?1 and loco_owning_shed=?2 and status=?3 ",nativeQuery = true)
  	 List<LocoUncleansedDataElectric>  getLocoDetails(String zone, String shed, String status);
- 	 
+    
+	
+ // Shilpi 09-03-2021
+
   // JYOTI BISHT 5-1-23 for dashboard zone & shed wise loco draft count
  	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , COUNT(*)  as draft_forward_approval_count FROM  mdms_loco.loco_uncleansed_data "
  			+ "WHERE (status='D' OR Status='R') and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail)  GROUP BY loco_owning_zone,loco_owning_shed order by loco_owning_zone",nativeQuery=true)

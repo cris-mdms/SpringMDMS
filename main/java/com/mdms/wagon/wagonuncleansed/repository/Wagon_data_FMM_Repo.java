@@ -39,5 +39,5 @@ public interface Wagon_data_FMM_Repo extends CrudRepository<Wagon_data_fmm,Strin
     @Procedure(value="mdms_wagon.f_wagon_dashboard_total_ess")
   		String getWagonDashboardCount();
 
-    
+
 }

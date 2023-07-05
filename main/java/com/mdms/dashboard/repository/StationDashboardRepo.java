@@ -5,8 +5,8 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.jpa.repository.query.Procedure;
-
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.mdms.dahsboard.model.DashBoardStationCountDivisionWiseModel;
 import com.mdms.dahsboard.model.DashboardStationModel;
@@ -40,7 +40,12 @@ public interface StationDashboardRepo  {
 		  		+ "	  		+ \"					where e.divcode=?1\\r\\n\"\r\n"
 		  		+ "	  		+ \"					group by 1,2 ) as aa",nativeQuery=true)
 	  Collection<DashBoardStationCountDivisionWiseModel> getUncleansedStationCountSingleDivisionWise(String divcode);
-		  
+	  
+	
+
+
+
+
 
 	
 

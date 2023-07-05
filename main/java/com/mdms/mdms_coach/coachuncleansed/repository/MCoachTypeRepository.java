@@ -15,11 +15,8 @@ public interface MCoachTypeRepository  extends CrudRepository<MCoachType,String>
 List<String> getCoachTypes();
 
 
-// query updated by JYOTI BISHT 10-4-23
 //@Query(value="select coach_type from mdms_coach.m_coach_type_cmm except select cmm_coach_type from mdms_coach.coach_type_mapping ",nativeQuery = true)
-@Query(value="select coach_type from mdms_coach.m_coach_type_cmm",nativeQuery = true)
-
-List<String> getCoachTypesCmm();
+//List<String> getCoachTypesCmm();
 
 @Query(value="select coach_type from mdms_coach.m_coach_type_cmm except select cmmcoachtype from mdms_coach.cmm_type_layout ",nativeQuery = true)
 List<String> getCoachTypesCmmLayout();
@@ -50,6 +47,18 @@ List<MCoachType> getMCoachTypeCmm();
 
 @Query(value="select * from mdms_coach.m_coach_type_cmm where reserved_flag ='Y' order by coach_type ",nativeQuery = true)
 List<MCoachType> getMCoachTypeCmmReservedCoach();
+
+//Ritu 24 May2023
+@Query(value="select mfg_code from mdms_coach.m_coach_manufacturer ",nativeQuery = true)
+List<String> getMCoachmfg();
+
+// query updated by JYOTI BISHT 10-4-23
+//@Query(value="select coach_type from mdms_coach.m_coach_type_cmm except select cmm_coach_type from mdms_coach.coach_type_mapping ",nativeQuery = true)
+@Query(value="select coach_type from mdms_coach.m_coach_type_cmm",nativeQuery = true)
+List<String> getCoachTypesCmm();
+
+
+
 
 
 }

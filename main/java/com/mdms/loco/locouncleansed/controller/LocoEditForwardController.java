@@ -2,11 +2,13 @@ package com.mdms.loco.locouncleansed.controller;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mdms.loco.locouncleansed.model.LocoCondemnation;
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
@@ -37,7 +40,9 @@ import com.mdms.loco.locouncleansed.model.MLocoType;
 import com.mdms.loco.locouncleansed.model.MlocoControlType;
 import com.mdms.loco.locouncleansed.model.MlocoDomainType;
 import com.mdms.loco.locouncleansed.model.MlocoManufactureType;
+import com.mdms.loco.locouncleansed.repository.LocoCondemnRepo;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
+import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
 import com.mdms.loco.locouncleansed.service.LocoEditForwardService;
 import com.mdms.mdms_masters.model.MDivision;
 import java.text.ParseException;
@@ -49,7 +54,14 @@ public class LocoEditForwardController {
 	
 	@Autowired
 	 private LocoEditForwardService obj_uncleasedservice;
+	
 
+	@Autowired
+	LocoCondemnRepo condemn_repo;
+	
+	@Autowired
+	LocoUncleansedDataRepository uncleansed_repo;
+	
 	
 	//getloconominationtype
 	//domain
@@ -81,15 +93,14 @@ public class LocoEditForwardController {
 				  return obj_uncleasedservice.getAllLocos(locos);		 	 	
 			}
 		 
-		 
-		 //get uncleanesd loco type list	 
-		 @RequestMapping(method=RequestMethod.POST, value="/getuncleansedlocotype")
-		 public List<MLocoType> getlocotypelist(){
-						 return obj_uncleasedservice.getlocotypelist();
 			 
-		 }
+			 //get uncleanesd loco type list	 
+			 @RequestMapping(method=RequestMethod.POST, value="/getuncleansedlocotype")
+			 public List<MLocoType> getlocotypelist(){
+							 return obj_uncleasedservice.getlocotypelist();
+				 
+			 }
 		 
-		
 			
 			@RequestMapping(method=RequestMethod.POST, value="/getelectricshedid")	
 			public List<MLocoShed> getbaseshed(){
@@ -120,9 +131,9 @@ public class LocoEditForwardController {
 			
 			@RequestMapping(method=RequestMethod.POST, value="/getallshedbyuserzone")	
 			public List<String> getAllShedbyuserZone(@RequestParam("userid") String userid, @RequestParam("zoneid")String zoneid, @RequestParam("zone")String zone){
-		System.out.println("userid"+ userid);
-		System.out.println("userid"+ zoneid);
-		System.out.println("userid"+ zone);
+			System.out.println("userid"+ userid);
+		    System.out.println("userid"+ zoneid);
+		    System.out.println("userid"+ zone);
 				List<String>  temp = obj_uncleasedservice.getAllShedbyuserZoneID(userid,zoneid,zone);
 						for(int i = 0; i < temp.size(); i++) {
 //				            System.out.println(temp.get(i).getZoneCode());
@@ -301,7 +312,56 @@ public class LocoEditForwardController {
 							
 				    }
 			    	
-			    	// JYOTI BISHT 7-1-23   for shed Code Creation from m_loco_shed_new table 
+//			    	// JYOTI BISHT 7-1-23   for shed Code Creation from m_loco_shed_new table 
+//			    	@PostMapping("/get_loco_shed_details")
+//				    public List<MLocoShedNew> geteLocoShedDetails(@RequestBody MLocoShedNew mlocoshed)
+//			    	{
+//				   
+//				    	return obj_uncleasedservice.get_loco_shed_details(mlocoshed);
+//							
+//				    }
+//			    	
+//			    	@PostMapping("/getallzoneid_new")	
+//					public List<Object[]> getAllZoneID_new(){
+//					return obj_uncleasedservice.getAllZone_names();
+//					}
+//					
+//			    	
+//			    	@PostMapping("/get_div_by_zone_new")
+//			    	public List<Object[]> get_shed_by_zone_div_new(@RequestParam("zone")String zone)
+//			    	{
+//			    		return obj_uncleasedservice.get_div_by_zone_name(zone);
+//			    	}
+					
+			    	
+//			    	@RequestMapping(method=RequestMethod.POST, value="/getbrakesubtype")	
+//					public List<MLocoBrakeSubtype> getallsubtype(){
+//					return obj_uncleasedservice.getallsubtype();
+//					}
+//					
+			    	
+			    	//ritu- 20june 2023
+			    	 
+			    	
+//			    	@PostMapping("/get_loco_uncleanseddetails")
+//				    public List<LocoDataFois> get_loco_uncleanseddetails(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+//			    	{
+//				   
+//				    	return obj_uncleasedservice.get_loco_uncleanseddetails(zone, shed);
+//							
+//				    }
+//			    	
+//                     //ritu to get total loco - 20june 2023
+//			    	 
+//			    	@PostMapping("/get_loco_totaldetails")
+//				    public List<LocoDataFois> get_loco_totaldetails(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+//			    	{
+//				   
+//				    	return obj_uncleasedservice.get_loco_totaldetails(zone, shed);
+//							
+//				    }
+//
+			      	// JYOTI BISHT 7-1-23   for shed Code Creation from m_loco_shed_new table 
 			    	@PostMapping("/get_loco_shed_details")
 				    public List<MLocoShedNew> geteLocoShedDetails(@RequestBody MLocoShedNew mlocoshed)
 			    	{
@@ -328,5 +388,115 @@ public class LocoEditForwardController {
 					return obj_uncleasedservice.getallsubtype();
 					}
 
+			    	
+			    	//ritu- 20june 2023
+			    	   
+			    	   
+			        @PostMapping("/get_loco_uncleanseddetails")
+			       public List<LocoDataFois> get_loco_uncleanseddetails(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+			        {
+			     
+			        return obj_uncleasedservice.get_loco_uncleanseddetails(zone, shed);
+
+			       }
+			       
+			       //ritu to get total loco - 20june 2023
+			       
+			        @PostMapping("/get_loco_totaldetails")
+			       public List<LocoDataFois> get_loco_totaldetails(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+			        {
+			     
+			        return obj_uncleasedservice.get_loco_totaldetails(zone, shed);
+
+			       }
+			        
+			    
+			        
+			        @PostMapping("/save_condemn_details")
+			        LocoCondemnation insert_condemn_details(@RequestBody LocoCondemnation loco)
+			        {
+			        	try
+			        	{
+			        		 LocalDateTime localDateTime = LocalDateTime.now();
+			        		 loco.setTxn_date(localDateTime);
+			        		 loco.setApproval_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getApproval_doc().replace(" ", "_"));
+			        		 loco.setProposal_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
+			        		 
+			        		 return condemn_repo.save(loco);
+			        	}
+			        	catch(Exception e)
+			        	{
+			        		return null;
+			        	}
+			        	
+			        }
+			        
+			        @PostMapping("/check_in_condemn")
+			        public boolean check_loco_condemn(@RequestParam("loco_no")String loco_no)
+			        {
+			        
+			        	if(condemn_repo.condemn_loco_check(Integer.parseInt(loco_no)) == null)
+			        	{
+			        		return false;
+			        	}
+			
+			        	else
+			        		return true;
+			        	
+			        }
+			        
+			        @PostMapping("/get_condemn_loco_details")
+				       public List<LocoCondemnation> get_condemn_loco_details(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+				        {
+				     
+				        return condemn_repo.get_condemn_loco(zone,shed);
+
+				       }
+			        @PostMapping("/update_condemn_loco_details")
+				       public int update_condemn_loco_details(@RequestParam("loco") String loco, @RequestParam("status") String status , @RequestParam("remarks") String remarks, @RequestParam("user_id") String user_id)
+				        {
+				     
+				        try
+				        {
+				        	condemn_repo.insert_into_history(Integer.parseInt(loco));
+				        	
+				        	 LocalDateTime localDateTime = LocalDateTime.now();
+			       
+				        	 condemn_repo.update_condemn_loco_status(Integer.parseInt(loco),status,remarks,user_id,localDateTime);
+				        	return 1;
+				       
+				        }catch(Exception e)
+				        {
+				        return 0;
+				        
+				        }
+
+				       } 
+			        
+			        @PostMapping("/check_in_uncleansed")
+			        Optional<LocoUncleansedData> check_loco_in_uncleansed(@RequestParam("loco_no")String loco_no,@RequestParam("shed") String shed)
+			        {
+			        	//System.out.print("return value is "+loco_no,shed);
+			        	Optional<LocoUncleansedData> loco= uncleansed_repo.find_loco(Integer.parseInt(loco_no),shed);
+			        	
+			        	return loco;
+			        	
+			        }
+			        
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	
+
+			    	
 			    	
 }

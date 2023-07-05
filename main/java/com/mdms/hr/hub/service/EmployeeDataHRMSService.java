@@ -87,8 +87,7 @@ public class EmployeeDataHRMSService {
 		{
 			return obj_repo.getdesignations();			
 		}
-
-		
+	
 		
 }
 

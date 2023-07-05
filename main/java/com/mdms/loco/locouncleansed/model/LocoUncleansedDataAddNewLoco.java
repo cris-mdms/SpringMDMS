@@ -12,11 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class LocoUncleansedDataAddNewLoco {
 	@Id
 	@Column(name = "loco_no")
-
-	private long loco_no;
-
-//	private int loco_no;
-
+	private Long loco_no;
 
 	@Column(name = "loco_permanent_domain")
 	private String loco_permanent_domain;
@@ -181,21 +177,28 @@ public class LocoUncleansedDataAddNewLoco {
 		this.loco_auxilary = loco_auxilary;
 	}
 
+//	public int getLoco_no() {
+//		return loco_no;
+//	}
+//
+//	public void setLoco_no(int loco_no) {
+//		this.loco_no = loco_no;
+//	}
 
+	
 	public long getLoco_no() {
 		return loco_no;
 	}
 
 	public void setLoco_no(long loco_no) {
-		this.loco_no = loco_no;}
-//	public int getLoco_no() {
-//		return loco_no;
-//	}
+		this.loco_no = loco_no;
+}
+//	private long loco_no;
 
-//	public void setLoco_no(int loco_no) {
-//>>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
-//		this.loco_no = loco_no;
-//	}
+//	private int loco_no;
+
+
+	
 
 	public String getLoco_permanent_domain() {
 		return loco_permanent_domain;

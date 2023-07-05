@@ -63,7 +63,19 @@ public class MdmsMastersController {
 		 logger.error("controller : MdmsMastersController || Method : findByDivison || input recieved findByDivison: "+division);		 
        return mdm_mstr_serv.findByDivision(division) ;
 
-	} 
+	
+	
+	}    
+	
+	@RequestMapping(method=RequestMethod.POST, value="/zone")
+	public	 List<String> getAllZone(){
+		return mdm_mstr_serv.getAllZone();
+	}
+	@RequestMapping(method=RequestMethod.POST, value="/zonemaster")
+	public	 List<MZone> getZone(){
+		return mdm_mstr_serv.getZone();
+	}
+
 	
 	@RequestMapping(method=RequestMethod.GET, value="/mdivisioncode")
 	List<String> getZonewiseDivisionCode(@RequestParam(value="zone_code" )String zone_code)throws Exception {
@@ -75,16 +87,6 @@ public class MdmsMastersController {
 
 	}    
 	
-
-	@RequestMapping(method=RequestMethod.POST, value="/zone")
-	public	 List<String> getAllZone(){
-		return mdm_mstr_serv.getAllZone();
-	}
-	@RequestMapping(method=RequestMethod.POST, value="/zonemaster")
-	public	 List<MZone> getZone(){
-		return mdm_mstr_serv.getZone();
-	}
-
 	@RequestMapping(method=RequestMethod.POST, value="/mdivision")
 	public	 List<MDivision> getZonewisedivision(@RequestParam String zone_code ){
 		return mdm_mstr_serv.getzonewisedivlist(zone_code);
@@ -110,33 +112,90 @@ public class MdmsMastersController {
 	 @RequestMapping(method=RequestMethod.POST, value="/getlocoassetdesignation")
 		public List<MDesignationCode> getLocoUserDesig(@RequestBody MDesignationCode desig){ 
 		 System.out.println("DESIGNATION"+desig.getHrms_designation());
-
+		
 			    System.out.println( mdm_mstr_serv.getLocoUserDesig(desig));
 			    
 			    return mdm_mstr_serv.getLocoUserDesig(desig);
 		}
 	 
 
-	 @RequestMapping(method=RequestMethod.POST, value="/getdesignation")
-		public MDesignationCode getDesig(@RequestParam("designation") String desig){ 
-	//	 System.out.println("DESIGNATION"+desig.getHrms_designation());
-		 String new_design=null;
-		 System.out.println("...................designation is "+desig);
-			    if(desig.contains("&"))
-			    {
-			    	String old_desig[]=desig.split("&");
-			    	new_design=old_desig[0]+"%" ;// +"\\&"+old_desig[1];
-			    	System.out.println("new generated ..............."+new_design);
-			    	 	
-			    }
-			    if(new_design!=null)
-			    	return mdm_mstr_serv.getDesig(new_design);
-			    else
-			    	
-			    return mdm_mstr_serv.getDesig(desig);
-		}
-	 
 
+
+
+	
+//	@RequestMapping(method=RequestMethod.GET, value="/mdivisioncode")
+//	List<String> getZonewiseDivisionCode(@RequestParam(value="zone_code" )String zone_code)throws Exception {
+//		logger.error("controller : MdmsMastersController || Method : getZonewiseDivisionCode || input recieved zone: "+zone_code);		 
+//	       return mdm_mstr_serv.getZonewiseDivisionCode(zone_code) ;
+//		
+//	
+//	
+//
+//	}    
+//	
+//
+//	@RequestMapping(method=RequestMethod.POST, value="/zone")
+//	public	 List<String> getAllZone(){
+//		return mdm_mstr_serv.getAllZone();
+//	}
+//	@RequestMapping(method=RequestMethod.POST, value="/zonemaster")
+//	public	 List<MZone> getZone(){
+//		return mdm_mstr_serv.getZone();
+//	}
+//
+//	@RequestMapping(method=RequestMethod.POST, value="/mdivision")
+//	public	 List<MDivision> getZonewisedivision(@RequestParam String zone_code ){
+//		return mdm_mstr_serv.getzonewisedivlist(zone_code);
+//	}
+//	 @RequestMapping(method=RequestMethod.POST, value="/stnuserdesignation")
+//		public boolean findStnDesignation(@RequestBody MDesignation desig){ 										
+//			  return  mdm_mstr_serv.verifyStnUserDesig(desig);		 	 	
+//		}
+//	 @RequestMapping(method=RequestMethod.POST, value="/coachuserdesignation")
+//		public boolean findCoachDesignation(@RequestBody MDesignation desig){ 										
+//			  return  mdm_mstr_serv.verifyCoachUserDesig(desig);		 	 	
+//		}
+//	 @RequestMapping(method=RequestMethod.POST, value="/locouserdesignation")
+//		public boolean findLocoDesignation(@RequestBody MDesignation desig){ 
+//		 System.out.println("DESIGNATION"+desig.getDesignation_name());
+//		
+//			    System.out.println( mdm_mstr_serv.verifyLocoUserDesig(desig)); 
+//			    
+//			    
+//			    return mdm_mstr_serv.verifyLocoUserDesig(desig);
+//		}
+//	 
+//	 @RequestMapping(method=RequestMethod.POST, value="/getlocoassetdesignation")
+//		public List<MDesignationCode> getLocoUserDesig(@RequestBody MDesignationCode desig){ 
+//		 System.out.println("DESIGNATION"+desig.getHrms_designation());
+//
+//			    System.out.println( mdm_mstr_serv.getLocoUserDesig(desig));
+//			    
+//			    return mdm_mstr_serv.getLocoUserDesig(desig);
+//		}
+//	 
+//
+//	 @RequestMapping(method=RequestMethod.POST, value="/getdesignation")
+//		public MDesignationCode getDesig(@RequestParam("designation") String desig){ 
+//	//	 System.out.println("DESIGNATION"+desig.getHrms_designation());
+//		 String new_design=null;
+//		 System.out.println("...................designation is "+desig);
+//			    if(desig.contains("&"))
+//			    {
+//			    	String old_desig[]=desig.split("&");
+//			    	new_design=old_desig[0]+"%" ;// +"\\&"+old_desig[1];
+//			    	System.out.println("new generated ..............."+new_design);
+//			    	 	
+//			    }
+//			    if(new_design!=null)
+//			    	return mdm_mstr_serv.getDesig(new_design);
+//			    else
+//			    	
+//			    return mdm_mstr_serv.getDesig(desig);
+//		}
+//	 
+
+//>>>>>>> branch 'master' of https://github.com/cris-mdms/SpringMDMS.git
 	 
 	 @RequestMapping(method=RequestMethod.POST, value="/checkassetcodeexist")
 		public boolean checkassetscodeexist(@RequestBody MDesignationCode assetcode){ 

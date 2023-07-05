@@ -39,6 +39,23 @@ public boolean deleteWagonrecord(String wgnum)
 }
 
 
+//saving data of wagon 
+	public boolean addwagondata(WagonNumberMapping  obj_adddata) {
+//		try{
+		if(((CrudRepository<WagonNumberMapping, Long>) obj_adddata).save(obj_adddata) != null)
+		{
+					return true;	
+		}
+//catch(Exception e){
+			
+			
+		else {	return false;}
+//		}
+		
+		
+					}
+
+
 /*
 >>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 
@@ -58,10 +75,8 @@ public boolean deleteWagonrecord(String wgnum)
 		
 					}
 <<<<<<< HEAD
-=======
-					
+			
 					*/
-
 
 
 }

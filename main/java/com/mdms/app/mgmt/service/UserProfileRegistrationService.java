@@ -1233,7 +1233,7 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 
 	public boolean delete_user_details(String user_id)	{
 
-
+		
 		try
 		{
 			profileRegistrationRepo.delete_user(user_id);
@@ -1244,11 +1244,19 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 			return false;
 		}
 		
-
 		
 		
 		
 	}
+
+
+
+	
+
+		
+		
+		
+	
 
 	
 	
@@ -1266,6 +1274,7 @@ public List<UserProfileRegistrationDetailModel> getActiveuser1(UserProfileRegist
 			}
 			
 		}
+
 
 
 

@@ -37,14 +37,12 @@ public class LocoApprovedData {
 
 	@Column(name = "loco_auxilary")
 	private String elec_locoAuxiliaryOutput;
-
 	
 	@Column(name = "loco_traction_motor_type")
 	private String elec_locoTractionMotorType;
 
 	@Column(name = "loco_owning_shed")
 	private String elec_locoOwningShed;
-
 	
 	@Column(name = "loco_owning_zone")
 	private String elec_locoOwningZone;
@@ -54,7 +52,6 @@ public class LocoApprovedData {
 
 	@Column(name = "loco_cabin_ac")
 	private String elec_locoCabac;
-		
 	
 	@Column(name = "loco_boogie_type")
 	private String elec_locoBoogieType;
@@ -65,11 +62,11 @@ public class LocoApprovedData {
 	@Column(name = "loco_hotel_load")
 	private String elec_locoHotelLoad;
 
-	 @Column(name="is_gps_enabled")                  
-	 private String isGPSEnabled; 
+	@Column(name="is_gps_enabled")                  
+	private String isGPSEnabled; 
 	 
-	 @Column(name="flag_type")                  
-		private String flagType; 
+	@Column(name="flag_type")                  
+	private String flagType; 
 
 	@Column(name = "loco_brake_type")
 	private String elec_locoBrakeType;
@@ -98,25 +95,24 @@ public class LocoApprovedData {
 	 @Column(name="txn_date")                  
 	 private Date txndate;
 	 
-		@Column(name="loco_hauling_power")                  
-		private String loco_Hauling_Power; 
+	 @Column(name="loco_hauling_power")                  
+	 private String loco_Hauling_Power; 
 		
-		@Column(name="loco_axle_load")                  
-		private String loco_Axleload; 
-				
-			
-		@Column(name="loco_gauge_type")    
-		 private String loco_Gaugetype;
+	 @Column(name="loco_axle_load")                  
+	 private String loco_Axleload; 
+						
+	 @Column(name="loco_gauge_type")    
+	 private String loco_Gaugetype;
 		
-		@Column(name="loco_manufacturing_country")                  
-		private String loco_MfgCountry;
+	 @Column(name="loco_manufacturing_country")                  
+	 private String loco_MfgCountry;
 		
-		@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") 
-		 @Column(name="loco_manufacturing_date")                  
-		 private Date loco_Mfg_Dt; 
+	//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") 
+	 @Column(name="loco_manufacturing_date")                  
+	 private Date loco_Mfg_Dt; 
 		
-		@Column(name="transfer_loco_status")     
-		private String transfer_loco_status;
+	 @Column(name="transfer_loco_status")     
+	 private String transfer_loco_status;
 
 		public String getTransfer_loco_status() {
 			return transfer_loco_status;
@@ -382,6 +378,5 @@ public class LocoApprovedData {
 			this.elec_locoOwningdivision = elec_locoOwningdivision;
 		} 
 		
-
 
 }

@@ -5,27 +5,25 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
 import com.mdms.app.mgmt.model.UserProfileRegistrationDetailModel;
 import com.mdms.dahsboard.model.DashBoardCoachCountDepoWiseModel;
 import com.mdms.dahsboard.model.DashBoardLocoCountShedWiseModel;
 import com.mdms.dahsboard.model.DashBoardStationCountDivisionWiseModel;
 import com.mdms.dahsboard.model.DashboardStationModel;
+import com.mdms.dahsboard.model.GetLocoZonewiseDashboardJsonModel;
 import com.mdms.dahsboard.model.ZonalUserReportModel;
 import com.mdms.dahsboard.model.ZonalUsersAssetModel;
 import com.mdms.dashboard.repository.StationDashboardRepo;
+import com.mdms.loco.locouncleansed.model.LocoDashboardModelRepo;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
 import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
-
-import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
-
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachCMMDataRepository;
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachCleansedDataRepository;
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachTypeMappingRepository;
@@ -36,9 +34,6 @@ import com.mdms.mdms_station.stationuncleansed.repository.StationCleansedDataRep
 import com.mdms.mdms_station.stationuncleansed.repository.StationTableRbsRepository;
 import com.mdms.mdms_station.stationuncleansed.repository.StationUncleansedDataRepository;
 
-
-
-
 @Service
 public class StationDashboardService {
 	 Logger logger=LoggerFactory.getLogger(StationDashboardService.class);
@@ -46,8 +41,10 @@ public class StationDashboardService {
 	 String a [];
 	 int datel [];
 	 String opdslipcount [];
-//	 @Autowired
-//		private StationDashboardRepo stationRepositoryObj;
+	 
+	 //@Autowired
+ //LocoDashboardModelRepo locoobj;
+//	 StationDashboardRepo stationRepositoryObj;
 //	 
 	 @Autowired
 		StationUncleansedDataRepository stn_unclsnd_repo;
@@ -83,11 +80,6 @@ public class StationDashboardService {
 		@Autowired
 		private JdbcTemplate jdbcTemplate;
 		
-
-		@Autowired
-		private LocoUncleansedDataRepository obj_uncleansedcommonrepo;
-		
-
 		public HashMap<String, Integer> getStationStats() {
 			logger.info("Service : StationDashboardService || Method: getStationStats");
 
@@ -1136,16 +1128,15 @@ public class StationDashboardService {
 				public List<DashboardStationModel> getLocoCountZoneWise(DashboardStationModel obj1zone_code) {
 					String loco_owning_zone_code =obj1zone_code.getLoco_owning_zone_code();
 					
-
 					List<DashboardStationModel> list= new ArrayList<DashboardStationModel>();		
 					Collection<DashBoardLocoCountShedWiseModel> totalCountLists= loco_tbl_fois_repo.getLocoZoneShed(loco_owning_zone_code);
 						logger.info("Service : DashBoardStationService || Method: getLocoZoneShed || getLocoZoneShed Query list return : "+totalCountLists);
 						if(totalCountLists.size()>0) {
 						totalCountLists.forEach(DashBoardLocoCountShedWiseModel -> setTotalZoneShed(DashBoardLocoCountShedWiseModel,list));
+//						totalCountLists.forEach(DashBoardLocoCountShedWiseModel -> callTotalfoisLocoZoneShed(DashBoardLocoCountShedWiseModel,list)); 
 
 					}	
-
-					 						
+						
 						Collection<DashBoardLocoCountShedWiseModel> uncleansedCountLists= loco_tbl_fois_repo.getUncleansedLocoZoneShed(loco_owning_zone_code);
 						logger.info("Service : DashBoardStationService || Method: getUncleansedLocoZoneShed || getUncleansedLocoZoneShed Query list return : "+uncleansedCountLists.size());
 
@@ -1174,6 +1165,38 @@ public class StationDashboardService {
 					
 				}
 					//end changes
+				
+				private void callTotalfoisLocoZoneShed(DashBoardLocoCountShedWiseModel uncleansedObj,Collection< DashboardStationModel>list) {
+					// TODO Auto-generated method stub
+					try {		
+						uncleansedFlag=0;
+						list.forEach(totalobj -> callTotalLocoSubShedwise1(uncleansedObj,totalobj));	
+						if(uncleansedFlag==0){
+							DashboardStationModel obj = new DashboardStationModel();
+							obj.setLoco_owning_zone_code(uncleansedObj.getLoco_owning_zone_code());	
+							obj.setLoco_owning_shed_code(uncleansedObj.getLoco_owning_shed_code());
+							obj.setUncleansed_count(uncleansedObj.getuncleansed_count());
+					//		list.add(obj);	
+						}
+							}catch (Exception e) {
+						// TODO: Handle Exception
+						e.getMessage();		}
+				}
+				private void callTotalLocoSubShedwise1(DashBoardLocoCountShedWiseModel uncleansedObj,DashboardStationModel totalobj) {
+					
+					try {
+					if(uncleansedObj.getLoco_owning_shed_code().equalsIgnoreCase(totalobj.getLoco_owning_shed_code())) {
+						uncleansedFlag++;
+						totalobj.setUncleansed_count(uncleansedObj.getuncleansed_count());
+					}
+					}catch (Exception e) {
+						// TODO: handle exception
+						e.getMessage();
+					}
+				}
+				
+				
+				
 				
 				private void callUncleansedLocoZoneShed(DashBoardLocoCountShedWiseModel uncleansedObj,Collection< DashboardStationModel>list) {
 					// TODO Auto-generated method stub
@@ -1315,6 +1338,7 @@ public class StationDashboardService {
          		//obj.setLoco_owning_zone_code(DashBoardStationCountDivisionWiseModel.getLoco_owning_zone_code());	
 				obj.setLoco_owning_zone_code(DashBoardLocoCountShedWiseModel.getLoco_owning_zone_code());
 				obj.setLoco_Owningshed(DashBoardLocoCountShedWiseModel.getLoco_Owningshed());
+//				obj.setLoco_owning_shed_code(DashBoardLocoCountShedWiseModel.getLoco_owning_shed_code());
 				obj.setTotal_loco_count(DashBoardLocoCountShedWiseModel.getTotal_loco_count());		
 				//obj.setCleansed_count(DashBoardLocoCountShedWiseModel.getcleansed_count());
 				//obj.setDraft_forward_approval_count(DashBoardLocoCountShedWiseModel.getDraft_forward_approval_count());
@@ -1777,5 +1801,67 @@ public List<DashBoardCoachCountDepoWiseModel> geCoachMapCount( DashBoardCoachCou
 }
 
 
+public List<GetLocoZonewiseDashboardJsonModel> getLocoZonewiseReport() {
+	logger.info("Service : StationDashboardService || Method: getSingleLocoZoneWiseUsers");
+//	String utype=obj1.getUser_type();
+//	String zone=obj1.getZone();
+	String querystring=null;
+	
+	final String noofusers="select * from mdms_loco.f_loco_dashboard_report_zonewise()"; 					
+   return jdbcTemplate.query(
+		   noofusers,
+           (rs, rowNum) ->
+                   new GetLocoZonewiseDashboardJsonModel(
+                           rs.getString("loco_owningzone"),
+                           rs.getInt("tot_count"),
+                           rs.getInt("unclen"),
+                           rs.getInt("dft"),
+                           rs.getInt("pend"),
+                           rs.getInt("appv")
+                           
+                          
+                   )
+   );
 }
+
+
+public List<GetLocoZonewiseDashboardJsonModel> getloco() {
+	logger.info("Service : StationDashboardService || Method: getloco");
+
+Map<String, Integer> map = new HashMap<>();
+	 
+try {
+	 final String noOfStations = "select * from mdms_loco.f_loco_dashboard_report_zonewise()";
+	  List<GetLocoZonewiseDashboardJsonModel> ls= jdbcTemplate.queryForObject(noOfStations,List.class);
+	  System.out.println(ls.toString());
+	  return ls;
+}
+catch(Exception e) {
+logger.error("Service : StationDashboardService || Method: getDivisionWiseStationStats|| Exception : " +e.getMessage());
+e.getMessage();
+return null;
+}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

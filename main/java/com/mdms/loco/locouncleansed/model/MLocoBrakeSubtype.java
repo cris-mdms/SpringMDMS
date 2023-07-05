@@ -25,6 +25,7 @@ public class MLocoBrakeSubtype {
 	}
 
 
+
 	public String getBrakesubtype() {
 		return brakesubtype;
 	}

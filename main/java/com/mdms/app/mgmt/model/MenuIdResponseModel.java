@@ -29,7 +29,6 @@ public class MenuIdResponseModel {
     String additional_shed;
     String additional_shed_active;
     
-
     String email;
     String phone;
 
@@ -150,7 +149,9 @@ public class MenuIdResponseModel {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+  
 
+	
 	
 
 	public String getEmail() {
@@ -164,6 +165,7 @@ public class MenuIdResponseModel {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+
 	}
 
 	@Override

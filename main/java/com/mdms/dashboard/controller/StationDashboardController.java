@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mdms.app.mgmt.model.GetListUserRegistrationJsonModel;
 import com.mdms.app.mgmt.model.UserProfileRegistrationDetailModel;
 import com.mdms.dahsboard.model.DashBoardCoachCountDepoWiseModel;
 import com.mdms.dahsboard.model.DashboardStationModel;
+import com.mdms.dahsboard.model.GetLocoZonewiseDashboardJsonModel;
 import com.mdms.dahsboard.model.ZonalUserReportModel;
 import com.mdms.dahsboard.model.ZonalUsersAssetModel;
 import com.mdms.dashboard.service.StationDashboardService;
-
-
 @CrossOrigin(origins = {"*"}, maxAge = 4800, allowCredentials = "false")
-
 @RestController
 public class StationDashboardController {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
 	@Autowired
 	private StationDashboardService stationServ_obj;
 	
@@ -163,7 +165,6 @@ Logger logger=LoggerFactory.getLogger(StationDashboardController.class);
 
 					}
 				
-
 	
 
 //				//coach type mapping	 
@@ -172,6 +173,34 @@ Logger logger=LoggerFactory.getLogger(StationDashboardController.class);
 //			    return stationServ_obj.geCoachMapCount(objdraft);	
 //				}
 
+				
+				
+				@RequestMapping(method=RequestMethod.POST, value="/getlocozonewisedashboardreport")
+				public List<GetLocoZonewiseDashboardJsonModel> getLocoZonewiseReport(){
+									
+//					GetLocoZonewiseDashboardJsonModel response= stationServ_obj.getLocoZonewiseReport();
+				
+										logger.info("Controller : StationDashBoardController || Method : getLocoZonewiseReport ");
 
+					return stationServ_obj.getLocoZonewiseReport();
+					
+				}
+
+				
+//				@RequestMapping(method=RequestMethod.POST, value="/getlocozonewisedashboardreport")
+//				public 	 List<Object[]> getLocoZonewiseReport() {
+//										logger.info("controller : DashBoardStationController || Method : getLocoZonewiseReport");
+//										return stationServ_obj.getLocoZonewiseReport1();
+//					
+//				}
+				@RequestMapping(method=RequestMethod.POST, value="/getloco")
+				public List<GetLocoZonewiseDashboardJsonModel> getloco(){	
+					
+					logger.info("controller : StationDashboardController || Method : getDivStationStats");		
+					return  stationServ_obj.getloco();
+				}
+
+
+	
 
 }

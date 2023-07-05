@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mdms.dahsboard.model.DailyFailedIntegrationModel;
 import com.mdms.dahsboard.model.DailyIntegrationModel;
 import com.mdms.dahsboard.model.DivisonUsersAssetModel;
 import com.mdms.dahsboard.model.RbUserCount;
@@ -26,7 +26,6 @@ import com.mdms.dahsboard.model.ZonalUsersAssetModel;
 import com.mdms.dashboard.service.SuperUserDashboardService;
 
 @CrossOrigin(origins = {"*"}, maxAge = 4800, allowCredentials = "false")
-
 @RestController
 public class SuperUserDashboardController {
 	Logger logger=LoggerFactory.getLogger(SuperUserDashboardController.class);
@@ -92,36 +91,32 @@ public class SuperUserDashboardController {
 		
 	}
 	
+	
+	
 	@RequestMapping(method=RequestMethod.POST, value="/divwiserec")
 	public 	List<DivisonUsersAssetModel> getDivisionWiseRecords(@RequestParam (value="usertype") String usertype ,@RequestParam (value="zone") String zone ) {
 		
 		logger.info("controller : SuperUserDashboardController || Method : getDivisionWiseRecords");
-
 		return su_dash_servc.getDivisionWiseRecords(usertype,zone);}
 
 	
-
 	@RequestMapping(method=RequestMethod.POST, value="/dailypublishdata")
-	public List<DailyIntegrationModel> getdailypublishintegration() {
-	logger.info("controller : SuperUserDashboardController || Method : getdailypublishintegration");
-	return su_dash_servc.getdailypublishintegration();}
+	public 	List<DailyIntegrationModel> getdailypublishintegration() {
+				logger.info("controller : SuperUserDashboardController || Method : getdailypublishintegration");
+		return su_dash_servc.getdailypublishintegration();}
 
-
+	
 	@RequestMapping(method=RequestMethod.POST, value="/dailysubscribedata")
-	public List<DailyIntegrationModel> getdailysubscriptionintegration() {
-	logger.info("controller : SuperUserDashboardController || Method : getdailysubscriptionintegration");
-	return su_dash_servc.getdailysubscriptionintegration();}
-
+	public 	List<DailyIntegrationModel> getdailysubscriptionintegration() {
+				logger.info("controller : SuperUserDashboardController || Method : getdailysubscriptionintegration");
+		return su_dash_servc.getdailysubscriptionintegration();}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/divwiserec1")
-	public 	List<DivisonUsersAssetModel> getDivisionWiseRecords1(@RequestParam (value="usertype") String usertype ,@RequestParam (value="division") String division, @RequestParam("role") String role ) {
-		
-		logger.info("controller : SuperUserDashboardController || Method : getDivisionWiseRecords");
-		return su_dash_servc.getDivisionWiseRecords1(usertype,division, role);
-		}
 	
-
-
+	@RequestMapping(method=RequestMethod.POST, value="/dailypublishingfaileddata")
+	public 	List<DailyFailedIntegrationModel> getdailypublishingfailedintegration() {
+				logger.info("controller : SuperUserDashboardController || Method : getdailypublishingfailedintegration");
+		return su_dash_servc.getdailypublishfailedintegration();}
+	
 	
 	// 26-04-2021
 	@RequestMapping(method=RequestMethod.POST, value="/coachtypemappingcount")
@@ -140,35 +135,53 @@ public class SuperUserDashboardController {
 		logger.info("controller : SuperUserDashboardController || Method : getCoachLayoutRecords");
 		return su_dash_servc.getCoachLayoutRecords();
 
-
 		
 	}
 	
+
+	 // JYOTI BISHT 9-5-23s
+	@PostMapping("/get_station_count")
+	public int get_div_station_count(@RequestParam("division") String div)
+	{
+	return su_dash_servc.get_div_station(div);
+	}
+	// JYOTI BISHT 10-5-23
+	@PostMapping("/get_stations")
+	public List<Object[]> get_stations_by_division(@RequestParam("division") String div)
+	{
+
+	return su_dash_servc.get_stations(div);
+	}
+	// JYOTI BISHT 13-5-23
+	@PostMapping("/get_usercount_div")
+	public int get_user_by_division(@RequestParam("division") String div, @RequestParam("user_type") String user_type, @RequestParam("role") String role)
+	{
+	return su_dash_servc.get_usercount_by_div(div, user_type, role);
+	}
+
+
+	@RequestMapping(method=RequestMethod.POST, value="/divwiserec1")
+	public List<DivisonUsersAssetModel> getDivisionWiseRecords1(@RequestParam (value="usertype") String usertype ,@RequestParam (value="division") String division, @RequestParam("role") String role ) {
+
+	logger.info("controller : SuperUserDashboardController || Method : getDivisionWiseRecords");
+	return su_dash_servc.getDivisionWiseRecords1(usertype,division, role);
+	}
+	
+
+	 
+		
+	
+}
+
+	
+
 	
 
 
-	  // JYOTI BISHT 9-5-23s
-		@PostMapping("/get_station_count")
-		public int get_div_station_count(@RequestParam("division") String div)
-		{
-			return su_dash_servc.get_div_station(div);
-		}
-		 // JYOTI BISHT 10-5-23
-		@PostMapping("/get_stations")
-		public List<Object[]> get_stations_by_division(@RequestParam("division") String div)
-		{
-			
-			return su_dash_servc.get_stations(div);
-		}
-		 // JYOTI BISHT 13-5-23
-		@PostMapping("/get_usercount_div")
-		public int get_user_by_division(@RequestParam("division") String div, @RequestParam("user_type") String user_type, @RequestParam("role") String role)
-		{
-			return su_dash_servc.get_usercount_by_div(div, user_type, role);
-		}
+	
 		
 		
-		
-}
+
+
 
 

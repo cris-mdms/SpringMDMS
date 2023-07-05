@@ -5,6 +5,7 @@ package com.mdms.loco.locouncleansed.controller;
 
 import java.util.List;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoApprovedDslData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataAddNewLoco;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
 import com.mdms.loco.locouncleansed.service.LocoApproveService;
 import java.text.ParseException;
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
@@ -30,6 +32,10 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
 	
 	@Autowired
 	 private LocoApproveService obj_cleasedservice;
+	
+	@Autowired
+	LocoApprovedDataRepository loco_approve_repo;
+	
 	@RequestMapping(method=RequestMethod.POST,value="/savelocogoldenrecord")
 		public boolean adddata(@RequestBody LocoApprovedData objcleansed){		
 		boolean flag= obj_cleasedservice.adddata(objcleansed);
@@ -88,15 +94,8 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  	 		System.out.println("flagtype"+ obj_approvedclass.getFlagType());
  	 		System.out.println("isgps"+ obj_approvedclass.getIsGPSEnabled()); 	
  	 		System.out.println("brakesubtype"+ obj_approvedclass.getElec_locoBrakeSubtype()); 
-
-
  	 		System.out.println("recddt"+ obj_approvedclass.getElec_locoRcvdDate()); 
  	 		System.out.println("axleload"+ obj_approvedclass.getLoco_Axleload()); 
-
-
- 	 		System.out.println("recddt"+ obj_approvedclass.getElec_locoRcvdDate());  		
-
-
 	boolean flag = obj_cleasedservice.updateDGoldenRecord(obj_approvedclass);
  	 	return flag;
  	 	}
@@ -143,6 +142,73 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
 	    	return obj_cleasedservice.get_loco_details(zone, shed, status);
 				
 	    }
+ 		
+ 		
+
+        //JYOTI BISHT 23-06-23
+  		
+ 	
+
+ 		@PostMapping("/get_complete_loco_details")
+	    public LocoApprovedData geteLocoDetails(@RequestParam("loco_no")String loco_no, @RequestParam ("shed") String shed)
+    	{
+ 			
+ 			LocoApprovedData loco=null;
+ 		
+ 		
+ 			loco=loco_approve_repo.getLocoCompletedetail(Integer.parseInt(loco_no),shed);
+ 			if(loco!=null)
+ 			{
+ 				return loco;
+ 			}
+ 			else
+ 			return null;
+	    		
+	    }
+
+ 		
+
+ 	// Anhsul 21-06-2023 //get all unapproved records as per shed of user
+  		
+//  		@RequestMapping(method=RequestMethod.POST, value="/getunappnewloco")
+//  		public List<LocoUncleansedDataAddNewLoco> getUnapprovedNewLoco(@RequestParam("shed") String owning_shed)
+//  		
+//  		{
+// 		return obj_cleasedservice.getUnapprovedNewLoco(owning_shed);
+// }
+//  		
+//  		
+//  		@RequestMapping(method=RequestMethod.POST, value="/approvenewloco")
+//  		public  String approveNewLoco(@RequestBody String loco_no) throws Exception
+//  		{			
+//  			
+//  			logger.error("controller : LocoApproveController || Method : approveNewLoco || input recieved approvedByDom: "+loco_no);	
+//  			
+//  			long loco=Long.valueOf(loco_no);
+//  			
+//  			return obj_cleasedservice.approveNewLoco(loco);		
+//  			
+//  		}
+//  		
+//  		
+//  		@RequestMapping(method=RequestMethod.POST, value="/rejectnewloco")
+//  		public  String rejectNewLoco(@RequestBody String loco_no) throws Exception
+//  		{			
+//  			
+//  			logger.error("controller : LocoApproveController || Method : rejectNewLoco || input recieved : "+loco_no);	
+//  			
+//  			long loco=Long.valueOf(loco_no);
+//  			
+//  			return obj_cleasedservice.rejectNewLoco(loco);		
+//  			
+//  		}
+//  		
+//}
+//}
+	
+		
+
+
 	// Anhsul 21-06-2023 //get all unapproved records as per shed of user
  		
  		@RequestMapping(method=RequestMethod.POST, value="/getunappnewloco")
@@ -150,7 +216,7 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  		
  		{
 		return obj_cleasedservice.getUnapprovedNewLoco(owning_shed);
-}
+       }
  		
  		
  		@RequestMapping(method=RequestMethod.POST, value="/approvenewloco")
@@ -177,4 +243,5 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  			return obj_cleasedservice.rejectNewLoco(loco);		
  			
  		}
+
 }

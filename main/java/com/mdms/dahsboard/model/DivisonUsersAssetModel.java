@@ -13,18 +13,10 @@ public String designation ;
 public String department;
 public Date from_date;
 public  Date last_login_date;
-
-	
-	
-	
-//	public DivisonUsersAssetModel(String division,String depo,String shed,String user_id,String name, String designation, String department,Date from_date, Date last_login_date)
-
 public String role_type;
 	
 	
-	
 	public DivisonUsersAssetModel(String division,String depo,String shed,String user_id,String name, String designation, String department,Date from_date, Date last_login_date, String role_type)
-
 	{
 		
 		this.division=division;
@@ -36,8 +28,14 @@ public String role_type;
 		this.department=department;
 		this.from_date=from_date;
 		this.last_login_date=last_login_date;
-
 		this.role_type=role_type;
+
+
+	
+	
+	
+//	public DivisonUsersAssetModel(String division,String depo,String shed,String user_id,String name, String designation, String department,Date from_date, Date last_login_date)
+
 
 	}
 	

@@ -1,38 +1,20 @@
 
 package com.mdms.datadictionary.controller;
-
-import java.security.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.mdms.datadictionary.model.DataDictionaryDocumentModel;
 import com.mdms.datadictionary.model.ReferentialsDynamicmodel;
 import com.mdms.datadictionary.model.StationDataDictionary;
 import com.mdms.datadictionary.model.publishedToMdmdModel;
-
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.mdms.datadictionary.model.DataDictionaryDocumentModel;
 import com.mdms.datadictionary.model.MD_DataCollation;
-import com.mdms.datadictionary.model.ReferentialsDynamicmodel;
-import com.mdms.datadictionary.model.StationDataDictionary;
-import com.mdms.datadictionary.model.publishedToMdmdModel;
 import com.mdms.datadictionary.repository.Data_collation_Repo;
 
 import com.mdms.datadictionary.service.DataDictionaryService;
@@ -43,7 +25,6 @@ public class DataDictionaryController {
 	private DataDictionaryService dataDictionaryService;
 @Autowired
 	private Data_collation_Repo data_collation;
-
 	@RequestMapping(method = RequestMethod.POST, value = "/getassetDocument")
 	public List<DataDictionaryDocumentModel> getAssetData(@RequestBody DataDictionaryDocumentModel dataDictionaryDocumentModel) {
 		List<DataDictionaryDocumentModel> listt = dataDictionaryService.findDataDictionaryDocument(dataDictionaryDocumentModel.getAssetName());
@@ -84,7 +65,20 @@ public class DataDictionaryController {
 		List<ReferentialsDynamicmodel> listt= dataDictionaryService.getRefrentialsDynamicData();		
 		return listt;
 	}
+
 	
+//	@RequestMapping(method = RequestMethod.POST, value = "/getassetDocument")
+//	public List<DataDictionaryDocumentModel> getAssetData(@RequestBody DataDictionaryDocumentModel dataDictionaryDocumentModel) {
+//		List<DataDictionaryDocumentModel> listt = dataDictionaryService.findDataDictionaryDocument(dataDictionaryDocumentModel.getAssetName());
+//		System.out.println(dataDictionaryDocumentModel.getAssetName());
+//		System.out.println(listt);
+//		return listt;
+//		
+//	}
+
+	
+
+
 	//JYOTI BISHT 27-3-23 DATA COLLATION
 	@PostMapping("/save_attributes")
 	 public boolean save_data_collation(@RequestBody MD_DataCollation data)

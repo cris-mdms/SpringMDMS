@@ -6,9 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,11 +21,17 @@ public class EmployeeDataHRMSController {
 	@Autowired
 	EmployeeDataHRMSService obj_service;
 	//getIPASSuserdetail 
-		
-	   @RequestMapping(method=RequestMethod.POST, value="/getipassuserdata")
+		@RequestMapping(method=RequestMethod.POST, value="/getipassuserdata")
 		public  List<EmployeeDataHRMS>  getipassuserdetail(@RequestParam("ipas_id") String ipas_id) {
 
+
 		   System.out.println(ipas_id);
+
+		   System.out.println("hello user"+ipas_id);
+
+
+		 
+
 
 			return obj_service.getipassuserdetail(ipas_id);
 		}

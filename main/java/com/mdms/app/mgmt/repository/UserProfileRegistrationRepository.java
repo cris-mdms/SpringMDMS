@@ -264,6 +264,7 @@ List<UserProfileRegistrationDetailModel> getReportdivisionuserallparameter(Strin
 	@Query(value="select a.name, a.designation , b.user_id from mdms_app_mgmt.user_profile_registration_detail a join mdms_app_mgmt.user_privilege b on a.user_id=b.user_id where  b.shed='ELTD' and b.additional_role_type='SHED_ADMIN' and b.additional_role_active='Y' and b.current_status='ACTIVE' ",nativeQuery=true)
 	List<UserProfileRegistrationDetailModel> getshedadminuserdetail1(String shedid);
 
+	
 	@Transactional
 	@Modifying
 	@Query(value="delete from mdms_app_mgmt.user_profile_registration_detail where user_id=?1",nativeQuery=true)
@@ -288,5 +289,6 @@ List<UserProfileRegistrationDetailModel> getReportdivisionuserallparameter(Strin
 	@Query(value="select count(*) from mdms_app_mgmt.user_profile_registration_detail where division=?1 and user_type=?2 and role_type=?3", nativeQuery = true)
 	int get_count_by_usertype(String division, String user_type, String role_type);
 	
+
 
 }

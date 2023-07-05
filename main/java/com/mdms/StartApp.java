@@ -25,14 +25,22 @@ public class StartApp extends SpringBootServletInitializer {
 	    }
 	public static void main(String[] args) {
 		SpringApplication.run(StartApp.class, args);
-	
+
+		
+
 	}
 	 
 	@RequestMapping(value="/")
 	public void index()
-	{
+	{		
 	    Logger logger = LoggerFactory.getLogger(StartApp.class);
 		logger.info("/index service called of development project");
 	}
 	
 }
+
+	
+	
+	 
+	
+

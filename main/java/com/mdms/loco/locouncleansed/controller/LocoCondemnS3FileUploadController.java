@@ -1,4 +1,4 @@
-package com.mdms.mdms_coach.coachuncleansed.controller;
+package com.mdms.loco.locouncleansed.controller;
 
 import java.io.IOException;
 
@@ -16,26 +16,28 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mdms.mdms_coach.coachuncleansed.service.CoachS3FileUploadLayoutService;
+import com.mdms.loco.locouncleansed.service.LocoS3FileUploadService;
+import com.mdms.mdms_coach.coachuncleansed.controller.CoachS3FileUploadLayoutController;
 
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
 
 
 @RestController
-@RequestMapping("/fileuploadS3")
-public class CoachS3FileUploadLayoutController {
+@RequestMapping("/locofileuploadS3")
+public class LocoCondemnS3FileUploadController {
+	
 	
 	@Autowired
-	private CoachS3FileUploadLayoutService amazonClient;
+	private LocoS3FileUploadService amazonClient;
 	
     Logger logger=LoggerFactory.getLogger(CoachS3FileUploadLayoutController.class);
     
 	@Autowired
-	CoachS3FileUploadLayoutController(CoachS3FileUploadLayoutService amazonClient) {
+	LocoCondemnS3FileUploadController(LocoS3FileUploadService amazonClient) {
 		this.amazonClient = amazonClient;
 	}
 	
-	
+	/*
 	@PostMapping("/uploadCmmFile")
 	public String uploadFileCMM(@RequestPart(value = "file") MultipartFile file,@RequestParam(value="sender")String sender
 			,@RequestParam(value="coachtype")String coachtype,@RequestParam(value="capacity")String capacity
@@ -57,7 +59,7 @@ public class CoachS3FileUploadLayoutController {
 		return this.amazonClient.uploadFilePRS(file,sender,coachtype,capacity,description,remarks);
 
 	}
-	
+	*/
 //	  download from s3
 	  @GetMapping(value= "/download")
 	    public ResponseEntity<ByteArrayResource> downloadFile1(@RequestParam(value= "fileName")  String keyName) {
@@ -73,21 +75,17 @@ public class CoachS3FileUploadLayoutController {
 	    }
 	  
 	  
-
-
 		@PostMapping("/uploadCondemnFile")
-		public String uploadFileCondemn(@RequestPart(value = "file") MultipartFile file	) throws IOException {
+		public String uploadFileCondemn(@RequestPart(value = "proposal_file") MultipartFile file,@RequestPart(value = "approval_file") MultipartFile file2, @RequestParam("loco")String loco_no) throws IOException {
 		//	logger.info("controller : CoachS3FileUploadController || Method : uploadFileCMM||")	;
 			
-			return this.amazonClient.uploadFileCondemn(file);
+			return this.amazonClient.uploadFileCondemn(file,file2,loco_no);
 
 		}
 		
-
-
+	  
 	  
 	   
-	  
 	  
 
 }

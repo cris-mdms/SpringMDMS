@@ -6,10 +6,14 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 
 import com.mdms.dahsboard.model.DashBoardLocoCountShedWiseModel;
 import com.mdms.dahsboard.model.DashBoardStationCountDivisionWiseModel;
+import com.mdms.dahsboard.model.GetLocoZonewiseDashboardJsonModel;
+import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
 public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long>{	
 	@Query(value="SELECT loco_no FROM  mdms_loco.loco_data_fois WHERE loco_owning_shed_code =?1  AND status IS Null AND (loco_status is null OR loco_status='CUTOUT')",nativeQuery=true)
@@ -53,24 +57,34 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
     Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoSingleShed(String shedid);
     
     //Shilpi 18-03-2021 --FOR ZONE WISE
-    
-
-    
-    @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as total_loco_count FROM  "
-    		+ "mdms_loco.loco_data_fois WHERE loco_owning_zone_code=?1   GROUP BY loco_owning_zone_code,loco_owning_shed_code ORDER BY 2",nativeQuery=true)
+   
+    @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as total_loco_count FROM  mdms_loco.loco_data_fois as a \r\n"
+    		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
+    		+ "     and ir_flag='Y' AND validity='Y' WHERE loco_owning_zone_code=?1   GROUP BY loco_owning_zone_code,loco_owning_shed_code ORDER BY 2",nativeQuery=true)
     Collection<DashBoardLocoCountShedWiseModel> getLocoZoneShed(String loco_owning_zone_code);
     
-    @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_data_fois WHERE loco_owning_zone_code=?1 and status is null  GROUP BY  loco_owning_zone_code ,loco_owning_shed_code ORDER BY 2 ",nativeQuery=true)
 
+    
+    @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_data_fois as a \r\n"
+    		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
+    		+ "     and ir_flag='Y' AND validity='Y' WHERE loco_owning_zone_code=?1 and status is null GROUP BY  loco_owning_zone_code ,loco_owning_shed_code ORDER BY 2 ",nativeQuery=true)
     Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoZoneShed(String loco_owning_zone_code);
   
     //Shilpi 09-04-2021 zonal hyperlink
     
 	
-   @Query(value="SELECT * FROM  mdms_loco.loco_data_fois WHERE loco_owning_shed_code=?1 and "
-	  		+ "status is null "  ,nativeQuery=true) List<LocoDataFois> getUncleansedLocoHyperShed(String shedid);
+	  @Query(value="SELECT * FROM  mdms_loco.loco_data_fois WHERE loco_owning_shed_code=?1 and status is null"
+	  ,nativeQuery=true) List<LocoDataFois> getUncleansedLocoHyperShed(String shedid);
 	  
-	     
+	  
+	  @Query(value="select * from mdms_loco.loco_data_fois where loco_owning_zone_code=?1 and loco_owning_shed_code=?2 and status is null ",nativeQuery = true)
+		 List<LocoDataFois>  getLocouncleansedDetails(String zone, String shed);
+			
+	      
+	  @Query(value="select *  from mdms_loco.loco_data_fois where loco_owning_zone_code=?1 and loco_owning_shed_code=?2 ",nativeQuery = true)
+		 List<LocoDataFois>  getLocototalDetails(String zone, String shed);
+			
+    
 //    @Query(value="select * from mdms_loco.loco_data_fois where status is null and loco_status is null and loco_no=?1",nativeQuery=true)
 //    List<LocoDataFois> getLocoDataFois(int loco_no);
 //   
@@ -85,35 +99,18 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
 	  int updateStatus(String loco_owning_zone,String loco_owning_shed,int loco_no);
     // JYOTI BISHT 31-10-22
     @Query(value="select extract(month from  update_date) as mon,loco_event,count(distinct loco_no)\n"
-
     		+ "from mdms_loco.loco_data_fois\n"
     		+ "where update_date>=?1 and  update_date <=?2 and loco_status is null\n"
-
-    		+ "from mdms_loco.loco_data_fois_original\n"
-    		+ "where update_date>=?1 and  update_date <=?2 \n"
-
     		+ " group by 1,2"
     		+ "", nativeQuery = true)
     List<Object[]> integration(Date date1, Date date2);
     
     // Jyoti Bisht
-
-     @Query(value="select count(*) from mdms_loco.loco_data_fois_original",nativeQuery=true)
+    @Query(value="select count(*) from mdms_loco.loco_data_fois",nativeQuery=true)
     int gettotalLocoDataFois();
     
-    //JYOTI BISHT 18-03-2021 --FOR ZONE & SHED WISE for total count
-    
-    @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as total_loco_count FROM  mdms_loco.loco_data_fois "
-    		+"where loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail)"
-    		+ "GROUP BY loco_owning_zone_code,loco_owning_shed_code ORDER BY loco_owning_zone_code",nativeQuery=true)
-    Collection<DashBoardLocoCountShedWiseModel> getLocoZoneShed1();
-    
-    //JYOTI BISHT 18-03-2021 --FOR ZONE & SHED WISE for uncleansed count
-    
-    @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_data_fois "
-    		  + "WHERE status is null and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY  loco_owning_zone_code ,loco_owning_shed_code ORDER BY loco_owning_zone_code ",nativeQuery=true)
-    Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoZoneShed1();
+ 
+  		  
+  		
 
-    
-    
 }
