@@ -16,6 +16,8 @@ import com.mdms.loco.locouncleansed.model.LocoApprovedData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataAddNewLoco;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+import com.mdms.loco.locouncleansed.repository.LocoApprovedRecordsRepository;
+import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataAddNewRepository;
 
 //import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataAddNewRepository;
@@ -33,6 +35,13 @@ public class LocoAddService {
 	@Autowired
 	private LocoUncleansedDataElectricRepository obj_electriclocorepo;
 
+	
+	@Autowired
+	private LocoApprovedRecordsRepository obj_LocoApprovedRecordsRepository;
+
+	@Autowired
+	LocoDataFoisRepository obj_LocoFoisRecordsRepo;
+	
 	public String saveDieselBoardZonalData(LocoUncleansedDataAddNewLoco dieselLocoBoardZonal) {
 		try {
 			String returnValue = null;
@@ -595,6 +604,31 @@ else  {returnstmt="ERROR OCCURRED";}
 return returnstmt;
 	
 
+}
+
+
+//Anshul 05-07-2023
+public boolean checkNewLocoNumberExist(long locono) {
+	// TODO Auto-generated method stub
+	boolean Flag=false;
+	int tmp_loco = (int) (locono);
+	boolean appLoco=obj_LocoApprovedRecordsRepository.findById(locono).isPresent();// approved data
+	String foisLoco=obj_dieselocoaddrepo.checklocoNoExistFois(tmp_loco); //fois data
+	boolean uncleanLoco=obj_LocoNewRepo.findById(locono).isPresent();//uncleansed data
+	
+	if(foisLoco==null)
+	{
+		Flag=false;
+	}
+	else
+		Flag=true;
+	
+if(appLoco||uncleanLoco||Flag)
+{
+	return true;
+	}
+else
+	return false;
 }
 
 

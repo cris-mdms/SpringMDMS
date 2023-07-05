@@ -21,8 +21,6 @@ public interface LocoUncleansedDataAddNewRepository extends CrudRepository<LocoU
 	List<LocoUncleansedDataAddNewLoco> getUnapprovedZonalBoardLoco();
 
 
-
-
 //	@Query(value="SELECT loco_flag, loco_no, loco_type, loco_permanent_domain, loco_owning_shed, loco_owning_zone, loco_traction_code, loco_owning_division, loco_manufacturing_date, loco_receiving_date,\r\n" + 
 //			"loco_initial_cost,loco_hotel_load, loco_poh_cost, loco_lease_type, loco_gauge_type, loco_hauling_power, loco_manufacturing_country, flag_type, loco_commissioning_date, loco_commissioned_shed_id FROM  mdms_loco.loco_uncleansed_data WHERE loco_owning_zone=?1 AND status='V' AND record_status='N'",nativeQuery=true)
 //	List<String> getApprovedZonalBoardLoco(String locozone);

@@ -86,7 +86,20 @@ public class LocoAddController {
 
 	boolean flag= obj_newlocoservice.checkloconoexist(locono);
 	return flag;
-	}   
+	} 
+	
+	//Anshul 05-07-2023
+	@RequestMapping(method=RequestMethod.GET, value="/checkloconoexistadd")
+	public boolean checkNewLocoNumberExist(@RequestParam(value="loco_no") long objlocono  ) {
+
+	boolean flag= obj_newlocoservice.checkNewLocoNumberExist(objlocono);
+	System.out.println("flag:    "+flag);
+	return flag;
+	} 
+
+
+
+
 
 //	@RequestMapping(method=RequestMethod.POST, value="/updateelectricboardzonalloco")
 //	public String updateelecbyboardzonaldata(@RequestBody BoardZonalApproval updateElectricLocoBoardZonal) throws JSONException, JsonMappingException, IOException 

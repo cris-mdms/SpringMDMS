@@ -25,6 +25,7 @@ import com.mdms.app.mgmt.model.UserRegistrationJsonModel;
 public class HRMSEmployeeDetailsController {
 	Logger logger=LoggerFactory.getLogger(HRMSEmployeeDetailsController.class);	
 	HrmsJsonModel hrmsEmpData;	
+	
 	@RequestMapping(method=RequestMethod.POST, value="/employeedetails")
 	public HrmsJsonModel hrmsEmployeeDetail(@RequestBody IPassIDModel ipassid ) {
 		System.out.println(ipassid.getIpasId());

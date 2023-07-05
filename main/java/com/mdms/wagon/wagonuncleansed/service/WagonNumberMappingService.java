@@ -38,8 +38,7 @@ public boolean deleteWagonrecord(String wgnum)
 	}	
 }
 
-<<<<<<< HEAD
-=======
+
 /*
 >>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
 
@@ -62,7 +61,7 @@ public boolean deleteWagonrecord(String wgnum)
 =======
 					
 					*/
->>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
+
 
 
 }

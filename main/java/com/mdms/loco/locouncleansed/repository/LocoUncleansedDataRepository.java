@@ -131,7 +131,15 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 	  @Query(value="SELECT loco_owning_zone as loco_owning_zone_code, loco_owning_shed as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_uncleansed_data "
 	  		+ "WHERE status='U' and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY  loco_owning_zone ,loco_owning_shed ORDER BY loco_owning_zone",nativeQuery=true)
 	    Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshed1();
+
+//Anshul 05-07-2023 // to check if loco number exists in fois table .
+
+	  @Query(value="select loco_no FROM mdms_loco.loco_data_fois where loco_no=?1",nativeQuery=true)
+	String checklocoNoExistFois(int locono);
 	  
+	  //Anshul 05-07-2023 // to check if loco number exist in approved table
+	  @Query(value="select loco_no FROM mdms_loco.loco_approved_data where loco_no=?1",nativeQuery=true)
+	  int checklocoExistApp(int loco);
 
 
 	

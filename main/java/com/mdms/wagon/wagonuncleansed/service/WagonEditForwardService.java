@@ -288,11 +288,9 @@ return rohPohDetailsRepo.getRohPohData( owningrly, groupname, vehicletype, vehic
 		  return wagon_fmm_repo.wagon_total_count();
 		}
 		   
-<<<<<<< HEAD
+
 	// Ritu  7-11-22
-=======
-	// Ritu 7-11-22
->>>>>>> a796579cb9d19590a212ed54e6e06c965fa48879
+
 	   public List<Object[]>  getwagontypecount() 
 		{
 		 
