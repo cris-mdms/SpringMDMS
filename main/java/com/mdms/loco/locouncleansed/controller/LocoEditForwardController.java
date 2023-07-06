@@ -41,6 +41,7 @@ import com.mdms.loco.locouncleansed.model.MlocoControlType;
 import com.mdms.loco.locouncleansed.model.MlocoDomainType;
 import com.mdms.loco.locouncleansed.model.MlocoManufactureType;
 import com.mdms.loco.locouncleansed.repository.LocoCondemnRepo;
+import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
 import com.mdms.loco.locouncleansed.service.LocoEditForwardService;
@@ -61,6 +62,9 @@ public class LocoEditForwardController {
 	
 	@Autowired
 	LocoUncleansedDataRepository uncleansed_repo;
+	
+	@Autowired
+	LocoDataFoisRepository loco_fois;
 	
 	
 	//getloconominationtype
@@ -458,12 +462,13 @@ public class LocoEditForwardController {
 				     
 				        try
 				        {
-				        	condemn_repo.insert_into_history(Integer.parseInt(loco));
+				        	 condemn_repo.insert_into_history(Integer.parseInt(loco));
 				        	
 				        	 LocalDateTime localDateTime = LocalDateTime.now();
 			       
 				        	 condemn_repo.update_condemn_loco_status(Integer.parseInt(loco),status,remarks,user_id,localDateTime);
-				        	return 1;
+				        	
+				             return 1;
 				       
 				        }catch(Exception e)
 				        {
@@ -484,7 +489,19 @@ public class LocoEditForwardController {
 			        }
 			        
 			    	
-			    	
+			        
+			        @PostMapping("/check_in_fois")
+			        Optional<LocoDataFois> check_loco_in_fois(@RequestParam("loco_no")String loco_no,@RequestParam("shed") String shed)
+			        {
+			        	//System.out.print("return value is "+loco_no,shed);
+			        	Optional<LocoDataFois> loco= loco_fois.get_Locodata_from_fois(Integer.parseInt(loco_no),shed);
+			        	
+			       	return loco;
+			        	
+			        	
+			        	
+			        }
+			        
 			    	
 			    	
 			    	
