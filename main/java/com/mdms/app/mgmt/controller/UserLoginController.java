@@ -208,6 +208,7 @@ obj.setSenior_id(profileRegistrationService.seniorID(registrationObj.getDesignat
 	List<UserLoginDetailModel> flag = userLoginService.checksessionactive(obj_checksession);
 	return flag;
 	}
+	
 	@RequestMapping(method=RequestMethod.POST, value ="/updateloginsession")
 	public boolean updatesession(@RequestBody UserLoginDetailModel obj_session)
 	{

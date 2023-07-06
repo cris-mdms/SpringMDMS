@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.jpa.repository.query.Procedure;
 
-
 import org.springframework.data.repository.CrudRepository;
 
 
@@ -35,12 +34,10 @@ public interface Wagon_data_FMM_Repo extends CrudRepository<Wagon_data_fmm,Strin
     @Query(value="SELECT  orgtype, count(wagonid) FROM mdms_wagon.wagon_data_fmm where wagon_status in ('A','R','N') and wagon_valid_flag='Y' group by 1" , nativeQuery=true)
     List<Object[]> getwagontypecount();
 
-
   
     //Ritu 20-03-23
     @Procedure(value="mdms_wagon.f_wagon_dashboard_total_ess")
   		String getWagonDashboardCount();
-
 
 
 }

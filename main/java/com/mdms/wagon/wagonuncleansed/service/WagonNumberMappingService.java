@@ -39,8 +39,6 @@ public boolean deleteWagonrecord(String wgnum)
 }
 
 
-
-
 //saving data of wagon 
 	public boolean addwagondata(WagonNumberMapping  obj_adddata) {
 //		try{
@@ -79,8 +77,6 @@ public boolean deleteWagonrecord(String wgnum)
 <<<<<<< HEAD
 			
 					*/
-
-
 
 
 }

@@ -110,14 +110,24 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
 	// JYOTI BISHT - FOR DASHBOARD ZONE-SHED WISE unapproved/uncleansed count 
 
 
-		  @Query(value="SELECT loco_owning_zone as loco_owning_zone_code, loco_owning_shed as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_uncleansed_data "
-		  		+ "WHERE status='U' and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY  loco_owning_zone ,loco_owning_shed ORDER BY loco_owning_zone",nativeQuery=true)
-		    Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshed1();
+	  @Query(value="SELECT loco_owning_zone as loco_owning_zone_code, loco_owning_shed as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_uncleansed_data "
+	  		+ "WHERE status='U' and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail) GROUP BY  loco_owning_zone ,loco_owning_shed ORDER BY loco_owning_zone",nativeQuery=true)
+	    Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshed1();
 
+//Anshul 05-07-2023 // to check if loco number exists in fois table .
+
+	  @Query(value="select loco_no FROM mdms_loco.loco_data_fois where loco_no=?1",nativeQuery=true)
+	String checklocoNoExistFois(int locono);
+
+		  
    // Jyoti Bisht (for condemnation module)
 	  @Query(value="SELECT * from mdms_loco.loco_uncleansed_data WHERE loco_no=?1 and loco_owning_shed=?2 ",nativeQuery = true)
 	  Optional<LocoUncleansedData> find_loco(int loco_no,String shed);
+
 	  
+	  //Anshul 05-07-2023 // to check if loco number exist in approved table
+	  @Query(value="select loco_no FROM mdms_loco.loco_approved_data where loco_no=?1",nativeQuery=true)
+	  int checklocoExistApp(int loco);
 
 
 //	   Jyoti Bisht (for condemnation module)

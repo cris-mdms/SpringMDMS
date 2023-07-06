@@ -58,36 +58,28 @@ public class DataDictionaryService {
 	}
 	
 
-
-//public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
-//		
-//		List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
-//		return publishtoMdms;
-//	}
-
 public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
 		
 		List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
 		return publishtoMdms;
 	}
 
-
-	
-	
-
 public List<ReferentialsDynamicmodel> getRefrentialsDynamicData(){
 		
 		List<ReferentialsDynamicmodel> list4= refrentialDynamicTableRepo.getRefrentialDynamicData();
 		
 		return list4;
-
-
 }
+
+	
+
+
 //public List<publishedToMdmdModel> findSubscriberToMdmsData(String attribute, String asset_name){
 //		
 //		List<publishedToMdmdModel> publishtoMdms= publishedTOMdmsRepo.getSubscriberoMdms(attribute, asset_name);
 //		return publishtoMdms;
 //	}
+
 
 	
 	

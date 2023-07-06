@@ -17,7 +17,7 @@ public class LocoApprovedRecords {
 	
 	@Id
 	@Column(name = "loco_no")
-	private int loco_no;
+	private long loco_no;
 	
 	@Column(name = "loco_type")
 	private String loco_type;
@@ -143,11 +143,11 @@ public class LocoApprovedRecords {
 	@Column(name = "transfer_loco_status")
 	private String transfer_loco_status;
 
-	public int getLoco_no() {
+	public long getLoco_no() {
 		return loco_no;
 	}
 
-	public void setLoco_no(int loco_no) {
+	public void setLoco_no(long loco_no) {
 		this.loco_no = loco_no;
 	}
 
