@@ -158,6 +158,10 @@ int updateFwdApp(String loco_traction_code,long loco_no, String loco_type,String
 				LocoUncleansedDataAddNewLoco getApprovedRecord(long loco_no);
 
 
-
+//Ritu 06-07-2023
+				 // to get loco service master data  
+				@Query(value="select * FROM mdms_loco.m_loco_service",nativeQuery=true)
+				List<String> getLocoService();
+	
 
 }

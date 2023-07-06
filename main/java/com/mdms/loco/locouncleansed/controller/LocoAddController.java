@@ -210,7 +210,14 @@ public class LocoAddController {
 			
 		
 
-		 
+		 //Ritu 06-07-2023
+			@RequestMapping(method=RequestMethod.GET, value="/getlocoservice")
+			public List<String> getlocoservice() throws Exception 
+			{
+				logger.info("----------/getlocoservice");
+				
+				return obj_newlocoservice.getlocoservice();
+					} 
 	 
 
 }

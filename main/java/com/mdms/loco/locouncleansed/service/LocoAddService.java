@@ -632,5 +632,10 @@ else
 }
 
 
+public List<String> getlocoservice()
+{
+	return obj_LocoNewRepo.getLocoService();
+}
+
 }
 
