@@ -3,6 +3,8 @@ package com.mdms.loco.locouncleansed.repository;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -110,6 +112,11 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
     int gettotalLocoDataFois();
     
  
+    //JYOTI BISHT 5_7_23
+	@Query(value="SELECT * FROM  mdms_loco.loco_data_fois WHERE loco_no=?1 and loco_owning_shed_code=?2 ",nativeQuery=true)
+	Optional<LocoDataFois>get_Locodata_from_fois(int locono, String shed);
+	
+	
   		  
   		
 

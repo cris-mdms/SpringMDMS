@@ -33,8 +33,8 @@ public class LocoS3FileUploadService {
 	private AmazonS3 s3client;
 	private final String endpointUrl="http://loco-condemnation-data.s3-website.ap-south-1.amazonaws.com";
 	private final String bucketName="loco-condemnation-data";
-	private final String accessKey="AKIASFBV5NAHXITKSB2D";
-	private final String secretKey="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";
+	private final String accessKey="AKIASFBV5NAHXR2ZI4HQ";
+	private final String secretKey="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";
 	
 	private Logger logger = LoggerFactory.getLogger(LocoS3FileUploadService.class);
 
