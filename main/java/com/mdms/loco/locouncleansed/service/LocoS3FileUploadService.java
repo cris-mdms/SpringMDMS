@@ -21,6 +21,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -33,8 +34,8 @@ public class LocoS3FileUploadService {
 	private AmazonS3 s3client;
 	private final String endpointUrl="http://loco-condemnation-data.s3-website.ap-south-1.amazonaws.com";
 	private final String bucketName="loco-condemnation-data";
-	private final String accessKey="AKIASFBV5NAHXR2ZI4HQ";
-	private final String secretKey="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";
+	private final String accessKey="AKIASFBV5NAHXITKSB2D";
+	private final String secretKey="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";
 	
 	private Logger logger = LoggerFactory.getLogger(LocoS3FileUploadService.class);
 
@@ -201,12 +202,12 @@ public class LocoS3FileUploadService {
 	}
 	
 	private String generateFileName(MultipartFile multiPart,String loco_no) {
-		return new Date().getTime() + "-" +loco_no+"-"+ multiPart.getOriginalFilename().replace(" ", "_");
+		return loco_no+"-"+ multiPart.getOriginalFilename().replace(" ", "_");
 	}
 	
 	private void uploadFileTos3bucket(String fileName, File file) {
 		s3client.putObject(
-				new PutObjectRequest(bucketName, fileName, file));
+				new PutObjectRequest(bucketName, fileName, file));//.withCannedAcl(CannedAccessControlList.PublicRead));
 				
 	}
 

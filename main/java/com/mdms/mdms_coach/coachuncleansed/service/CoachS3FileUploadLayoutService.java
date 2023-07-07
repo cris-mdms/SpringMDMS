@@ -109,46 +109,6 @@ private PRSTypeLayoutRepository prstyperepo;
 	}
 
 	
-
-	public String uploadFileCondemn(MultipartFile multipartFile) throws IOException {
-		  logger.info("UploadFile Service");
-		 String fileUrl = "";
-		try {
-			File file = convertMultiPartToFile(multipartFile);
-			String fileName = generateFileName(multipartFile);
-			
-		
-			uploadFileTos3bucket(fileName, file);
-			file.delete();
-		
-				
-		} 
-		catch (AmazonServiceException ase) {
-	          logger.info("Caught an AmazonServiceException from GET requests, rejected reasons:");
-	          logger.info("Error Message:    " + ase.getMessage());
-	          logger.info("HTTP Status Code: " + ase.getStatusCode());
-	          logger.info("AWS Error Code:   " + ase.getErrorCode());
-	          logger.info("Error Type:       " + ase.getErrorType());
-	          logger.info("Request ID:       " + ase.getRequestId());
-	          
-	          
-	            } catch (AmazonClientException ace) {
-	              logger.info("Caught an AmazonClientException: ");
-	                logger.info("Error Message: " + ace.getMessage());
-	                return " Exception Occurred. Contact Administrator";
-	            } catch (IOException ioe) {
-	              logger.info("IOE Error Message: " + ioe.getMessage());
-	              return " Exception Occurred. Contact Administrator";
-	              
-	            }
-		
-		return fileUrl;
-
-	}
-	
-	
-	
-
 	
 //	S3 File upload method- PRS
 	
@@ -231,6 +191,7 @@ private PRSTypeLayoutRepository prstyperepo;
 	        }
 	        return content;
 	    }
+	  
 	  
 	  
 	  
