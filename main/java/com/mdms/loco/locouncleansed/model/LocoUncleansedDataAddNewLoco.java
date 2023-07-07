@@ -133,8 +133,18 @@ public class LocoUncleansedDataAddNewLoco {
 		@Column(name = "loco_hotel_load")
 		private String elec_locoHotelLoad;
 
-		
+		@Column(name = "loco_service")
+		private String locoservice;
 		 
+
+	public String getLocoservice() {
+			return locoservice;
+		}
+
+		public void setLocoservice(String locoservice) {
+			this.locoservice = locoservice;
+		}
+
 	public String getElec_locoHotelLoad() {
 			return elec_locoHotelLoad;
 		}

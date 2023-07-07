@@ -116,6 +116,19 @@ public class BoardZonalApproval {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") 
 	 @Column(name="loco_receiving_date")                  
 		private Date loco_receiving_date;
+	
+	
+	@Column(name = "loco_service")
+	private String locoservice;
+
+
+	public String getLocoservice() {
+		return locoservice;
+	}
+
+	public void setLocoservice(String locoservice) {
+		this.locoservice = locoservice;
+	}
 
 	public int getLoco_no() {
 		return loco_no;

@@ -204,7 +204,7 @@ public class LocoAddController {
 			public String forwardForApprovalNewLoco(@RequestBody LocoUncleansedDataAddNewLoco locoapp) throws Exception 
 			{
 				logger.info("----------/forwardForApprovalNewLoco");
-				
+				System.out.println("mfgdt"+locoapp.getLoco_manufacturing_date());
 				return obj_newlocoservice.forwardForApprovalNewLoco(locoapp);
 					} 
 			

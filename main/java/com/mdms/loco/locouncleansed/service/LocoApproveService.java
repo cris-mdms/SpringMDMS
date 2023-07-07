@@ -240,7 +240,7 @@ public class LocoApproveService {
 //					LocoApprovedRecords temp=new LocoApprovedRecords();
 					//save records to golden records table also
 					obj_LocoAppNewRepo.saveApprovedRecords(tmp.getLoco_traction_code(),
-							tmp.getLoco_no() , tmp.getLoco_type(), tmp.getLoco_permanent_domain(),
+							tmp.getLoco_no() , tmp.getLoco_type(), tmp.getLoco_permanent_domain(),tmp.getLocoservice(),
 							tmp.getLoco_owning_shed()  ,tmp.getLoco_owning_zone() , tmp.getLoco_owning_division(), tmp.getLoco_manufacturing_date(), tmp.getLoco_receiving_date()
 							, tmp.getLoco_initial_cost(), tmp.getLoco_poh_cost(), tmp.getLoco_lease_type(), tmp.getGauge_type(),tmp.getLoco_hauling_power()
 							, tmp.getLoco_manufacturing_country(), tmp.getLoco_cabin_ac(), tmp.getLoco_commissioning_date(),

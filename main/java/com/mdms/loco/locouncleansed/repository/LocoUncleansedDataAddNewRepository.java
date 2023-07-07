@@ -79,13 +79,11 @@ public interface LocoUncleansedDataAddNewRepository extends CrudRepository<LocoU
 		@Transactional
 		@Modifying
 		@Query(value="INSERT INTO mdms_loco.loco_uncleansed_data(\r\n"
-				+ "	loco_traction_code,loco_no, loco_type,loco_permanent_domain, "
-				+ "	loco_owning_shed,loco_owning_zone, loco_owning_division, loco_manufacturing_date,loco_receiving_date,loco_initial_cost,loco_poh_cost,loco_lease_type,loco_gauge_type,"
-				+ "loco_hauling_power,loco_manufacturing_country,"
-				+ "	loco_cabin_ac,loco_commissioning_date,loco_hotel_load,loco_manufacturer,is_gps_enabled,flag_type,\r\n"
+				+ "	loco_traction_code,loco_no, loco_type,loco_permanent_domain,loco_service,loco_owning_shed,loco_owning_zone,loco_owning_division, loco_manufacturing_date,loco_receiving_date,loco_initial_cost,loco_poh_cost,loco_lease_type,loco_gauge_type,"
+				+ "loco_hauling_power,loco_manufacturing_country,loco_cabin_ac,loco_commissioning_date,loco_hotel_load,loco_manufacturer,is_gps_enabled,flag_type,\r\n"
 				+ "	loco_auxilary,loco_boogie_type,loco_traction_motor_type,loco_control_type,loco_brake_type,user_id,status,record_status,txn_date) \r\n"
-				+ "	VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21,?22,?23,?24,?25,?26,?27,?28,?29,?30)",nativeQuery=true)
-		int saveDraftNewLoco(String loco_traction_code,long loco_no, String loco_type,String loco_permanent_domain, 
+				+ "	VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20,?21,?22,?23,?24,?25,?26,?27,?28,?29,?30,?31)",nativeQuery=true)
+		int saveDraftNewLoco(String loco_traction_code,long loco_no, String loco_type,String loco_permanent_domain, String locoservice,
 				String loco_owning_shed,String loco_owning_zone, String loco_owning_division,Date loco_manufacturing_date,Date loco_receiving_date,long loco_initial_cost,
 				long loco_poh_cost,String loco_lease_type,String loco_gauge_type,Long loco_hauling_power,String loco_manufacturing_country,
 				String loco_cabin_ac,Date loco_commissioning_date,String loco_hotel_load,String loco_manufacturer,String is_gps_enabled,String flag_type,
@@ -102,14 +100,13 @@ public interface LocoUncleansedDataAddNewRepository extends CrudRepository<LocoU
 				+ "	loco_initial_cost=?10,loco_poh_cost=?11,loco_lease_type=?12,loco_gauge_type=?13,loco_hauling_power=?14,\r\n"
 				+ "	loco_manufacturing_country=?15,loco_cabin_ac=?16,loco_commissioning_date=?17,loco_hotel_load=?18,loco_manufacturer=?19,\r\n"
 				+ "	is_gps_enabled=?20,flag_type=?21,loco_auxilary=?22,loco_boogie_type=?23,loco_traction_motor_type=?24,loco_control_type=?25,\r\n"
-				+ "	loco_brake_type=?26,\r\n"
-				+ "status='D'"
-				+ "	WHERE loco_no=?2 and user_id=?27",nativeQuery=true)
+				+ "	loco_brake_type=?26,status='D',loco_service=?27"
+				+ "	WHERE loco_no=?2 and user_id=?28",nativeQuery=true)
 int updateDraftNewLoco(String loco_traction_code,long loco_no, String loco_type,String loco_permanent_domain, 
 		String loco_owning_shed,String loco_owning_zone, String loco_owning_division,Date loco_manufacturing_date,Date loco_receiving_date,long loco_initial_cost,
 		long loco_poh_cost,String loco_lease_type,String loco_gauge_type,Long loco_hauling_power,String loco_manufacturing_country,
 		String loco_cabin_ac,Date  loco_commissioning_date,String loco_hotel_load,String loco_manufacturer,String is_gps_enabled,String flag_type,
-		String loco_auxilary,String loco_boogie_type,String loco_traction_motor_type, String loco_control_type,String loco_brake_type,String user_id);
+		String loco_auxilary,String loco_boogie_type,String loco_traction_motor_type, String loco_control_type,String loco_brake_type,String locoservice,String user_id);
 				
 				
 				//Anshul 17-06-2023
@@ -121,13 +118,13 @@ int updateDraftNewLoco(String loco_traction_code,long loco_no, String loco_type,
 				+ "	loco_initial_cost=?10,loco_poh_cost=?11,loco_lease_type=?12,loco_gauge_type=?13,loco_hauling_power=?14,\r\n"
 				+ "	loco_manufacturing_country=?15,loco_cabin_ac=?16,loco_commissioning_date=?17,loco_hotel_load=?18,loco_manufacturer=?19,\r\n"
 				+ "	is_gps_enabled=?20,flag_type=?21,loco_auxilary=?22,loco_boogie_type=?23,loco_traction_motor_type=?24,loco_control_type=?25,\r\n"
-				+ "	loco_brake_type=?26 ,txn_date=?28, status='U', record_status='N' \r\n"
+				+ "	loco_brake_type=?26 ,txn_date=?28, status='U', record_status='N' ,loco_service=?29\r\n"
 				+ "	WHERE loco_no=?2 and user_id=?27",nativeQuery=true)
-int updateFwdApp(String loco_traction_code,long loco_no, String loco_type,String loco_permanent_domain, 
+int updateFwdApp(String loco_traction_code,long loco_no, String loco_type,String loco_permanent_domain,
 		String loco_owning_shed,String loco_owning_zone, String loco_owning_division,Date loco_manufacturing_date,Date loco_receiving_date,long loco_initial_cost,
 		long loco_poh_cost,String loco_lease_type,String loco_gauge_type,Long loco_hauling_power,String loco_manufacturing_country,
 		String loco_cabin_ac,Date  loco_commissioning_date,String loco_hotel_load,String loco_manufacturer,String is_gps_enabled,String flag_type,
-		String loco_auxilary,String loco_boogie_type,String loco_traction_motor_type, String loco_control_type,String loco_brake_type,String user_id,Date date);
+		String loco_auxilary,String loco_boogie_type,String loco_traction_motor_type, String loco_control_type,String loco_brake_type,String user_id,Date date, String locoservice);
 
 
 				//Anshul 17-06-2023

@@ -128,6 +128,20 @@ public class LocoUncleansedDataElectric {
 		private Long loco_poh_cost;
 
 
+		@Column(name = "loco_service")
+		private String locoservice;
+		
+		
+
+
+	public String getLocoservice() {
+			return locoservice;
+		}
+
+		public void setLocoservice(String locoservice) {
+			this.locoservice = locoservice;
+		}
+
 	public Long getLoco_initial_cost() {
 			return loco_initial_cost;
 		}
