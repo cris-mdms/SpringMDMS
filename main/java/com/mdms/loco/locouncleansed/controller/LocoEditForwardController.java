@@ -423,8 +423,8 @@ public class LocoEditForwardController {
 			        	{
 			        		 LocalDateTime localDateTime = LocalDateTime.now();
 			        		 loco.setTxn_date(localDateTime);
-			        		 loco.setApproval_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getApproval_doc().replace(" ", "_"));
-			        		 loco.setProposal_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
+			        		 loco.setApproval_doc(loco.getLoco_no()+"-"+ loco.getApproval_doc().replace(" ", "_"));
+			        		 loco.setProposal_doc(loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
 			        		 
 			        		 return condemn_repo.save(loco);
 			        	}
