@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //All Service Method of Loco : Developer: Ritu on 24.10.2020//
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+import com.mdms.loco.locouncleansed.model.Loco_condemn_interface;
 import com.mdms.loco.locouncleansed.model.MLocoBoggie;
 import com.mdms.loco.locouncleansed.model.MLocoBrakeSubtype;
 import com.mdms.loco.locouncleansed.model.MLocoBrakeType;
@@ -424,7 +426,7 @@ public class LocoEditForwardController {
 			        		 LocalDateTime localDateTime = LocalDateTime.now();
 			        		 loco.setTxn_date(localDateTime);
 			        		 loco.setApproval_doc(loco.getLoco_no()+"-"+ loco.getApproval_doc().replace(" ", "_"));
-			        		 loco.setProposal_doc(loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
+			        	//	 loco.setProposal_doc(loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
 			        		 
 			        		 return condemn_repo.save(loco);
 			        	}
@@ -498,22 +500,16 @@ public class LocoEditForwardController {
 			        	
 			       	return loco;
 			        	
-			        	
-			        	
 			        }
 			        
+			        //JYOTI BISHT 17-7-23
+			        @GetMapping("/display_condemn_loco")
+			        List<Loco_condemn_interface> display_condemn_loco(@RequestParam("shed") String shed)
+			        {
+			        return condemn_repo.view_condemn_loco(shed);
+			        }
 			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-
+			    
 			    	
 			    	
 }

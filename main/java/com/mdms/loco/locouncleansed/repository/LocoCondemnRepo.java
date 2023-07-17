@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.mdms.loco.locouncleansed.model.LocoCondemnation;
+import com.mdms.loco.locouncleansed.model.Loco_condemn_interface;
 
 public interface LocoCondemnRepo extends CrudRepository<LocoCondemnation, Integer>{
 	
@@ -32,6 +33,14 @@ public interface LocoCondemnRepo extends CrudRepository<LocoCondemnation, Intege
 		@Transactional
 		@Query(value="insert into mdms_loco.loco_condemnation_mdms_user_history (select * from mdms_loco.loco_condemnation_mdms_user where loco_no=?1)",nativeQuery = true)
 		public int insert_into_history(int loco);
+		
+		//jyoti bisht 17-7-23
+		@Query(value="select loco_no, loco_type,loco_permanent_domain, traction_code, condemnation_date,condemnation_proposal_type, user_id,'MDMS' as through_interface\r\n"
+				+ "from mdms_loco.loco_condemnation_mdms_user where status='A' and loco_owning_shed_code=?1\r\n"
+				+ "union\r\n"
+				+ "select loco_no, loco_type,loco_permanent_domain, loco_traction_code as traction_code, loco_condemnation_date as condemnation_date,condemnation_proposal_type, forward_by as user_id,'FOIS' as through_interface\r\n"
+				+ "from mdms_loco.loco_condemnation_detail where fois_webservice_flag='Y' and loco_owning_shed_code=?1", nativeQuery = true)
+		public List<Loco_condemn_interface> view_condemn_loco(String shed);
 		
 
 

@@ -14,7 +14,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
-
+import com.mdms.loco.locouncleansed.model.Loco_condemn_interface;
+import com.mdms.loco.locouncleansed.model.LocoCondemnation;
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
@@ -25,6 +26,7 @@ import com.mdms.loco.locouncleansed.model.MLocoShed;
 import com.mdms.loco.locouncleansed.model.MLocoShedNew;
 import com.mdms.loco.locouncleansed.model.MLocoStoreAuxilary;
 import com.mdms.loco.locouncleansed.model.MLocoTractionMotor;
+import com.mdms.loco.locouncleansed.repository.LocoCondemnRepo;
 import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
@@ -92,6 +94,10 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 	
 	@Autowired
 	private MLocoShedNewRepository mlocoshednew;
+	
+	@Autowired
+	private LocoCondemnRepo condemn_loco;
+	
 	
 	
 	
@@ -574,6 +580,11 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 						{
 							return obj_uncleansedrepo.getLocototalDetails(zone, shed);
 						}
+						//jyoti bisht
 						
+						public List<Loco_condemn_interface> view_condemn_loco(String shed)
+						{
+							return condemn_loco.view_condemn_loco(shed);
+						}
 
 }

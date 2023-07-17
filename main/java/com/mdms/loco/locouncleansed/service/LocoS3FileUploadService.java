@@ -100,20 +100,20 @@ public class LocoS3FileUploadService {
 	}
 */
 	
-	public String uploadFileCondemn(MultipartFile multipartFile1,MultipartFile multipartFile2,String loco_no) throws IOException {
+	public String uploadFileCondemn(MultipartFile multipartFile2,String loco_no) throws IOException {
 		  logger.info("UploadFile Service");
 		 String fileUrl = "";
 		try {
-			File file1 = convertMultiPartToFile(multipartFile1);
-			String fileName1 = generateFileName(multipartFile1,loco_no);
+		//	File file1 = convertMultiPartToFile(multipartFile1);
+		//	String fileName1 = generateFileName(multipartFile1,loco_no);
 			
 			File file2 = convertMultiPartToFile(multipartFile2);
 			String fileName2 = generateFileName(multipartFile2,loco_no);
 			
-			fileUrl = "RECORD SAVED AND UPLOADED AT : "+endpointUrl + "/" + bucketName + "/" + fileName1+" and at "+endpointUrl + "/" + bucketName + "/" + fileName2;
-			uploadFileTos3bucket(fileName1, file1);
+			fileUrl = "RECORD SAVED AND UPLOADED AT : "+endpointUrl + "/" + bucketName + "/" + fileName2;
+		//	uploadFileTos3bucket(fileName1, file1);
 			uploadFileTos3bucket(fileName2, file2);
-			file1.delete();
+		//	file1.delete();
 			file2.delete();
 		
 				
