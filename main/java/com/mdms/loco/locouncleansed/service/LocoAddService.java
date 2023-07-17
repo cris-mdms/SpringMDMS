@@ -102,7 +102,7 @@ public class LocoAddService {
 				, draftrecord.getLoco_initial_cost(), draftrecord.getLoco_poh_cost(), draftrecord.getLoco_lease_type(), draftrecord.getGauge_type(),draftrecord.getLoco_hauling_power()
 				, draftrecord.getLoco_manufacturing_country(), draftrecord.getLoco_cabin_ac(), draftrecord.getLoco_commissioning_date(),
 				draftrecord.getElec_locoHotelLoad(), draftrecord.getLoco_manufacturer(), draftrecord.getIs_gps_enabled(), 
-				draftrecord.getFlag_type(), draftrecord.getLoco_auxilary(), draftrecord.getLoco_boogie_type(), draftrecord.getLoco_traction_motor_type(), 
+				draftrecord.getFlag_type(), draftrecord.getLoco_auxilary(), draftrecord.getLoco_boogie_type(), draftrecord.getLoco_traction_motor_type(), draftrecord.getLoco_flag(),
 				draftrecord.getLoco_control_type(), draftrecord.getLoco_brake_type(), draftrecord.getUser_id(),"D","N",date)	;
 		
 					if(i>0)
@@ -582,7 +582,7 @@ public String forwardForApprovalNewLoco(LocoUncleansedDataAddNewLoco locoapp) {
 			, locoapp.getLoco_initial_cost(), locoapp.getLoco_poh_cost(), locoapp.getLoco_lease_type(), locoapp.getGauge_type(),locoapp.getLoco_hauling_power()
 			, locoapp.getLoco_manufacturing_country(), locoapp.getLoco_cabin_ac(), locoapp.getLoco_commissioning_date(),
 			locoapp.getElec_locoHotelLoad(), locoapp.getLoco_manufacturer(), locoapp.getIs_gps_enabled(), 
-			locoapp.getFlag_type(), locoapp.getLoco_auxilary(), locoapp.getLoco_boogie_type(), locoapp.getLoco_traction_motor_type(), 
+			locoapp.getFlag_type(), locoapp.getLoco_auxilary(), locoapp.getLoco_boogie_type(), locoapp.getLoco_traction_motor_type(), locoapp.getLoco_flag(),
 			locoapp.getLoco_control_type(), locoapp.getLoco_brake_type(), locoapp.getUser_id(),"U","N",date)	;
 	}
 	

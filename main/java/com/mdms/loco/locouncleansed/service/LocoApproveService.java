@@ -239,6 +239,7 @@ public class LocoApproveService {
 					LocoUncleansedDataAddNewLoco tmp=obj_LocoNewRepo.getApprovedRecord(loco_no);
 //					LocoApprovedRecords temp=new LocoApprovedRecords();
 					//save records to golden records table also
+					String locoflag =tmp.getLoco_traction_code();
 					obj_LocoAppNewRepo.saveApprovedRecords(tmp.getLoco_traction_code(),
 							tmp.getLoco_no() , tmp.getLoco_type(), tmp.getLoco_permanent_domain(),tmp.getLocoservice(),
 							tmp.getLoco_owning_shed()  ,tmp.getLoco_owning_zone() , tmp.getLoco_owning_division(), tmp.getLoco_manufacturing_date(), tmp.getLoco_receiving_date()
@@ -246,7 +247,7 @@ public class LocoApproveService {
 							, tmp.getLoco_manufacturing_country(), tmp.getLoco_cabin_ac(), tmp.getLoco_commissioning_date(),
 							tmp.getElec_locoHotelLoad(), tmp.getLoco_manufacturer(), tmp.getIs_gps_enabled(), 
 							tmp.getFlag_type(), tmp.getLoco_auxilary(), tmp.getLoco_boogie_type(), tmp.getLoco_traction_motor_type(), 
-							tmp.getLoco_control_type(), tmp.getLoco_brake_type(), tmp.getUser_id(),tmp.getStatus(),tmp.getRecord_status(),date);
+							tmp.getLoco_control_type(), tmp.getLoco_brake_type(), locoflag,tmp.getUser_id(),tmp.getStatus(),tmp.getRecord_status(),date);
 					
 					return "RECORD APPROVED SUCCESSFULLY";
 					
