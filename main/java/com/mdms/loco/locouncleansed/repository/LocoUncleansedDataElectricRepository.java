@@ -139,7 +139,7 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
 
  	
  	
- 	@Query(value="select * from mdms_loco.loco_uncleansed_data where status in('U','D','A') AND loco_no=?1",nativeQuery=true)
+ 	@Query(value="select * from mdms_loco.loco_uncleansed_data where status in('U','D') AND loco_no=?1",nativeQuery=true)
     List<LocoUncleansedDataElectric> getLocoUnclnesedData(int loco_no);
  	
  	 //amit to update loco transfer status

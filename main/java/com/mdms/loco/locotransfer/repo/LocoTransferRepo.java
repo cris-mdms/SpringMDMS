@@ -63,7 +63,7 @@ public interface LocoTransferRepo extends CrudRepository<LocoTransferModel,Long>
 			 List<LocoTransferModel> getLocoDataStatusNewShedWise(String status,String loco_new_shed);
 		  
 //		  @Query(value="select exists(select 1,status from mdms_loco.loco_transfer_detail where loco_no=?1 )",nativeQuery=true)
-		  @Query(value="select * FROM mdms_loco.loco_transfer_detail where loco_no=?1",nativeQuery=true)
+		  @Query(value="select * FROM mdms_loco.loco_transfer_detail where loco_no=?1 and status in ('RS','RR')",nativeQuery=true)
 		  public List<LocoTransferModel> checkLocoExitOrNot(int loco_no);
 		  
 		 

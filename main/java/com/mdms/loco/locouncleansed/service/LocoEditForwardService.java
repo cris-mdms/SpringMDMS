@@ -14,8 +14,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+
 import com.mdms.loco.locouncleansed.model.Loco_condemn_interface;
 import com.mdms.loco.locouncleansed.model.LocoCondemnation;
+
+import com.mdms.loco.locouncleansed.model.LocoApprovedData;
+
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
@@ -26,7 +30,11 @@ import com.mdms.loco.locouncleansed.model.MLocoShed;
 import com.mdms.loco.locouncleansed.model.MLocoShedNew;
 import com.mdms.loco.locouncleansed.model.MLocoStoreAuxilary;
 import com.mdms.loco.locouncleansed.model.MLocoTractionMotor;
+
 import com.mdms.loco.locouncleansed.repository.LocoCondemnRepo;
+
+import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
+
 import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
@@ -65,6 +73,9 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 	private MLocoBrakeSubTypeRepo obj_subtype;
 	@Autowired
 	private LocoUncleansedDataRepository obj_uncleansedcommonrepo;
+	
+	@Autowired
+	private LocoApprovedDataRepository obj_approve;
 	
 	@Autowired
 	private MLocoShedRepository obj_shedrepo;
@@ -432,6 +443,7 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 				List<LocoUncleansedDataElectric> mn = new ArrayList<LocoUncleansedDataElectric>();
 				LocoTransferResponse locoTransferResponse= new LocoTransferResponse();
 				List<LocoDataFois> m = new ArrayList<LocoDataFois>();
+				List<LocoApprovedData> ma=new ArrayList<LocoApprovedData>();
 				Map<String, Object> map = new HashMap<>();				
 				List<LocoTransferResponse> resp = new ArrayList<LocoTransferResponse>();				
 					if(obj_uncleansedrepo.getLocoDataFois(loco_no).isEmpty()) {						
@@ -444,24 +456,35 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 						locoTransferResponse.setLocoOwningZone(mn.get(0).getElec_locoOwningZone());
 						locoTransferResponse.setLocoDateOfCommissioning(mn.get(0).getElec_locoDateOfCommision());
 						locoTransferResponse.setLocoTractionCode(mn.get(0).getLocoflag());
-						locoTransferResponse.setTablestatus("from loco unclnesed table");
+						locoTransferResponse.setTablestatus("from loco uncleansed table");
 						locoTransferResponse.setStatus(mn.get(0).getElec_Status());
 					resp.add(locoTransferResponse);
-						String s="from loco unclnesed table";
+						String s="from loco uncleansed table";
 //						map.put(s,resp);
 						System.out.println(resp);
 						return resp;
 						
 						} 
 						else if(obj_elec.getLocoUnclnesedData(loco_no).size()==0) {
-							locoTransferResponse.setStatus("data not present in mdms");
-						String s="data not present in mdms";
+							if(obj_approve.getapprovedloco(loco_no).size()!=0) {
+								ma.addAll(obj_approve.getapprovedloco(loco_no));
+								System.out.println("inside approvedloco"+ loco_no);
+							locoTransferResponse.setLocoNo(ma.get(0).getElec_locoNo());
+							locoTransferResponse.setLocoType(ma.get(0).getElec_locoType());
+							locoTransferResponse.setLocoOwningShed(ma.get(0).getElec_locoOwningShed());
+							locoTransferResponse.setLocoOwningZone(ma.get(0).getElec_locoOwningZone());
+							locoTransferResponse.setLocoDateOfCommissioning(ma.get(0).getElec_locoDateOfCommision());
+							locoTransferResponse.setLocoTractionCode(ma.get(0).getLocoflag());
+							locoTransferResponse.setTablestatus("from loco approved table");
+							locoTransferResponse.setStatus(ma.get(0).getElec_Status());	
+							resp.add(locoTransferResponse);
+						String s="from loco approved table";
 //						map.put(s, 0);
 						System.out.println(resp);
 						return resp;
 						}
 					}
-					
+					}
 					else if(obj_uncleansedrepo.getLocoDataFois(loco_no).size()!=0) {
 					m.addAll(obj_uncleansedrepo.getLocoDataFois(loco_no));
 //					System.out.println("##inside loco data fois"+m.size());
@@ -479,6 +502,20 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 //					System.out.println(resp);
 					return resp;
 					}
+					else if (obj_approve.getapprovedloco(loco_no).size()==0)
+							{
+							locoTransferResponse.setStatus("data not present in MDMS");	
+						List<LocoTransferResponse> response = new ArrayList<LocoTransferResponse>();
+						resp.add(locoTransferResponse);
+						String s="data not present in MDMS";
+//						map.put(s, response);
+						System.out.println(s);
+						return resp;
+							}
+							
+							
+							
+							
 					return resp;				
 				
 //				return resp;
