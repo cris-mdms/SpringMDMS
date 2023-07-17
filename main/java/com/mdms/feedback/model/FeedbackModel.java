@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity()
 @Table(name="feedback_master", schema="mdms_feedback")     /* Developer: Ritu */
 public class FeedbackModel {	
@@ -28,6 +30,7 @@ public class FeedbackModel {
 	@Column(name="priority")
 	private String request_priority;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") 
 	@Column(name="request_date")
 	private Date request_date;
 	
