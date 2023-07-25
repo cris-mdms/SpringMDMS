@@ -617,11 +617,6 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 						{
 							return obj_uncleansedrepo.getLocototalDetails(zone, shed);
 						}
-						//jyoti bisht
-						
-						public List<Loco_condemn_interface> view_condemn_loco(String shed)
-						{
-							return condemn_loco.view_condemn_loco(shed);
-						}
+					
 
 }
