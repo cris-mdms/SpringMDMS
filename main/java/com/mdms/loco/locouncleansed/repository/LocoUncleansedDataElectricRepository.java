@@ -119,8 +119,8 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
 	Collection<DashBoardLocoCountShedWiseModel> getDraftLocoApprovalZoneshed(String loco_owning_zone_code);
 	
 	//@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , COUNT(*)  as pending_approval FROM  mdms_loco.loco_uncleansed_data WHERE loco_owning_zone=?1 AND status='U' AND LOCO_NO IN (SELECT DISTINCT  loco_no from  mdms_loco.loco_data_fois ) GROUP BY loco_owning_zone,loco_owning_shed order by 2",nativeQuery=true)
-	
-	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , COUNT(*)  as pending_approval FROM  mdms_loco.loco_uncleansed_data WHERE loco_owning_zone=?1 AND status='U'  GROUP BY loco_owning_zone,loco_owning_shed order by 2",nativeQuery=true)
+	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed ,COUNT(*)  as pending_approval "
+			+ "FROM  mdms_loco.loco_uncleansed_data a join mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code  WHERE loco_owning_zone=?1 AND status='U' and  loco_owning_shed not in(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')	GROUP BY loco_owning_zone,loco_owning_shed order by 2",nativeQuery=true) 
 	Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshed(String loco_owning_zone_code);
 	
 	//Shilpi 09-04-2021 zonal hyperlink
@@ -171,6 +171,27 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
  	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , COUNT(*)  as draft_forward_approval_count FROM  mdms_loco.loco_uncleansed_data "
  			+ "WHERE (status='D' OR Status='R') and loco_no not in (select loco_no from mdms_loco.loco_condemnation_detail)  GROUP BY loco_owning_zone,loco_owning_shed order by loco_owning_zone",nativeQuery=true)
 	Collection<DashBoardLocoCountShedWiseModel> getDraftLocoApprovalZoneshed1();
+ 	
+ 	//ritu 20-7-2023 to get pvt  unapporved loco shed wise 
+ 	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , \r\n"
+ 			+ "COUNT(*)  as pending_approval FROM  mdms_loco.loco_uncleansed_data a join\r\n"
+ 			+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
+ 			+ "WHERE loco_owning_zone=?1 \r\n"
+ 			+ "AND status='U' and  loco_owning_shed  in\r\n"
+ 			+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+ 			+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
+ 				Collection<DashBoardLocoCountShedWiseModel> getLocoPendingZoneshedprivate(String loco_owning_zone_code);
+	
+ 	//ritu 20-7-2023 to get pvt  draft loco shed wise 
+ 	 	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , \r\n"
+ 	 			+ "COUNT(*)  as pending_approval FROM  mdms_loco.loco_uncleansed_data a join\r\n"
+ 	 			+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
+ 	 			+ "WHERE loco_owning_zone=?1 \r\n"
+ 	 			+ "AND status='D' and  loco_owning_shed  in\r\n"
+ 	 			+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+ 	 			+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
+ 	 				Collection<DashBoardLocoCountShedWiseModel> getDraftLocoApprovalZoneshedprivate(String loco_owning_zone_code);
+ 		
 
 }
 

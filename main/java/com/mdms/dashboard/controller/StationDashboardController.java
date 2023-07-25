@@ -115,7 +115,16 @@ Logger logger=LoggerFactory.getLogger(StationDashboardController.class);
 			return list4;
 					}
 				
-				
+				//ritu 19.7.23 to get pvt loco data shed wise
+				List<DashboardStationModel> list10 =new ArrayList<DashboardStationModel>();
+				@RequestMapping(method=RequestMethod.POST, value="/getLococountZonewisepvt")
+				public List<DashboardStationModel> getLocoCountZoneWisepvt(@RequestBody DashboardStationModel  loco_owning_zone_code) {	
+					System.out.println(loco_owning_zone_code);
+					 list10=stationServ_obj.getLocoCountZoneWiseprivate(loco_owning_zone_code);
+				//	list.forEach((n) -> System.out.println(n.getDivision_code())); 
+					logger.info("Controller : DashBoardStationController || Method: getLocoCountZoneWise || getLocoCountZoneWise Query list10 return : "+list10.size());
+			return list10;
+					}
 				//Shilpi 23-03-2021
 				
 				List<DashboardStationModel> list5 =new ArrayList<DashboardStationModel>();

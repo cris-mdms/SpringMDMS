@@ -91,6 +91,13 @@ public class SuperUserDashboardController {
 		
 	}
 	
+	@RequestMapping(method=RequestMethod.POST, value="/zonewiserecprivate")
+	public 	List<ZonalUsersAssetModel> getZoneWiseRecordsPrivate() {
+		
+		logger.info("controller : SuperUserDashboardController || Method : getZoneWiseRecordsPrivate");
+		return su_dash_servc.getZoneprivateWiseRecords();
+		
+	}
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/divwiserec")
