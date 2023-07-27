@@ -510,6 +510,11 @@ public class LocoEditForwardController {
 			        }
 			    	
 			    
-			    	
+			    	//Ritu 25-07-23
+			        @GetMapping("/getflagtype")
+			        List<String> getflagtype()
+			        {
+			        	return obj_uncleasedservice.getflagtype();
+			        }
 			    	
 }

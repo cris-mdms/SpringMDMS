@@ -191,7 +191,11 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
  	 			+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
  	 			+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
  	 				Collection<DashBoardLocoCountShedWiseModel> getDraftLocoApprovalZoneshedprivate(String loco_owning_zone_code);
- 		
+ 	 	
+ 	 	
+ 	 //ritu 25-07-2023 to get flag type
+ 	 	@Query(value="Select flag_name from mdms_loco.m_flag_type",nativeQuery=true)
+ 		List<String> getflagtype();
 
 }
 

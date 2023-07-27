@@ -624,4 +624,10 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 							return condemn_loco.view_condemn_loco(shed);
 						}
 
+
+public List<String> getflagtype(){
+	return obj_elec.getflagtype();
+}
+
+
 }

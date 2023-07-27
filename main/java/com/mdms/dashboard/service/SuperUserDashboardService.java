@@ -304,10 +304,7 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 		"	 where user_type='"+usertype+"'group by zone) r1 on r1.zone=a.zone_code \r\n" + 
 		"			 where a.fois_zone is not null order by zone_code";
     	    	  
-    	  
-
-
-	   return jdbcTemplate.query(
+    	  	   return jdbcTemplate.query(
 			   noofuser,
                (rs, rowNum) ->
                        new ZonalUsersAssetModel(
@@ -760,6 +757,36 @@ userdetails,
 			return user_repo.get_count_by_usertype(div,user_type, role_type);
 	}
 
+	
+//public List<ZonalUsersAssetModel> getLocoSLAMExceptionReport() {
+//		
+//		logger.info("Service : StationDashboardService || Method: getLocoSLAMExceptionReport");
+//		
+//		String querystring=null;
+//		
+//		querystring="select distinct a.zone_code , a.total , a.zone_name,  b.cleansed , c.draft , d.pending ,e.uncleansed \r\n"
+//				+ "from public.total_data_loco_private a\r\n"
+//				+ "			 left outer join public.cleansed_data_loco_private b on a.zone_code=b.zone_code\r\n"
+//				+ "				 left outer join public.draft_data_loco_private c on a.zone_code=c.zone_code\r\n"
+//				+ "				left outer join public.uncleansed_data_loco_private e on a.zone_code=e.zone_code\r\n"
+//				+ "				left outer join public.pending_data_loco_private d on a.zone_code=d.zone_code order by zone_code";
+//		 
+//		  return jdbcTemplate.query(
+//				   querystring,
+//	               (rs, rowNum) ->
+//	                       new ZonalUsersAssetModel(
+//	                               rs.getString("zone_code"),
+//	                               rs.getInt("total"),
+//	                              rs.getString("zone_name"),
+//	                               rs.getInt("cleansed"),
+//	                               rs.getInt("draft"),
+//	                               rs.getInt("uncleansed"),
+////	                               rs.getInt("uncleansed"),
+//	                               rs.getInt("pending")
+//	     
+//	                              
+//	                       )   );
+//	}
 
 }
 
