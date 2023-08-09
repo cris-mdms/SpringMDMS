@@ -46,8 +46,8 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 	@Transactional
 	@Modifying
 	@Query(value ="UPDATE mdms_loco.loco_approved_data SET loco_cabin_ac=?1,loco_permanent_domain=?2, loco_control_type=?3, loco_receiving_date=?4"
-			+ " ,loco_auxilary=?5,loco_traction_motor_type=?6, loco_hotel_load=?7,is_gps_enabled=?8, flag_type=?9, loco_brake_sub_type=?10 ,txn_date=?11 ,loco_axle_load=?12 WHERE loco_no=?13",nativeQuery=true)
-	int updateEGoldenRecord(String var1,String var2,String var3,Date var4,String var5,String var6,String var7,String var8,String var9,String var10, Date var11,String var12,  int locono);
+			+ " ,loco_auxilary=?5,loco_traction_motor_type=?6, loco_hotel_load=?7,is_gps_enabled=?8, flag_type=?9, loco_brake_sub_type=?10 ,txn_date=?11 ,loco_axle_load=?12,loco_type=?13 WHERE loco_no=?13",nativeQuery=true)
+	int updateEGoldenRecord(String var1,String var2,String var3,Date var4,String var5,String var6,String var7,String var8,String var9,String var10, Date var11,String var12, String var13, int locono);
 	
 	@Transactional
 	@Modifying

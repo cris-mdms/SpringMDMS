@@ -196,6 +196,15 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
  	 //ritu 25-07-2023 to get flag type
  	 	@Query(value="Select flag_name from mdms_loco.m_flag_type",nativeQuery=true)
  		List<String> getflagtype();
+ 	 	
+ 	 //ritu 01-08-2023 to get exceptionreport of slam and mdms data
+ 	 	@Query(value="select a.loco_no  \r\n"
+ 	 			+ "from mdms_loco.loco_approved_data  a,mdms_analysis.loco_data_slam_250723  b\r\n"
+ 	 			+ "where a.loco_flag='E' and a.status<>'CN' and a.loco_owning_shed in (\r\n"
+ 	 			+ "select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)\r\n"
+ 	 			+ "and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'",nativeQuery=true)
+ 		List<Integer> getslam_locomismatched();
+
 
 }
 

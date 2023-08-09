@@ -540,5 +540,12 @@ public class LocoEditForwardController {
 			        {
 			        	return obj_uncleasedservice.getflagtype();
 			        }
+			        
+			      //Ritu 01-08-23
+			        @GetMapping("/getslamlocomismatched")
+			        List<Integer> getslamdata()
+			        {
+			        	return obj_uncleasedservice.getslamdata();
+			        }
 			    	
 }

@@ -113,6 +113,7 @@ public class LocoApproveService {
 		public boolean updateEGoldenRecord(LocoApprovedData approvedloco) {
 			try{ 
 				 Date date = new Date(); 
+				 
 			String var1=approvedloco.getElec_locoCabac();
 			String var2=approvedloco.getElec_locoPermanentDomain();
 			String var3=approvedloco.getElec_locoControlType();
@@ -126,10 +127,11 @@ public class LocoApproveService {
 			String txnDate1 = new SimpleDateFormat("yyyy-MM-dd").format(date);
 			Date txnDate = date;
 			String axleload=approvedloco.getLoco_Axleload();
+			String ltype =approvedloco.getElec_locoType();
 			int locono=approvedloco.getElec_locoNo();
 			System.out.println(locono);
-			approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate, axleload,locono);
-			System.out.println(approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate,axleload,locono));
+			approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate, axleload,ltype,locono);
+			System.out.println(approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate,axleload,ltype,locono));
 			
 			return  true ;			
 			}
