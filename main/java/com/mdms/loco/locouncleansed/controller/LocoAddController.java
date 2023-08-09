@@ -204,13 +204,20 @@ public class LocoAddController {
 			public String forwardForApprovalNewLoco(@RequestBody LocoUncleansedDataAddNewLoco locoapp) throws Exception 
 			{
 				logger.info("----------/forwardForApprovalNewLoco");
-				
+				System.out.println("mfgdt"+locoapp.getLoco_manufacturing_date());
 				return obj_newlocoservice.forwardForApprovalNewLoco(locoapp);
 					} 
 			
 		
 
-		 
+		 //Ritu 06-07-2023
+			@RequestMapping(method=RequestMethod.GET, value="/getlocoservice")
+			public List<String> getlocoservice() throws Exception 
+			{
+				logger.info("----------/getlocoservice");
+				
+				return obj_newlocoservice.getlocoservice();
+					} 
 	 
 
 }

@@ -3,6 +3,8 @@ package com.mdms.loco.locouncleansed.repository;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -60,16 +62,14 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
    
     @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as total_loco_count FROM  mdms_loco.loco_data_fois as a \r\n"
     		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
-    		+ "     and ir_flag='Y' AND validity='Y' WHERE loco_owning_zone_code=?1   GROUP BY loco_owning_zone_code,loco_owning_shed_code ORDER BY 2",nativeQuery=true)
+    		+ "     and ir_flag='Y' AND validity='Y' WHERE loco_owning_zone_code=?1  GROUP BY loco_owning_zone_code,loco_owning_shed_code "		
+    		+ "ORDER BY 2",nativeQuery=true)
     Collection<DashBoardLocoCountShedWiseModel> getLocoZoneShed(String loco_owning_zone_code);
-    
-
-    
-    @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_data_fois as a \r\n"
+        
+  @Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_data_fois as a \r\n"
     		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
     		+ "     and ir_flag='Y' AND validity='Y' WHERE loco_owning_zone_code=?1 and status is null GROUP BY  loco_owning_zone_code ,loco_owning_shed_code ORDER BY 2 ",nativeQuery=true)
-    Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoZoneShed(String loco_owning_zone_code);
-  
+  Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoZoneShed(String loco_owning_zone_code);  
     //Shilpi 09-04-2021 zonal hyperlink
     
 	
@@ -110,7 +110,25 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
     int gettotalLocoDataFois();
     
  
-  		  
-  		
-
+    //JYOTI BISHT 5_7_23
+	@Query(value="SELECT * FROM  mdms_loco.loco_data_fois WHERE loco_no=?1 and loco_owning_shed_code=?2 ",nativeQuery=true)
+	Optional<LocoDataFois>get_Locodata_from_fois(int locono, String shed);
+	
+	
+//	@Query(value="select distinct a.loco_owning_zone_code , count(*) from mdms_loco.loco_data_fois as a	 where a.loco_owning_shed_code in "
+//			+ "(select shed_code from mdms_loco.m_loco_shed where validity ='Y' and private_shed='Y') group by 1 order by 1",nativeQuery=true)
+//	
+	 		
+	@Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as total_loco_count FROM  mdms_loco.loco_data_fois as a \r\n"
+    		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
+    		+ "     and private_shed='Y' AND validity='Y' WHERE loco_owning_zone_code=?1  GROUP BY loco_owning_zone_code,loco_owning_shed_code "		
+    		+ "ORDER BY 2",	nativeQuery=true)
+	Collection<DashBoardLocoCountShedWiseModel> getLocoZoneShedprivate(String loco_owning_zone_code);
+	
+	@Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_data_fois as a \r\n"
+    		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
+    		+ "     and private_shed='Y' AND validity='Y' WHERE loco_owning_zone_code=?1 and status is null GROUP BY loco_owning_zone_code,loco_owning_shed_code "		
+    		+ "ORDER BY 2",	nativeQuery=true)
+	Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoZoneShedprivate(String loco_owning_zone_code);
+	
 }

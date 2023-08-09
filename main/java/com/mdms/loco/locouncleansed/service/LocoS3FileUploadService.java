@@ -21,6 +21,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -99,20 +100,20 @@ public class LocoS3FileUploadService {
 	}
 */
 	
-	public String uploadFileCondemn(MultipartFile multipartFile1,MultipartFile multipartFile2,String loco_no) throws IOException {
+	public String uploadFileCondemn(MultipartFile multipartFile2,String loco_no) throws IOException {
 		  logger.info("UploadFile Service");
 		 String fileUrl = "";
 		try {
-			File file1 = convertMultiPartToFile(multipartFile1);
-			String fileName1 = generateFileName(multipartFile1,loco_no);
+		//	File file1 = convertMultiPartToFile(multipartFile1);
+		//	String fileName1 = generateFileName(multipartFile1,loco_no);
 			
 			File file2 = convertMultiPartToFile(multipartFile2);
 			String fileName2 = generateFileName(multipartFile2,loco_no);
 			
-			fileUrl = "RECORD SAVED AND UPLOADED AT : "+endpointUrl + "/" + bucketName + "/" + fileName1+" and at "+endpointUrl + "/" + bucketName + "/" + fileName2;
-			uploadFileTos3bucket(fileName1, file1);
+			fileUrl = "RECORD SAVED AND UPLOADED AT : "+endpointUrl + "/" + bucketName + "/" + fileName2;
+		//	uploadFileTos3bucket(fileName1, file1);
 			uploadFileTos3bucket(fileName2, file2);
-			file1.delete();
+		//	file1.delete();
 			file2.delete();
 		
 				
@@ -201,12 +202,12 @@ public class LocoS3FileUploadService {
 	}
 	
 	private String generateFileName(MultipartFile multiPart,String loco_no) {
-		return new Date().getTime() + "-" +loco_no+"-"+ multiPart.getOriginalFilename().replace(" ", "_");
+		return loco_no+"-"+ multiPart.getOriginalFilename().replace(" ", "_");
 	}
 	
 	private void uploadFileTos3bucket(String fileName, File file) {
 		s3client.putObject(
-				new PutObjectRequest(bucketName, fileName, file));
+				new PutObjectRequest(bucketName, fileName, file));//.withCannedAcl(CannedAccessControlList.PublicRead));
 				
 	}
 

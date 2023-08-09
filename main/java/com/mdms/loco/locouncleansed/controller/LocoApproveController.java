@@ -226,6 +226,7 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  			logger.error("controller : LocoApproveController || Method : approveNewLoco || input recieved approvedByDom: "+loco_no);	
  			
  			long loco=Long.valueOf(loco_no);
+ 			 
  			
  			return obj_cleasedservice.approveNewLoco(loco);		
  			

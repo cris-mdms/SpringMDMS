@@ -113,6 +113,7 @@ public class LocoApproveService {
 		public boolean updateEGoldenRecord(LocoApprovedData approvedloco) {
 			try{ 
 				 Date date = new Date(); 
+				 
 			String var1=approvedloco.getElec_locoCabac();
 			String var2=approvedloco.getElec_locoPermanentDomain();
 			String var3=approvedloco.getElec_locoControlType();
@@ -126,10 +127,11 @@ public class LocoApproveService {
 			String txnDate1 = new SimpleDateFormat("yyyy-MM-dd").format(date);
 			Date txnDate = date;
 			String axleload=approvedloco.getLoco_Axleload();
+			String ltype =approvedloco.getElec_locoType();
 			int locono=approvedloco.getElec_locoNo();
 			System.out.println(locono);
-			approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate, axleload,locono);
-			System.out.println(approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate,axleload,locono));
+			approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate, axleload,ltype,locono);
+			System.out.println(approved_repo.updateEGoldenRecord(var1, var2, var3, var4, var5, var6, var7, var8, var9, var10,txnDate,axleload,ltype,locono));
 			
 			return  true ;			
 			}
@@ -239,14 +241,15 @@ public class LocoApproveService {
 					LocoUncleansedDataAddNewLoco tmp=obj_LocoNewRepo.getApprovedRecord(loco_no);
 //					LocoApprovedRecords temp=new LocoApprovedRecords();
 					//save records to golden records table also
+					String locoflag =tmp.getLoco_traction_code();
 					obj_LocoAppNewRepo.saveApprovedRecords(tmp.getLoco_traction_code(),
-							tmp.getLoco_no() , tmp.getLoco_type(), tmp.getLoco_permanent_domain(),
+							tmp.getLoco_no() , tmp.getLoco_type(), tmp.getLoco_permanent_domain(),tmp.getLocoservice(),
 							tmp.getLoco_owning_shed()  ,tmp.getLoco_owning_zone() , tmp.getLoco_owning_division(), tmp.getLoco_manufacturing_date(), tmp.getLoco_receiving_date()
 							, tmp.getLoco_initial_cost(), tmp.getLoco_poh_cost(), tmp.getLoco_lease_type(), tmp.getGauge_type(),tmp.getLoco_hauling_power()
 							, tmp.getLoco_manufacturing_country(), tmp.getLoco_cabin_ac(), tmp.getLoco_commissioning_date(),
 							tmp.getElec_locoHotelLoad(), tmp.getLoco_manufacturer(), tmp.getIs_gps_enabled(), 
 							tmp.getFlag_type(), tmp.getLoco_auxilary(), tmp.getLoco_boogie_type(), tmp.getLoco_traction_motor_type(), 
-							tmp.getLoco_control_type(), tmp.getLoco_brake_type(), tmp.getUser_id(),tmp.getStatus(),tmp.getRecord_status(),date);
+							tmp.getLoco_control_type(), tmp.getLoco_brake_type(), locoflag,tmp.getUser_id(),tmp.getStatus(),tmp.getRecord_status(),date);
 					
 					return "RECORD APPROVED SUCCESSFULLY";
 					

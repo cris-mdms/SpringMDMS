@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Transient;
+
 @Entity
 @Table(name="loco_condemnation_mdms_user", schema = "mdms_loco")
 public class LocoCondemnation {
@@ -31,13 +33,13 @@ public class LocoCondemnation {
 	  
 	  Double loco_life;
 	 
-	  String proposal_letter_no;
+	//  String proposal_letter_no;
 	  
 	  Date condemnation_date;
 	 
 	  String  condemnation_proposal_type;
 	  
-	  String proposal_doc;
+	//  String proposal_doc;
 	  
 	  String approved_letter_no;
 	  
@@ -50,6 +52,8 @@ public class LocoCondemnation {
 	  String remarks;
 	  
 	  LocalDateTime txn_date ;
+	  
+	
 	  
 
 	public int getLoco_no() {
@@ -175,7 +179,7 @@ public class LocoCondemnation {
 	public void setTxn_date(LocalDateTime txn_date) {
 		this.txn_date = txn_date;
 	}
-
+/*
 	public String getProposal_letter_no() {
 		return proposal_letter_no;
 	}
@@ -191,6 +195,7 @@ public class LocoCondemnation {
 	public void setProposal_doc(String proposal_doc) {
 		this.proposal_doc = proposal_doc;
 	}
+	*/
 
 	public String getApproved_letter_no() {
 		return approved_letter_no;

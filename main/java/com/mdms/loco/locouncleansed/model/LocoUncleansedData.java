@@ -110,6 +110,22 @@ public class LocoUncleansedData {
 	 
 	 @Column(name="txn_date")                  
 	 private Date txndate;
+	 
+	 
+	 @Column(name = "loco_service")
+		private String locoservice;
+	 
+	 
+
+	
+
+	public String getLocoservice() {
+		return locoservice;
+	}
+
+	public void setLocoservice(String locoservice) {
+		this.locoservice = locoservice;
+	}
 
 	public int getLoco_No() {
 		return loco_No;

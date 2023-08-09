@@ -72,22 +72,7 @@ public class CoachS3FileUploadLayoutController {
 	                .body(resource);
 	    }
 	  
-	  
-
-
-		@PostMapping("/uploadCondemnFile")
-		public String uploadFileCondemn(@RequestPart(value = "file") MultipartFile file	) throws IOException {
-		//	logger.info("controller : CoachS3FileUploadController || Method : uploadFileCMM||")	;
-			
-			return this.amazonClient.uploadFileCondemn(file);
-
-		}
-		
-
-
-	  
-	   
-	  
+	    
 	  
 
 }

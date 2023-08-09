@@ -113,6 +113,20 @@ public class LocoApprovedData {
 		
 	 @Column(name="transfer_loco_status")     
 	 private String transfer_loco_status;
+	 
+	 @Column(name = "loco_service")
+		private String locoservice;
+	 
+
+	
+
+		public String getLocoservice() {
+		return locoservice;
+	}
+
+	public void setLocoservice(String locoservice) {
+		this.locoservice = locoservice;
+	}
 
 		public String getTransfer_loco_status() {
 			return transfer_loco_status;

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //All Service Method of Loco : Developer: Ritu on 24.10.2020//
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.mdms.loco.locouncleansed.model.LocoDataFois;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+import com.mdms.loco.locouncleansed.model.Loco_condemn_interface;
 import com.mdms.loco.locouncleansed.model.MLocoBoggie;
 import com.mdms.loco.locouncleansed.model.MLocoBrakeSubtype;
 import com.mdms.loco.locouncleansed.model.MLocoBrakeType;
@@ -41,6 +43,7 @@ import com.mdms.loco.locouncleansed.model.MlocoControlType;
 import com.mdms.loco.locouncleansed.model.MlocoDomainType;
 import com.mdms.loco.locouncleansed.model.MlocoManufactureType;
 import com.mdms.loco.locouncleansed.repository.LocoCondemnRepo;
+import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
 import com.mdms.loco.locouncleansed.service.LocoEditForwardService;
@@ -61,6 +64,9 @@ public class LocoEditForwardController {
 	
 	@Autowired
 	LocoUncleansedDataRepository uncleansed_repo;
+	
+	@Autowired
+	LocoDataFoisRepository loco_fois;
 	
 	
 	//getloconominationtype
@@ -417,10 +423,16 @@ public class LocoEditForwardController {
 			        {
 			        	try
 			        	{
+			        		if(condemn_repo.findById(loco.getLoco_no())!=null)
+			        				{
+			        			        condemn_repo.insert_into_history(loco.getLoco_no());
+			        				}
+			        		
+			        		
 			        		 LocalDateTime localDateTime = LocalDateTime.now();
 			        		 loco.setTxn_date(localDateTime);
-			        		 loco.setApproval_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getApproval_doc().replace(" ", "_"));
-			        		 loco.setProposal_doc(new Date().getTime() + "-" +loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
+			        		 loco.setApproval_doc(loco.getLoco_no()+"-"+ loco.getApproval_doc().replace(" ", "_"));
+			        	//	 loco.setProposal_doc(loco.getLoco_no()+"-"+ loco.getProposal_doc().replace(" ", "_"));
 			        		 
 			        		 return condemn_repo.save(loco);
 			        	}
@@ -446,24 +458,27 @@ public class LocoEditForwardController {
 			        }
 			        
 			        @PostMapping("/get_condemn_loco_details")
-				       public List<LocoCondemnation> get_condemn_loco_details(@RequestParam("zone") String zone, @RequestParam("shed") String shed )
+				       public List<LocoCondemnation> get_condemn_loco_details(@RequestParam("zone") String zone, @RequestParam("shed") String shed, @RequestParam String status )
 				        {
 				     
-				        return condemn_repo.get_condemn_loco(zone,shed);
+				        return condemn_repo.get_condemn_loco(zone,shed,status);
 
 				       }
 			        @PostMapping("/update_condemn_loco_details")
-				       public int update_condemn_loco_details(@RequestParam("loco") String loco, @RequestParam("status") String status , @RequestParam("remarks") String remarks, @RequestParam("user_id") String user_id)
+				       public int update_condemn_loco_details(@RequestParam("loco") String loco, @RequestParam(value="status") String status , @RequestParam("remarks") String remarks, @RequestParam("user_id") String user_id)
 				        {
-				     
+				       
 				        try
 				        {
-				        	condemn_repo.insert_into_history(Integer.parseInt(loco));
+				        	 condemn_repo.insert_into_history(Integer.parseInt(loco));
 				        	
 				        	 LocalDateTime localDateTime = LocalDateTime.now();
-			       
+			          //       if(status==null)
+			          //       condemn_repo.update_condemn_loco_status1(Integer.parseInt(loco),remarks,user_id,localDateTime);  
+			           //      else
 				        	 condemn_repo.update_condemn_loco_status(Integer.parseInt(loco),status,remarks,user_id,localDateTime);
-				        	return 1;
+				        	
+				             return 1;
 				       
 				        }catch(Exception e)
 				        {
@@ -484,19 +499,53 @@ public class LocoEditForwardController {
 			        }
 			        
 			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-			    	
-
-			    	
+			        
+			        @PostMapping("/check_in_fois")
+			        Optional<LocoDataFois> check_loco_in_fois(@RequestParam("loco_no")String loco_no,@RequestParam("shed") String shed)
+			        {
+			        	//System.out.print("return value is "+loco_no,shed);
+			        	Optional<LocoDataFois> loco= loco_fois.get_Locodata_from_fois(Integer.parseInt(loco_no),shed);
+			        	
+			       	return loco;
+			        	
+			        }
+			        
+			        //JYOTI BISHT 17-7-23
+			        @GetMapping("/display_condemn_loco")
+			        List<Loco_condemn_interface> display_condemn_loco(@RequestParam("shed") String shed)
+			        {
+			        return condemn_repo.view_condemn_loco(shed);
+			        }
+			    
+			        //JYOTI BISHT 18-07-23
+			        @GetMapping("/display_rejected_loco")
+			        List<LocoCondemnation> display_rejected_condemn_loco(@RequestParam String shed )
+			        {
+			        return condemn_repo.rejected_condemn_loco(shed);
+			        }
+			        
+			        //JYOTI BISHT 18-07-23
+			        @GetMapping("/loco_details_in_condemn")
+			        LocoCondemnation display_loco_deltails_in_condemn(@RequestParam String loco,@RequestParam String shed )
+			        {
+			        return condemn_repo.loco_status_in_condemnation(Integer.parseInt(loco),shed);
+			        }
+			        
+			   
+			        
+			    
+			    	//Ritu 25-07-23
+			        @GetMapping("/getflagtype")
+			        List<String> getflagtype()
+			        {
+			        	return obj_uncleasedservice.getflagtype();
+			        }
+			        
+			      //Ritu 01-08-23
+			        @GetMapping("/getslamlocomismatched")
+			        List<Integer> getslamdata()
+			        {
+			        	return obj_uncleasedservice.getslamdata();
+			        }
 			    	
 }

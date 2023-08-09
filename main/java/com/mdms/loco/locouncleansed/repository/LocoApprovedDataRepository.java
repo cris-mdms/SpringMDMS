@@ -28,8 +28,15 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 //	 	@Query(value="SELECT  distinct a.zone_code as loco_owning_zone_code, b.loco_Owningshed as loco_Owningshed, b.cleansed_count FROM (mdms_masters.m_zone a  inner join mdms_loco.m_loco_shed c on a.zone_code=c.zone_code  LEFT JOIN \r\n"
 //	 			+ "		(SELECT loco_approved_data.loco_owning_zone AS loco_owning_zone_code, loco_approved_data.loco_owning_shed AS loco_Owningshed, count(*) AS cleansed_count \r\n"
 //	 			+ "		 FROM mdms_loco.loco_approved_data  WHERE status='A' and record_status='O' and  loco_owning_zone=?1 GROUP BY loco_owning_zone_code,loco_Owningshed) b ON (b.loco_owning_zone_code =a.zone_code) ) where a.zone_code=?1 order by 3",nativeQuery=true)	
- 	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code ,loco_owning_shed as loco_Owningshed,COUNT(*)  as cleansed_count FROM  mdms_loco.loco_approved_data WHERE loco_owning_zone=?1 AND record_status='O'  and status ='A' GROUP BY loco_owning_zone,loco_owning_shed order by 2",nativeQuery=true)
-	Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShed(String loco_owning_zone_code);
+ 	//  modified by ritu 20.7.23
+	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , \r\n"
+ 			+ "COUNT(*)  as cleansed_count FROM  mdms_loco.loco_approved_data a join\r\n"
+ 			+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
+ 			+ "WHERE loco_owning_zone=?1 \r\n"
+ 			+ "AND status='A' and  loco_owning_shed not in\r\n"
+ 			+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+ 			+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
+ 			Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShed(String loco_owning_zone_code);
 	
 	//Shilpi 09-04-2021 zonal hyperlink
 	@Query(value="SELECT * FROM  mdms_loco.loco_approved_data WHERE loco_owning_shed=?1 AND record_status='O'and status ='A'  ",nativeQuery=true)
@@ -39,8 +46,8 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 	@Transactional
 	@Modifying
 	@Query(value ="UPDATE mdms_loco.loco_approved_data SET loco_cabin_ac=?1,loco_permanent_domain=?2, loco_control_type=?3, loco_receiving_date=?4"
-			+ " ,loco_auxilary=?5,loco_traction_motor_type=?6, loco_hotel_load=?7,is_gps_enabled=?8, flag_type=?9, loco_brake_sub_type=?10 ,txn_date=?11 ,loco_axle_load=?12 WHERE loco_no=?13",nativeQuery=true)
-	int updateEGoldenRecord(String var1,String var2,String var3,Date var4,String var5,String var6,String var7,String var8,String var9,String var10, Date var11,String var12,  int locono);
+			+ " ,loco_auxilary=?5,loco_traction_motor_type=?6, loco_hotel_load=?7,is_gps_enabled=?8, flag_type=?9, loco_brake_sub_type=?10 ,txn_date=?11 ,loco_axle_load=?12,loco_type=?13 WHERE loco_no=?13",nativeQuery=true)
+	int updateEGoldenRecord(String var1,String var2,String var3,Date var4,String var5,String var6,String var7,String var8,String var9,String var10, Date var11,String var12, String var13, int locono);
 	
 	@Transactional
 	@Modifying
@@ -83,7 +90,20 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 	@Query(value="select * from mdms_loco.loco_approved_data where loco_no=?1 and loco_owning_shed=?2",nativeQuery = true)
 	LocoApprovedData getLocoCompletedetail(int loco_no,String shed);
 		
-	
+	//ritu 13-07-2023 get approved loco
+		@Query(value="SELECT * FROM  mdms_loco.loco_approved_data WHERE loco_no=?1 AND record_status='O'and status ='A'",nativeQuery=true)
+		List<LocoApprovedData> getapprovedloco(int loco_no);
+		//
+		//ritu  - 20-07-23  to get pvt apporved loco
+		@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , \r\n"
+				+ "COUNT(*)  as cleansed_count FROM  mdms_loco.loco_approved_data a join\r\n"
+				+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
+				+ "WHERE loco_owning_zone=?1 \r\n"
+				+ "AND status='A' and  loco_owning_shed  in\r\n"
+				+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+				+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
+					Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShedprivate(String loco_owning_zone_code);
+		
 
 		
 }
