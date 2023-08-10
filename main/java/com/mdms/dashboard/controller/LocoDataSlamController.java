@@ -56,5 +56,11 @@ public class LocoDataSlamController {
 	
 	}
 
-
+	@RequestMapping(method=RequestMethod.POST, value ="/getalltypemismatched")
+	public List<LocoDataSlam> getalltypemismatche()
+	{
+		logger.info("Controller : LocoDataSlamController || Method : gettypemismatche");
+		return obj_service.getalltypemismatche();
+	
+	}
 }

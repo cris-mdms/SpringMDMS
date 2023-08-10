@@ -96,4 +96,24 @@ public class LocoDataSlamService {
 			                		  rs.getString("loco_owning_sheds")
 			                         ));
 	 }
+	 
+	 
+	 public List<LocoDataSlam> getalltypemismatche() {
+		 logger.info("Service : LocoDataSlamService || Method: gettypemismatche");	
+		 final String noofusers="select a.loco_no, (case when a.loco_no=b.loco_no then b.loco_type else a.loco_type end ) as mdm_type,slam_loco_type"
+		 		+ "	 from( select c.loco_no ,c.loco_type,b.loco_type as slam_loco_type --into temp_slam	 from	 mdms_analysis.loco_data_slam_250723 as b,"
+		 		+ "	 mdms_loco.loco_data_fois as c where b.loco_no=c.loco_no and b.loco_no in (	 select distinct a.loco_no --- ,a.loco_type,b.loco_type	 from mdms_loco.loco_approved_data as a,mdms_analysis.loco_data_slam_250723 as b"
+		 		+ "	 where  loco_flag='E' and  status<>'CN' and  a.loco_owning_shed in (select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)	 and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'"
+		 		+ "	 and a.loco_type<>b.loco_type union	 select distinct a.loco_no --- ,a.loco_type,b.loco_type	 from mdms_loco.loco_data_fois as a,mdms_analysis.loco_data_slam_250723 as b"
+		 		+ "	 where a.loco_traction_code='E'  and  a.loco_owning_shed_code in (	 select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)"
+		 		+ "	 and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'	 and a.loco_type<>b.loco_type)) as a left join mdms_loco.loco_approved_data as b on a.loco_no=b.loco_no	 order by 2";
+	 		 		 return jdbcTemplate.query(
+							noofusers,
+					          (rs, rowNum) ->
+					                  new LocoDataSlam(
+					                		  rs.getInt("loco_no") ,			                		  
+					                		  rs.getString("loco_owning_shed"),
+					                		  rs.getString("loco_owning_sheds")
+					                         ));
+}
 }
