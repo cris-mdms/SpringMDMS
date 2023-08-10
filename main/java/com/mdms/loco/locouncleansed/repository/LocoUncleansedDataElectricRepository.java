@@ -184,7 +184,7 @@ public interface LocoUncleansedDataElectricRepository extends CrudRepository <Lo
 	
  	//ritu 20-7-2023 to get pvt  draft loco shed wise 
  	 	@Query(value="SELECT loco_owning_zone as loco_owning_zone_code,loco_owning_shed as loco_Owningshed , \r\n"
- 	 			+ "COUNT(*)  as pending_approval FROM  mdms_loco.loco_uncleansed_data a join\r\n"
+ 	 			+ "COUNT(*)  as draft_forward_approval_count FROM  mdms_loco.loco_uncleansed_data a join\r\n"
  	 			+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
  	 			+ "WHERE loco_owning_zone=?1 \r\n"
  	 			+ "AND status='D' and  loco_owning_shed  in\r\n"
