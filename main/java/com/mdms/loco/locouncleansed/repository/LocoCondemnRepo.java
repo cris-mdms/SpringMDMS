@@ -43,12 +43,23 @@ public interface LocoCondemnRepo extends CrudRepository<LocoCondemnation, Intege
 		public int insert_into_history(int loco);
 		
 		//jyoti bisht 17-7-23
-		@Query(value="select loco_no, loco_type,loco_permanent_domain, traction_code, condemnation_date,condemnation_proposal_type, user_id,'MDMS' as through_interface\r\n"
+		@Query(value="select loco_no, loco_type, loco_owning_shed_code,loco_owning_zone_code, loco_permanent_domain, traction_code, condemnation_date,condemnation_proposal_type, user_id, status, 'MDMS' as through_interface\r\n"
 				+ "from mdms_loco.loco_condemnation_mdms_user where status='A' and loco_owning_shed_code=?1\r\n"
 				+ "union\r\n"
-				+ "select loco_no, loco_type,loco_permanent_domain, loco_traction_code as traction_code, loco_condemnation_date as condemnation_date,condemnation_proposal_type, forward_by as user_id,'FOIS' as through_interface\r\n"
+				+ "select loco_no, loco_type, loco_owning_shed_code,loco_owning_zone_code, loco_permanent_domain, loco_traction_code as traction_code, loco_condemnation_date as condemnation_date,condemnation_proposal_type, forward_by as user_id, status, 'FOIS' as through_interface\r\n"
 				+ "from mdms_loco.loco_condemnation_detail where fois_webservice_flag='Y' and loco_owning_shed_code=?1", nativeQuery = true)
 		public List<Loco_condemn_interface> view_condemn_loco(String shed);
+		
+		//jyoti bisht 1-8-23
+		@Query(value="select loco_no, loco_type,loco_owning_shed_code,loco_owning_zone_code, loco_permanent_domain, traction_code, condemnation_date,condemnation_proposal_type, user_id,status, 'MDMS' as through_interface\r\n"
+				+ "from mdms_loco.loco_condemnation_mdms_user where (status='A' or status='G') and loco_no=?1\r\n"
+				+ "union\r\n"
+				+ "select loco_no, loco_type,loco_owning_shed_code,loco_owning_zone_code, loco_permanent_domain, loco_traction_code as traction_code, loco_condemnation_date as condemnation_date,condemnation_proposal_type, forward_by as user_id,status,'FOIS' as through_interface\r\n"
+				+ "from mdms_loco.loco_condemnation_detail where fois_webservice_flag='Y' and loco_no=?1", nativeQuery = true)
+		public Loco_condemn_interface view_condemn_loco_by_loco_no(int loco_no);
+		
+		
+		
 		
 		//jyoti bisht 18-7-23
 		@Query(value="select * from mdms_loco.loco_condemnation_mdms_user where loco_owning_shed_code=?", nativeQuery = true)

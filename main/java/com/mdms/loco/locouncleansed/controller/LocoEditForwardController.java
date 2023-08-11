@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mdms.loco.locouncleansed.model.LocoCondemnation;
 import com.mdms.loco.locouncleansed.model.LocoDataFois;
+import com.mdms.loco.locouncleansed.model.LocoDataSlam;
 import com.mdms.loco.locouncleansed.model.LocoTransferResponse;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
@@ -44,6 +45,7 @@ import com.mdms.loco.locouncleansed.model.MlocoDomainType;
 import com.mdms.loco.locouncleansed.model.MlocoManufactureType;
 import com.mdms.loco.locouncleansed.repository.LocoCondemnRepo;
 import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
+import com.mdms.loco.locouncleansed.repository.LocoDataSlamRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataElectricRepository;
 import com.mdms.loco.locouncleansed.repository.LocoUncleansedDataRepository;
 import com.mdms.loco.locouncleansed.service.LocoEditForwardService;
@@ -67,6 +69,11 @@ public class LocoEditForwardController {
 	
 	@Autowired
 	LocoDataFoisRepository loco_fois;
+	
+	@Autowired
+	LocoDataSlamRepository slamrepo;
+	
+
 	
 	
 	//getloconominationtype
@@ -489,10 +496,14 @@ public class LocoEditForwardController {
 				       } 
 			        
 			        @PostMapping("/check_in_uncleansed")
-			        Optional<LocoUncleansedData> check_loco_in_uncleansed(@RequestParam("loco_no")String loco_no,@RequestParam("shed") String shed)
+			        Optional<LocoUncleansedData> check_loco_in_uncleansed(@RequestParam("loco_no")String loco_no,@RequestParam(value="shed", required = false) String shed)
 			        {
+			        	Optional<LocoUncleansedData> loco=null;
 			        	//System.out.print("return value is "+loco_no,shed);
-			        	Optional<LocoUncleansedData> loco= uncleansed_repo.find_loco(Integer.parseInt(loco_no),shed);
+			        	if(shed!=null)
+			        	loco= uncleansed_repo.find_loco(Integer.parseInt(loco_no),shed);
+			        	else
+			        	loco= uncleansed_repo.find_loco_by_no(Integer.parseInt(loco_no));
 			        	
 			        	return loco;
 			        	
@@ -501,20 +512,60 @@ public class LocoEditForwardController {
 			    	
 			        
 			        @PostMapping("/check_in_fois")
-			        Optional<LocoDataFois> check_loco_in_fois(@RequestParam("loco_no")String loco_no,@RequestParam("shed") String shed)
+			        Optional<LocoDataFois> check_loco_in_fois(@RequestParam("loco_no")String loco_no,@RequestParam(value="shed", required = false) String shed)
 			        {
+			        	Optional<LocoDataFois> loco=null;
 			        	//System.out.print("return value is "+loco_no,shed);
-			        	Optional<LocoDataFois> loco= loco_fois.get_Locodata_from_fois(Integer.parseInt(loco_no),shed);
+			        	if(shed!=null)
+			        	loco= loco_fois.get_Locodata_from_fois(Integer.parseInt(loco_no),shed);
+			        	else
+			        	loco= loco_fois.get_Locodata_from_fois_loco_no(Integer.parseInt(loco_no));
 			        	
 			       	return loco;
 			        	
 			        }
+			        
+			        
+			        
+			        @PostMapping("/check_in_fois_original")
+			        Optional<LocoDataFois> check_loco_in_fois_original(@RequestParam("loco_no")String loco_no)
+			        {
+			        	Optional<LocoDataFois> loco=null;
+			        
+			        	loco= loco_fois.get_Locodata_from_fois_original_loco_no(Integer.parseInt(loco_no));
+			        	
+			       	return loco;
+			        	
+			        }
+			        
+			        
+			        @PostMapping("/check_in_slam")
+			        Optional<LocoDataSlam> check_loco_in_slam(@RequestParam("loco_no")String loco_no)
+			        {
+			        	Optional<LocoDataSlam> loco=null;
+			        
+			        	loco= slamrepo.findById(Integer.parseInt(loco_no));
+			        	
+			       	return loco;
+			        	
+			        }
+			        
+			        
 			        
 			        //JYOTI BISHT 17-7-23
 			        @GetMapping("/display_condemn_loco")
 			        List<Loco_condemn_interface> display_condemn_loco(@RequestParam("shed") String shed)
 			        {
 			        return condemn_repo.view_condemn_loco(shed);
+			        }
+			        
+			        //JYOTI BISHT 1-8-23 for loco display
+			        @GetMapping("/display_condemn_loco_by_locono")
+			      Loco_condemn_interface display_condemn_loco_no(@RequestParam("loco_no") String loco_no)
+			        {
+			        Loco_condemn_interface loco=null;
+			        loco=condemn_repo.view_condemn_loco_by_loco_no(Integer.parseInt(loco_no));
+			        return loco;
 			        }
 			    
 			        //JYOTI BISHT 18-07-23
@@ -531,7 +582,22 @@ public class LocoEditForwardController {
 			        return condemn_repo.loco_status_in_condemnation(Integer.parseInt(loco),shed);
 			        }
 			        
-			   
+			        //JYOTI BISHT 2-08-23 saving loco correction details
+			        /*
+			        @PostMapping("/save_loco_correction")
+			        LocoCorrectionByUser save_loco_correction_details(@RequestBody LocoCorrectionByUser loco)
+			        {
+			        	try
+			        	{
+			        	loco.setTxn_date(LocalDateTime.now());
+			        	return loco_correction.save(loco);
+			        	}
+			        	catch(Exception e)
+			        	{
+			        		return null;
+			        	}
+			        }
+			        */
 			        
 			    
 			    	

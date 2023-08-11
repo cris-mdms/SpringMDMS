@@ -1,6 +1,7 @@
 package com.mdms.dashboard.repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.mdms.dahsboard.model.DashBoardStationCountDivisionWiseModel;
 import com.mdms.dahsboard.model.DashboardStationModel;
 import com.mdms.dahsboard.model.ZonalUsersAssetModel;
+import com.mdms.dahsboard.model.Zone_Shed_Count_Model;
+
 
 public interface StationDashboardRepo  {
 	  @Query(value="SELECT division_code,count(*) as total_division_count FROM mdms_masters.m_division  group by division_code",nativeQuery=true)
@@ -41,6 +44,10 @@ public interface StationDashboardRepo  {
 		  		+ "	  		+ \"					group by 1,2 ) as aa",nativeQuery=true)
 	  Collection<DashBoardStationCountDivisionWiseModel> getUncleansedStationCountSingleDivisionWise(String divcode);
 	  
+	  
+	  
+	  
+
 	
 
 

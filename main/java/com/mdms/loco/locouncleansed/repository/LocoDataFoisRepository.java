@@ -114,6 +114,13 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
 	@Query(value="SELECT * FROM  mdms_loco.loco_data_fois WHERE loco_no=?1 and loco_owning_shed_code=?2 ",nativeQuery=true)
 	Optional<LocoDataFois>get_Locodata_from_fois(int locono, String shed);
 	
+	  //JYOTI BISHT 31-07-23 for loco search 
+	@Query(value="SELECT * FROM  mdms_loco.loco_data_fois WHERE loco_no=?1 ",nativeQuery=true)
+	Optional<LocoDataFois>get_Locodata_from_fois_loco_no(int locono);
+	
+	  //JYOTI BISHT 1-8-23 for loco search
+	@Query(value="SELECT * FROM  mdms_loco.loco_data_fois_original WHERE loco_no=?1 ",nativeQuery=true)
+	Optional<LocoDataFois>get_Locodata_from_fois_original_loco_no(int locono);
 	
 //	@Query(value="select distinct a.loco_owning_zone_code , count(*) from mdms_loco.loco_data_fois as a	 where a.loco_owning_shed_code in "
 //			+ "(select shed_code from mdms_loco.m_loco_shed where validity ='Y' and private_shed='Y') group by 1 order by 1",nativeQuery=true)

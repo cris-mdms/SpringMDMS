@@ -150,13 +150,15 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  	
 
  		@PostMapping("/get_complete_loco_details")
-	    public LocoApprovedData geteLocoDetails(@RequestParam("loco_no")String loco_no, @RequestParam ("shed") String shed)
+	    public LocoApprovedData geteLocoDetails(@RequestParam("loco_no")String loco_no, @RequestParam (value="shed",required = false) String shed)
     	{
  			
  			LocoApprovedData loco=null;
  		
- 		
+ 		    if(shed!=null)
  			loco=loco_approve_repo.getLocoCompletedetail(Integer.parseInt(loco_no),shed);
+ 		    else
+ 		    loco=loco_approve_repo.getLocoCompletedetail_loco_no(Integer.parseInt(loco_no));
  			if(loco!=null)
  			{
  				return loco;

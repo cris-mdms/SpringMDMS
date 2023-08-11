@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.mdms.dahsboard.model.DashBoardLocoCountShedWiseModel;
 import com.mdms.loco.locouncleansed.model.LocoApprovedData;
@@ -88,7 +89,15 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 	
 	// JYOTI BISHT 23-06-23
 	@Query(value="select * from mdms_loco.loco_approved_data where loco_no=?1 and loco_owning_shed=?2",nativeQuery = true)
-	LocoApprovedData getLocoCompletedetail(int loco_no,String shed);
+	LocoApprovedData getLocoCompletedetail( int loco_no,String shed);
+	
+	// JYOTI BISHT 31-06-23
+	@Query(value="select * from mdms_loco.loco_approved_data where loco_no=?1",nativeQuery = true)
+	LocoApprovedData getLocoCompletedetail_loco_no( int loco_no);
+	
+	
+	
+	
 		
 	//ritu 13-07-2023 get approved loco
 		@Query(value="SELECT * FROM  mdms_loco.loco_approved_data WHERE loco_no=?1 AND record_status='O'and status ='A'",nativeQuery=true)
