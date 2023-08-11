@@ -30,6 +30,14 @@ public class LocoDataSlamService {
 			 	 
 		 }
 	 
+	 public List<LocoDataSlamModel> getlocoonlyinslam_exceptAllMdms(){		
+		 List<LocoDataSlamModel> tmp = new ArrayList<>();
+		 obj_repo.getlocoonlyinslam_exceptAllMdms().forEach(tmp::add);		
+		    return tmp;
+			 	 
+		 }
+	 
+	 
 //	 public List<LocoDataSlamModel> getmdmslocoonly(){		
 //		 List<LocoDataSlamModel> tmp = new ArrayList<>();
 //		 obj_repo.getlocoonlyinmdms().forEach(tmp::add);		
@@ -43,7 +51,7 @@ public class LocoDataSlamService {
 			
 			logger.info("Service : LocoDataSlamService || Method: getmdmslocoonly");			 
 			  
-		final String noofusers=" select  loco_no, loco_owning_zone, loco_owning_shed, loco_type, status ,loco_flag\r\n"
+		final String noofusers="select  loco_no, loco_owning_zone, loco_owning_shed, loco_type, status ,loco_flag\r\n"
 				+ "from  mdms_loco.loco_approved_data where loco_no in (\r\n"
 				+ "select  distinct loco_no  from  mdms_loco.loco_approved_data\r\n"
 				+ "where loco_flag='E' and status<>'CN' and loco_owning_shed in (\r\n"
@@ -99,21 +107,95 @@ public class LocoDataSlamService {
 	 
 	 
 	 public List<LocoDataSlam> getalltypemismatche() {
-		 logger.info("Service : LocoDataSlamService || Method: gettypemismatche");	
-		 final String noofusers="select a.loco_no, (case when a.loco_no=b.loco_no then b.loco_type else a.loco_type end ) as mdm_type,slam_loco_type"
-		 		+ "	 from( select c.loco_no ,c.loco_type,b.loco_type as slam_loco_type --into temp_slam	 from	 mdms_analysis.loco_data_slam_250723 as b,"
-		 		+ "	 mdms_loco.loco_data_fois as c where b.loco_no=c.loco_no and b.loco_no in (	 select distinct a.loco_no --- ,a.loco_type,b.loco_type	 from mdms_loco.loco_approved_data as a,mdms_analysis.loco_data_slam_250723 as b"
-		 		+ "	 where  loco_flag='E' and  status<>'CN' and  a.loco_owning_shed in (select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)	 and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'"
-		 		+ "	 and a.loco_type<>b.loco_type union	 select distinct a.loco_no --- ,a.loco_type,b.loco_type	 from mdms_loco.loco_data_fois as a,mdms_analysis.loco_data_slam_250723 as b"
-		 		+ "	 where a.loco_traction_code='E'  and  a.loco_owning_shed_code in (	 select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)"
-		 		+ "	 and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'	 and a.loco_type<>b.loco_type)) as a left join mdms_loco.loco_approved_data as b on a.loco_no=b.loco_no	 order by 2";
-	 		 		 return jdbcTemplate.query(
+		 
+		 logger.info("Service : LocoDataSlamService || Method: getalltypemismatche");	
+		 final String noofusers="select a.loco_no, (case when a.loco_no=b.loco_no then b.loco_type else a.loco_type end ) as loco_type,loco_types\r\n"
+		 		+ "from(\r\n"
+		 		+ "select c.loco_no ,c.loco_type,b.loco_type as loco_types \r\n"
+		 		+ "from\r\n"
+		 		+ "mdms_analysis.loco_data_slam_250723 as b,\r\n"
+		 		+ "mdms_loco.loco_data_fois as c where b.loco_no=c.loco_no and b.loco_no in (\r\n"
+		 		+ "select distinct a.loco_no \r\n"
+		 		+ "from mdms_loco.loco_approved_data as a,mdms_analysis.loco_data_slam_250723 as b\r\n"
+		 		+ "where  loco_flag='E' and  status<>'CN' and  a.loco_owning_shed in (\r\n"
+		 		+ "select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)\r\n"
+		 		+ "and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'  \r\n"
+		 		+ "and a.loco_type<>b.loco_type\r\n"
+		 		+ "union\r\n"
+		 		+ "select distinct a.loco_no \r\n"
+		 		+ "from mdms_loco.loco_data_fois as a,mdms_analysis.loco_data_slam_250723 as b\r\n"
+		 		+ "where a.loco_traction_code='E'  and  a.loco_owning_shed_code in (\r\n"
+		 		+ "select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)\r\n"
+		 		+ "and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'  \r\n"
+		 		+ "and a.loco_type<>b.loco_type)) as a left join mdms_loco.loco_approved_data as b\r\n"
+		 		+ "on a.loco_no=b.loco_no\r\n"
+		 		+ "order by 2";	  
+		 			 return jdbcTemplate.query(
 							noofusers,
 					          (rs, rowNum) ->
 					                  new LocoDataSlam(
 					                		  rs.getInt("loco_no") ,			                		  
-					                		  rs.getString("loco_owning_shed"),
-					                		  rs.getString("loco_owning_sheds")
+//					                		  rs.getString("loco_owning_shed"),
+					                		  rs.getString("loco_type"),
+					                		  rs.getString("loco_types")
 					                         ));
 }
+	 public List<LocoDataSlam> getallshedmismatched()
+	 {
+	 logger.info("Service : LocoDataSlamService || Method: getallshedmismatched");	
+	 final String noofusers=" select a.loco_no, (case when a.loco_no=b.loco_no then b.loco_owning_shed else a.loco_owning_shed_code end ) as loco_owning_shed,loco_owning_sheds\r\n"
+	 		+ "	 from(\r\n"
+	 		+ "	 select c.loco_no ,c.loco_owning_shed_code,b.loco_owning_shed as loco_owning_sheds  \r\n"
+	 		+ "	 from\r\n"
+	 		+ "	 mdms_analysis.loco_data_slam_250723 as b,\r\n"
+	 		+ "	 mdms_loco.loco_data_fois as c where b.loco_no=c.loco_no and b.loco_no in (\r\n"
+	 		+ "	 select distinct a.loco_no --- ,a.loco_type,b.loco_type\r\n"
+	 		+ "	 from mdms_loco.loco_approved_data as a,mdms_analysis.loco_data_slam_250723 as b\r\n"
+	 		+ "	 where  loco_flag='E' and  status<>'CN' and  a.loco_owning_shed in (\r\n"
+	 		+ "	 select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)\r\n"
+	 		+ "	 and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'  \r\n"
+	 		+ "	 and a.loco_owning_shed<>b.loco_owning_shed\r\n"
+	 		+ "	 union\r\n"
+	 		+ "	 select distinct a.loco_no --- ,a.loco_type,b.loco_type\r\n"
+	 		+ "	 from mdms_loco.loco_data_fois as a,mdms_analysis.loco_data_slam_250723 as b\r\n"
+	 		+ "	 where a.loco_traction_code='E'  and  a.loco_owning_shed_code in (\r\n"
+	 		+ "	 select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)\r\n"
+	 		+ "	 and  a.loco_no=b.loco_no and b.locostatus<>'Condemned'  \r\n"
+	 		+ "	 and a.loco_owning_shed_code<>b.loco_owning_shed)) as a left join mdms_loco.loco_approved_data as b\r\n"
+	 		+ "	 on a.loco_no=b.loco_no\r\n"
+	 		+ "	 order by 2";
+	 
+	 return jdbcTemplate.query(
+		noofusers,
+          (rs, rowNum) ->
+                  new LocoDataSlam(
+                		  rs.getInt("loco_no") ,			                		  
+               		  rs.getString("loco_owning_shed"),
+                		  rs.getString("loco_owning_sheds")
+                		
+                         ));
+	 
+}
+	 public List<LocoDataSlam> getallmdmslocono_notinslam(){
+		 logger.info("Service :LocoDataSlamService || Method : getallmdmslocono_notinslam");
+	 final String totallococount ="select loco_no, loco_owning_zone_code as loco_owning_zone, loco_owning_shed_code as loco_owning_shed,loco_type, status,loco_traction_code as loco_flag"
+	 		+ "		from  mdms_loco.loco_data_fois where loco_no in (select  distinct loco_no  from  mdms_loco.loco_data_fois"
+	 		+ "		where loco_traction_code='E' and status<>'CN' and loco_owning_shed_code in"
+	 		+ " (select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)) union select loco_no, loco_owning_zone, loco_owning_shed, loco_type, status ,loco_flag	from  mdms_loco.loco_approved_data where loco_no in ("
+	 		+ "	select  distinct loco_no  from  mdms_loco.loco_approved_data where loco_flag='E' and status<>'CN' and loco_owning_shed in ("
+	 		+ "	select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)"
+	 		+ "	except	select  loco_no  from mdms_analysis.loco_data_slam_250723 where locostatus<>'Condemned')";
+		 return jdbcTemplate.query(
+				 totallococount,
+			          (rs, rowNum) ->
+			                  new LocoDataSlam(
+			                		  rs.getInt("loco_no") ,			                		  
+			               		  rs.getString("loco_owning_zone"),
+			                		  rs.getString("loco_owning_shed"),
+			                		  rs.getString("loco_type"),
+			                		  rs.getString("status"),
+			                		  rs.getString("loco_flag")
+			                		
+			                         ));
+	 }
 }

@@ -9,7 +9,7 @@ public class LocoDataSlam {
 	public 	String status;
 	public 	String loco_flag;
 	public String loco_owning_sheds; 
-//	public String loco_types;
+	public String loco_types;
 
 
 public LocoDataSlam(Integer loco_no, String loco_owning_zone, String loco_owning_shed, String loco_type, String status, String loco_flag)
@@ -28,6 +28,12 @@ this.loco_no=loco_no;
 this.loco_owning_sheds=loco_owning_sheds;
 this.loco_owning_shed=loco_owning_shed;
 }
-
+public LocoDataSlam(Integer loco_no,  String loco_owning_shed , String loco_type, String loco_types)
+{
+this.loco_no=loco_no;
+this.loco_owning_shed=loco_owning_shed;
+this.loco_type=loco_type;
+this.loco_type=loco_types;
+}
 
 }
