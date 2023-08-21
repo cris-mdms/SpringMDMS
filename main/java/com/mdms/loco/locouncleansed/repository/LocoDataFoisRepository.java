@@ -121,13 +121,13 @@ public interface LocoDataFoisRepository extends CrudRepository<LocoDataFois,Long
 	 		
 	@Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as total_loco_count FROM  mdms_loco.loco_data_fois as a \r\n"
     		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
-    		+ "     and private_shed='Y' AND validity='Y' WHERE loco_owning_zone_code=?1  GROUP BY loco_owning_zone_code,loco_owning_shed_code "		
+    		+ "     and ir_flag='N' AND validity='Y' WHERE loco_owning_zone_code=?1  GROUP BY loco_owning_zone_code,loco_owning_shed_code "		
     		+ "ORDER BY 2",	nativeQuery=true)
 	Collection<DashBoardLocoCountShedWiseModel> getLocoZoneShedprivate(String loco_owning_zone_code);
 	
 	@Query(value="SELECT loco_owning_zone_code as loco_owning_zone_code, loco_owning_shed_code as loco_Owningshed ,count(*) as uncleansed_count FROM  mdms_loco.loco_data_fois as a \r\n"
     		+ "    join  mdms_loco.m_loco_shed as b on a.loco_owning_zone_code=b.zone_code and a.loco_owning_shed_code=b.shed_code\r\n"
-    		+ "     and private_shed='Y' AND validity='Y' WHERE loco_owning_zone_code=?1 and status is null GROUP BY loco_owning_zone_code,loco_owning_shed_code "		
+    		+ "     and ir_flag='N' AND validity='Y' WHERE loco_owning_zone_code=?1 and status is null GROUP BY loco_owning_zone_code,loco_owning_shed_code "		
     		+ "ORDER BY 2",	nativeQuery=true)
 	Collection<DashBoardLocoCountShedWiseModel> getUncleansedLocoZoneShedprivate(String loco_owning_zone_code);
 	
