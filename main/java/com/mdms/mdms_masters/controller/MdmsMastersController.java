@@ -29,6 +29,7 @@ import com.mdms.mdms_station.stationuncleansed.model.StationPKey;
 import com.mdms.mdms_masters.model.MDepartment;
 import com.mdms.mdms_masters.model.MDesignation;
 import com.mdms.mdms_masters.model.MDesignationCode;
+import com.mdms.mdms_masters.model.MDesignationStation;
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
 @RestController
 public class MdmsMastersController {
@@ -204,6 +205,16 @@ public class MdmsMastersController {
 			    return mdm_mstr_serv.checkassetscodeexist(assetcode);
 		}
 
+	 
+	 //anshul 17-08-2023
+	 
+	 @RequestMapping(method=RequestMethod.POST, value="/checkassetcodeexist1")
+		public boolean checkassetscodeexist1(@RequestBody MDesignationStation assetcode){ 
+//		 System.out.println("AssetCode"+assetcode.getAsset_designation_code());		
+		//	    System.out.println( "Asset Code"+ mdm_mstr_serv.checkassetscodeexist1(assetcode)); 
+			    return mdm_mstr_serv.checkassetscodeexist1(assetcode);
+		}
+	 
 
 		@RequestMapping(method=RequestMethod.POST, value="/department")
 		public List<MDepartment> getAllDepartment(){

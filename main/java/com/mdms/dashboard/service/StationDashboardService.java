@@ -17,9 +17,11 @@ import com.mdms.dahsboard.model.DashBoardLocoCountShedWiseModel;
 import com.mdms.dahsboard.model.DashBoardStationCountDivisionWiseModel;
 import com.mdms.dahsboard.model.DashboardStationModel;
 import com.mdms.dahsboard.model.GetLocoZonewiseDashboardJsonModel;
+import com.mdms.dahsboard.model.StationHomeDashboard;
 import com.mdms.dahsboard.model.ZonalUserReportModel;
 import com.mdms.dahsboard.model.ZonalUsersAssetModel;
 import com.mdms.dashboard.repository.StationDashboardRepo;
+import com.mdms.dashboard.repository.StationHomeDashboardRepo;
 import com.mdms.loco.locouncleansed.model.LocoDashboardModelRepo;
 import com.mdms.loco.locouncleansed.repository.LocoApprovedDataRepository;
 import com.mdms.loco.locouncleansed.repository.LocoDataFoisRepository;
@@ -29,6 +31,7 @@ import com.mdms.mdms_coach.coachuncleansed.repository.CoachCleansedDataRepositor
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachTypeMappingRepository;
 import com.mdms.mdms_coach.coachuncleansed.repository.CoachUncleansedDataRepository;
 import com.mdms.mdms_masters.model.MDivision;
+import com.mdms.mdms_masters.repository.MDivisionRepository;
 import com.mdms.mdms_station.stationuncleansed.model.StationDataRbs;
 import com.mdms.mdms_station.stationuncleansed.repository.StationCleansedDataRepository;
 import com.mdms.mdms_station.stationuncleansed.repository.StationTableRbsRepository;
@@ -45,6 +48,13 @@ public class StationDashboardService {
 	 //@Autowired
  //LocoDashboardModelRepo locoobj;
 //	 StationDashboardRepo stationRepositoryObj;
+	 @Autowired 
+		MDivisionRepository divsn_repo;
+	 
+	 @Autowired
+	 StationHomeDashboardRepo station_repo;
+		
+	 
 //	 
 	 @Autowired
 		StationUncleansedDataRepository stn_unclsnd_repo;
@@ -1882,8 +1892,38 @@ e.getMessage();
 return null;
 }
 }
-}
 
+
+public List<StationHomeDashboard> getStationCountHome(String div_code){
+	
+	int divno=	divsn_repo.getDivsionCode(div_code);
+	List<StationHomeDashboard> temp1=new ArrayList<>();
+	StationHomeDashboard temp=new StationHomeDashboard();
+	
+	
+	temp.setTotal(station_repo.getTotal(divno));
+	temp.setUncleansed(station_repo.getuncleansed(divno,div_code));
+	temp.setUncleansed_cmi(station_repo.getuncleansedCMI(divno, div_code));
+	temp.setUncleansed_dti(station_repo.getuncleansedDTI(divno, div_code));
+	temp.setDraft_dti(station_repo.getdraftdti(div_code));
+	temp.setDrfat_cmi(station_repo.getdraftcmi(div_code));
+	temp.setPending_cmi(station_repo.getpendingcmi(div_code));
+	temp.setPending_dti(station_repo.getpendingdti(div_code));
+	temp.setReject_cmi(station_repo.getrejectcmi(div_code));
+	temp.setReject_dti(station_repo.getrejectdti(div_code));
+	temp.setNot_initiated(station_repo.getuncleansednotinitiated(divno, div_code));
+	temp.setNt_ini_cmi(station_repo.getnotinitiatedcmi(div_code));
+	temp.setNt_ini_dti(station_repo.getnotinitiateddti(div_code));
+	temp.setCleansed(station_repo.getcleansed(div_code));
+	temp.setClean_cmi(station_repo.getcleansedcmi(div_code));
+	temp.setClean_dti(station_repo.getcleanseddti(div_code));
+	
+	temp1.add(temp);
+
+	return temp1;
+
+}
+}
 
 
 
