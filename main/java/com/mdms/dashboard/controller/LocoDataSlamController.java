@@ -30,7 +30,13 @@ public class LocoDataSlamController {
 		return obj_service.getslamlocoonly();
 	
 	}
+	@RequestMapping(method=RequestMethod.POST, value ="/getslamloco_Exceptallmdms")
+	public List<LocoDataSlamModel> getlocoonlyinslam_exceptAllMdms()
+	{
+		logger.info("Controller : LocoDataSlamController || Method : getlocoonlyinslam_exceptAllMdms");
+		return obj_service.getlocoonlyinslam_exceptAllMdms();
 	
+	}
 
 	@RequestMapping(method=RequestMethod.POST, value ="/getmdmsloco_only")
 	public List<LocoDataSlam> getmdmsloco()
@@ -56,5 +62,27 @@ public class LocoDataSlamController {
 	
 	}
 
-
+	@RequestMapping(method=RequestMethod.POST, value ="/getalltypemismatched")
+	public List<LocoDataSlam> getalltypemismatche()
+	{
+		logger.info("Controller : LocoDataSlamController || Method : gettypemismatche");
+		return obj_service.getalltypemismatche();
+	
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value ="/getallshedmismatched")
+	public List<LocoDataSlam> getallshedmismatched()
+	{
+		logger.info("Controller : LocoDataSlamController || Method : getallshedmismatched");
+		return obj_service.getallshedmismatched();
+	
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value ="/getallmdmsloco_notin_slam")
+	public List<LocoDataSlam> getallmdmsloco_not_inslam()
+	{
+		logger.info("Controller : LocoDataSlamController || Method : getallmdmsloco_not_inslam");
+		return obj_service.getallmdmslocono_notinslam();
+	
+	}
 }
