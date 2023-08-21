@@ -22,6 +22,7 @@ import com.mdms.app.mgmt.model.UserProfileRegistrationDetailModel;
 import com.mdms.dahsboard.model.DashBoardCoachCountDepoWiseModel;
 import com.mdms.dahsboard.model.DashboardStationModel;
 import com.mdms.dahsboard.model.GetLocoZonewiseDashboardJsonModel;
+import com.mdms.dahsboard.model.StationHomeDashboard;
 import com.mdms.dahsboard.model.ZonalUserReportModel;
 import com.mdms.dahsboard.model.ZonalUsersAssetModel;
 import com.mdms.dashboard.service.StationDashboardService;
@@ -211,5 +212,17 @@ Logger logger=LoggerFactory.getLogger(StationDashboardController.class);
 
 
 	
+				
+				@RequestMapping(method=RequestMethod.GET, value="/getStationCountHome")
+				public List<StationHomeDashboard> getStationCountHome(@RequestParam(value="division_code") String div_code)
+				{List<StationHomeDashboard> temp= new ArrayList<>();
+				 temp=stationServ_obj.getStationCountHome(div_code);
+				
+					
+					return temp;
+					
+				}
+				
+				
 
 }

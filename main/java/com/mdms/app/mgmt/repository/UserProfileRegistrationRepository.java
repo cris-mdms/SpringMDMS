@@ -288,6 +288,10 @@ List<UserProfileRegistrationDetailModel> getReportdivisionuserallparameter(Strin
 	
 	@Query(value="select count(*) from mdms_app_mgmt.user_profile_registration_detail where division=?1 and user_type=?2 and role_type=?3", nativeQuery = true)
 	int get_count_by_usertype(String division, String user_type, String role_type);
+
+	@Query(value="select cris_user from mdms_app_mgmt.user_profile_registration_detail where user_id=?1", nativeQuery = true)
+	
+	String getUserRole(String hrmsid);
 	
 
 

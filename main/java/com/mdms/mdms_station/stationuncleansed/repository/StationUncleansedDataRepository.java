@@ -47,30 +47,30 @@ public interface StationUncleansedDataRepository extends CrudRepository <Station
 	
 			@Modifying
 			@Transactional
-			@Query(value="UPDATE mdms_station.station_uncleansed_data SET cmi_status='A' \r\n" + 
+			@Query(value="UPDATE mdms_station.station_uncleansed_data SET cmi_status='A' , dcm_action_date=?2 \r\n" + 
 					"	where station_code=?1",nativeQuery = true)
-	int approvedByDcm(String station_code);
+	int approvedByDcm(String station_code,Date date);
 
 			
 			@Modifying
 			@Transactional
-			@Query(value="UPDATE mdms_station.station_uncleansed_data SET dti_status='A' \r\n" + 
+			@Query(value="UPDATE mdms_station.station_uncleansed_data SET dti_status='A' , dom_action_date=?2 \r\n" + 
 					"	where station_code=?1",nativeQuery = true)
-	int approvedByDom(String station_code);
+	int approvedByDom(String station_code,Date date);
 			
 			
 			
 			@Modifying
 			@Transactional
-			@Query(value="UPDATE mdms_station.station_uncleansed_data SET cmi_status='R' \r\n" + 
+			@Query(value="UPDATE mdms_station.station_uncleansed_data SET cmi_status='R', dcm_action_date=?2 \r\n" + 
 					"	where station_code=?1",nativeQuery = true)
-	int rejectByDcm(String station_code);
+	int rejectByDcm(String station_code,Date date);
 			
 			@Modifying
 			@Transactional
-			@Query(value="UPDATE mdms_station.station_uncleansed_data SET dti_status='R' \r\n" + 
+			@Query(value="UPDATE mdms_station.station_uncleansed_data SET dti_status='R', dom_action_date=?2 \r\n" + 
 					"	where station_code=?1",nativeQuery = true)
-	int rejectByDom(String station_code);
+	int rejectByDom(String station_code,Date date);
 			
 			@Modifying
 			@Transactional
