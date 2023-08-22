@@ -993,7 +993,8 @@ public class StationEditForwardService {
 	public String approvedByDcm(String stationdatadcm) throws Exception {
 String returnstmt=null;
 try {
-		int i= stn_unclsnd_repo.approvedByDcm(stationdatadcm);
+	Date date= new Date();
+;		int i= stn_unclsnd_repo.approvedByDcm(stationdatadcm,date );
 
 		System.out.println("Approved by DCM "+i);
 
@@ -1001,8 +1002,17 @@ try {
 if(i>0)
 {
 	StationCleansedData stncldata=stn_clnsd_repo.findByStncode(stationdatadcm);
-	if(stncldata.getDti_status().equals('A'))
-		{stn_clnsd_repo.save(stncldata);
+	if(stncldata.getDti_status().equals("A"))
+		{int i1=stn_clnsd_repo.savegoldenrecord(stncldata.getStn_Id().getStation_code(),stncldata.getStation_numeric_code(),stncldata.getStation_name(),stncldata.getTraffic_type(),stncldata.getTranshipment_flag(),
+				stncldata.getStn_Id().getStation_valid_from(),stncldata.getStn_Id().getStation_valid_upto() , stncldata.getZone_code(),stncldata.getDivision_code(),stncldata.getGauge_code(),
+				
+				stncldata.getLatitude(),stncldata.getLongitude(),stncldata.getStation_class(),stncldata.getJunction_flag(),stncldata.getInterchange_flag(),stncldata.getState(),stncldata.getPincode(),
+			
+				stncldata.getDistrict(),stncldata.getTehsil(),stncldata.getStation_category(),stncldata.getStation_short_name(),stncldata.getInterlocking_standard(),stncldata.getTraction(),
+				stncldata.getWorking_division(),stncldata.getNo_of_lines(),stncldata.getWeight_bridge(),stncldata.getSiding(),stncldata.getBooking_resource(),stncldata.getRecord_status(),
+			
+				stncldata.getCmi_status(),stncldata.getDti_status(),stncldata.getUser_id_cmi(),stncldata.getUser_id_dti(),stncldata.getTxn_date_cmi(),stncldata.getTxn_date_dti(),
+				stncldata.getOperating_station_signal(),stncldata.getDcm_action_date(),stncldata.getDom_action_date());
 			returnstmt="RECORD APPROVED SUCCESSFULLY AND ADDED TO GOLDEN MASTER";}
 	else
 			returnstmt="RECORD APPROVED SUCCESSFULLY";
@@ -1019,8 +1029,8 @@ if(i>0)
 	 @Transactional(rollbackOn = Exception.class)
 	public String approvedByDom(String stationdatadcm) throws Exception{
 String returnstmt=null;
-try {
-		int i= stn_unclsnd_repo.approvedByDom(stationdatadcm);
+try {Date date= new Date();
+		int i= stn_unclsnd_repo.approvedByDom(stationdatadcm,date);
 
 		System.out.println("Approved by DOM "+i);
 
@@ -1031,19 +1041,25 @@ if(i>0)
 
 	String cmi_sts=stncldata.getCmi_status();
 	if(cmi_sts.equals("A"))
-		{stn_clnsd_repo.save(stncldata);
-		
-
-	if(stncldata.getCmi_status().equals('A'))
-		{stn_clnsd_repo.save(stncldata);
-
+		{
+//		stn_clnsd_repo.save(stncldata);
+		int i11=stn_clnsd_repo.savegoldenrecord(stncldata.getStn_Id().getStation_code(),stncldata.getStation_numeric_code(),stncldata.getStation_name(),stncldata.getTraffic_type(),stncldata.getTranshipment_flag(),
+				stncldata.getStn_Id().getStation_valid_from(),stncldata.getStn_Id().getStation_valid_upto() , stncldata.getZone_code(),stncldata.getDivision_code(),stncldata.getGauge_code(),
+				
+				stncldata.getLatitude(),stncldata.getLongitude(),stncldata.getStation_class(),stncldata.getJunction_flag(),stncldata.getInterchange_flag(),stncldata.getState(),stncldata.getPincode(),
+			
+				stncldata.getDistrict(),stncldata.getTehsil(),stncldata.getStation_category(),stncldata.getStation_short_name(),stncldata.getInterlocking_standard(),stncldata.getTraction(),
+				stncldata.getWorking_division(),stncldata.getNo_of_lines(),stncldata.getWeight_bridge(),stncldata.getSiding(),stncldata.getBooking_resource(),stncldata.getRecord_status(),
+			
+				stncldata.getCmi_status(),stncldata.getDti_status(),stncldata.getUser_id_cmi(),stncldata.getUser_id_dti(),stncldata.getTxn_date_cmi(),stncldata.getTxn_date_dti(),
+				stncldata.getOperating_station_signal(),stncldata.getDcm_action_date(),stncldata.getDom_action_date());
 			returnstmt="RECORD APPROVED SUCCESSFULLY AND ADDED TO GOLDEN MASTER";}
 	else
 			returnstmt="RECORD APPROVED SUCCESSFULLY";
 
 }
 else
-	returnstmt="RECORD NOT APPROVED. CONTACT THE ADMINISTRATOR";}
+	returnstmt="RECORD NOT APPROVED. CONTACT THE ADMINISTRATOR";
 	return returnstmt; 
 
 }
@@ -1206,8 +1222,8 @@ catch(Exception e)
 	 @Transactional(rollbackOn = Exception.class)
 		public String rejectByDcm(String stationdatadcm) throws Exception{
 	String returnstmt=null;
-	try {
-			int i= stn_unclsnd_repo.rejectByDcm(stationdatadcm);
+	try {Date date= new Date();
+			int i= stn_unclsnd_repo.rejectByDcm(stationdatadcm,date);
 			if(i>0)
 			{
 				returnstmt="RECORD REJECTED SUCCESSFULLY";
@@ -1225,8 +1241,8 @@ catch(Exception e)
 	 @Transactional(rollbackOn = Exception.class)
 		public String rejectByDom(String stationdatadom) throws Exception{
 	String returnstmt=null;
-	try {
-			int i= stn_unclsnd_repo.rejectByDom(stationdatadom);
+	try { Date date= new Date();
+			int i= stn_unclsnd_repo.rejectByDom(stationdatadom,date);
 			if(i>0)
 			{
 				returnstmt="RECORD REJECTED SUCCESSFULLY";

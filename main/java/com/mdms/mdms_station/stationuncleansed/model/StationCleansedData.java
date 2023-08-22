@@ -138,7 +138,10 @@ public class StationCleansedData {
 	@Column(name="remarks")
 	private String  remarks ;
 	
-	
+	@Column(name="dcm_action_date")
+	private Date  dcm_action_date ;
+	@Column(name="dom_action_date")
+	private Date  dom_action_date ;
 
 	public StationPKey getStn_Id() {
 		return stn_Id;
@@ -450,6 +453,22 @@ public class StationCleansedData {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public Date getDcm_action_date() {
+		return dcm_action_date;
+	}
+
+	public void setDcm_action_date(Date dcm_action_date) {
+		this.dcm_action_date = dcm_action_date;
+	}
+
+	public Date getDom_action_date() {
+		return dom_action_date;
+	}
+
+	public void setDom_action_date(Date dom_action_date) {
+		this.dom_action_date = dom_action_date;
 	}
 	
 	

@@ -32,7 +32,7 @@ public final class TokenValidator {
 		JSONObject request = new JSONObject();
 	  	request.put("token", token);
 	  	request.put("hrmsid", hrmsId);
-	  	String plainCreds = "test_ssohrms:ssohrms@2022";
+	  	String plainCreds = "test_ssomdms:ssohrms@2022";
 	  	String base64Creds = Base64.getEncoder().encodeToString(plainCreds.getBytes());
 	  	SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
 		requestFactory.setProxy(Proxy.NO_PROXY);
@@ -48,7 +48,7 @@ public final class TokenValidator {
 		headers.add("Authorization", "Basic " + base64Creds);
 		HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
 		ResponseEntity<String> response = null;
-		System.out.println(token);
+//		System.out.println(token);
 		JSONObject json=null;
 	    // make a request
 		try{
@@ -57,7 +57,7 @@ public final class TokenValidator {
 				   .exchange(url, HttpMethod.POST, entity, String.class);
 		   String body=response.getBody();
 		   json=new JSONObject(body);
-		   System.out.println(json.getString("status"));
+//		   System.out.println(json.getString("status"));
 		   if(json.has("status")  && json.getString("status").equals("1")) {
 			   return true;
 		   }

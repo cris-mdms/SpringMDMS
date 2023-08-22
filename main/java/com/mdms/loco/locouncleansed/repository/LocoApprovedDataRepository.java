@@ -35,7 +35,7 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
  			+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
  			+ "WHERE loco_owning_zone=?1 \r\n"
  			+ "AND status='A' and  loco_owning_shed not in\r\n"
- 			+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+ 			+ "(select shed_code from mdms_loco.m_loco_shed where ir_flag='N' and validity='Y')\r\n"
  			+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
  			Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShed(String loco_owning_zone_code);
 	
@@ -109,7 +109,7 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 				+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
 				+ "WHERE loco_owning_zone=?1 \r\n"
 				+ "AND status='A' and  loco_owning_shed  in\r\n"
-				+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+				+ "(select shed_code from mdms_loco.m_loco_shed where ir_flag='N' and validity='Y')\r\n"
 				+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
 					Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShedprivate(String loco_owning_zone_code);
 		

@@ -83,7 +83,7 @@ public class UserLoginController {
 		 response= menuRightService.showMenuRights(user_id);
 	String user_type=	 menuRightService.getUserType(user_id);
 	UserProfileRegistrationDetailModel registrationObj=profileRegistrationService.getUserDetail(user_id);
-	System.out.println("username"+registrationObj.getUname());
+//	System.out.println("username"+registrationObj.getUname());
 	obj.setDivision(registrationObj.getDivision());
 	obj.setDesignation(registrationObj.getDesignation());
 obj.setUser_role(registrationObj.getRole_type());
@@ -111,7 +111,7 @@ obj.setSenior_id(profileRegistrationService.seniorID(registrationObj.getDesignat
 //	System.out.println("result"+result);
 		if(response.size()>0)
 		{
-			System.out.println("asset_desigabove"+registrationObj.getAsset_designation_code());
+//			System.out.println("asset_desigabove"+registrationObj.getAsset_designation_code());
 			
 		obj.setMenuid_list(response);
 		obj.setStatus("success");
@@ -121,7 +121,7 @@ obj.setSenior_id(profileRegistrationService.seniorID(registrationObj.getDesignat
 		 logger.info("Controller : UserLoginController || Method : userLogin ||showMenuRights:user_id "+user_id +" ||menuId list size"+ response.size() +"|| credentails are right");
 
 		}else {
-			System.out.println("asset_desigbelow"+registrationObj.getAsset_designation_code());
+//			System.out.println("asset_desigbelow"+registrationObj.getAsset_designation_code());
 			
 			obj.setMenuid_list(response);
 			obj.setStatus("success");

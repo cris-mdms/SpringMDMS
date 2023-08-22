@@ -14,12 +14,13 @@ import com.mdms.loco.locouncleansed.model.MLocoType;
 import com.mdms.mdms_masters.model.MDepartment;
 import com.mdms.mdms_masters.model.MDesignation;
 import com.mdms.mdms_masters.model.MDesignationCode;
+import com.mdms.mdms_masters.model.MDesignationStation;
 import com.mdms.mdms_masters.model.MDivision;
 import com.mdms.mdms_masters.model.MZone;
 import com.mdms.mdms_masters.repository.MDepartmentRepository;
 import com.mdms.mdms_masters.repository.MDesignationCodeRepository;
 import com.mdms.mdms_masters.repository.MDesignationRepository;
-
+import com.mdms.mdms_masters.repository.MDesignationStationRepo;
 import com.mdms.mdms_masters.repository.MDivisionRepository;
 import com.mdms.mdms_masters.repository.MShedMgmtRepository;
 import com.mdms.mdms_masters.repository.MShedRepo;
@@ -46,7 +47,8 @@ public class MdmsMasterService {
 	@Autowired
 	MShedMgmtRepository shedmgmtRepoObj;
 	
-	
+	@Autowired
+	MDesignationStationRepo  mdesstationrepo;;
 	
 	//insertNewApprovedShedCode - Gaurav
 		public int insertNewApprovedShedCode(MShedMgmt shedd) {			
@@ -169,6 +171,20 @@ public List<String> getZonewiseDivisionCode(String zone) throws Exception{
 	public boolean checkassetscodeexist(MDesignationCode assetdesig) {
 		   String assetcode=assetdesig.getAsset_designation_code();       
 		   String assetcode1=assetcode_repo.checkassetscodeexist(assetcode);
+		   if((assetcode1!=null)&&(assetcode1.equals(assetcode1)) ){  
+			   return true;
+				 		       				 		    	
+				 		    } else {
+				 		    	return false;
+				 		    }
+				 		   
+				 		}
+	//Anshul 17-08-2023
+	public boolean checkassetscodeexist1(MDesignationStation assetdesig) {
+		   String assetcode=assetdesig.getAsset_designation_code();
+		   String assetrole=assetdesig.getUser_role();
+		   String assettype=assetdesig.getAsset();
+		   String assetcode1=mdesstationrepo.checkassetscodeexist(assetcode, assetrole, assettype);
 		   if((assetcode1!=null)&&(assetcode1.equals(assetcode1)) ){  
 			   return true;
 				 		       				 		    	

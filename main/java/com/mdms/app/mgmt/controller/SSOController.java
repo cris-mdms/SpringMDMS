@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 
 @Controller
+
 public class SSOController implements ErrorController{
 	Logger logger=LoggerFactory.getLogger(SSOController.class);
 	
@@ -40,6 +41,12 @@ public class SSOController implements ErrorController{
    		 return "redirect:http://localhost:4200/data-dictionary";
 	    }
 
+	 @GetMapping("/test")
+	 public String test()
+	 {		 
+		 logger.info("Controller : SSOController : dashboard ");	
+   		 return "redirect:http://localhost:4200/login/45436400546";
+	    }
 	
 	
 

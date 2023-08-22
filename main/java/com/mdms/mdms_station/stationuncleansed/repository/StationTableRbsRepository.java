@@ -205,20 +205,20 @@ public interface StationTableRbsRepository  extends CrudRepository<StationTableR
 	
 	
 	//Anshul 08-06-2023 // to select codes for siding only 
-	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 and stn_status=?2 except\r\n" + 	
-	"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
+//	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 and stn_status=?2 except\r\n" + 	
+//	"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
+//	List<String>getDivisionalStnCodeDti(int divsno,String cateogory);
+//	
+
+	//Anshul 11-08-2023 // to select codes for station/siding/cabin/yard
+	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 and stn_status=?2 except\r\n" + 
+			"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
 	List<String>getDivisionalStnCodeDti(int divsno,String cateogory);
 	
 
 	//Anshul
-//	@Query(value="select distinct stn_code from  mdms_station.station_table_rbs where div_ser_no=?1 except\r\n" + 
-//			"	select distinct station_code from mdms_station.station_uncleansed_data where dti_status IN ('U','A')", nativeQuery = true)
-//	List<String>getDivisionalStnCodeDti(int divsno);
-	
-
-	//Anshul
-	@Query(value="select * from  mdms_station.station_table_rbs where stn_code=?1 and stn_vld_upto=("
-			+ "select stn_vld_upto from mdms_station.station_table_rbs where stn_code=?1 order by stn_vld_upto DESC LIMIT 1)", nativeQuery = true)
+	//modify 11-08-2023
+	@Query(value="select * from  mdms_station.station_table_rbs where stn_code=?1 and current_date between stn_vld_from and stn_vld_upto", nativeQuery = true)
 	StationTableRbs getStationRecordRBS(String station_code);
 	
 	

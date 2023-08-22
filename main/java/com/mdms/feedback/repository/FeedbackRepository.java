@@ -15,8 +15,8 @@ public interface FeedbackRepository extends CrudRepository<FeedbackModel,Long>{
 	@Query(value ="SELECT *	FROM mdms_feedback.feedback_master  WHERE \"asset_owner_id\" =?1",nativeQuery=true)
 	List<FeedbackModel> findOwnerFeedback(String assetownerid);
 	
-	@Query(value ="SELECT *	FROM mdms_feedback.feedback_master",nativeQuery=true)
-	List<FeedbackModel> superuserfeedback();
+	@Query(value ="SELECT *	FROM mdms_feedback.feedback_master where sender_zone=?1",nativeQuery=true)
+	List<FeedbackModel> superuserfeedback(String zone);
 	
 	@Transactional
 	@Modifying
@@ -30,12 +30,14 @@ public interface FeedbackRepository extends CrudRepository<FeedbackModel,Long>{
 	@Modifying
 	@Transactional
 	@Query
-	(value ="INSERT INTO mdms_feedback.feedback_master(request_title,  asset_module, status, sender_id, sender_name, "
-	 		+ "sender_designation,   asset_owner_id, asset_type, request_reply_id, request_reply_comment,reply_to)"
-	          +" VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7,?8,?9,?10,?11)",nativeQuery = true)
-	int insertReplyByAdmin(String requesttitle, String assetmodule, String requeststatus, String senderid, String sendername, String senderdegis, String assetownerid, String assettype,
-			int replyid, String replycomment,String receiverID);
-	 
+	(value ="update mdms_feedback.feedback_master set request_reply_comment=?1 where request_id=?2" ,nativeQuery = true)
+	int updateReplyByAdmin(String replycomment,Long request_id);
+	
+//	(value ="INSERT INTO mdms_feedback.feedback_master(request_title,  asset_module, status, sender_id, sender_name, "
+	// 		+ "sender_designation,   asset_owner_id, asset_type, request_reply_id, request_reply_comment,reply_to)"
+	  //        +" VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7,?8,?9,?10,?11)",nativeQuery = true)
+
+	
 	    @Transactional
 		@Query(value ="SELECT * FROM mdms_feedback.feedback_master WHERE \"reply_to\" =?1",nativeQuery=true)
 		List<FeedbackModel> getreplybyadmin(String receiverid);

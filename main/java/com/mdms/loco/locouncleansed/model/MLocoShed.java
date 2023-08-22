@@ -27,22 +27,21 @@ public class MLocoShed {
 	@Column(name="serving_station")
 	private String serving_station;
 	
-	@Column(name="shed_type")
-	private String shed_type;
-	
-
-	
+//	@Column(name="shed_type")
+//	private String shed_type;
+//	
+		
 	@Column(name="ir_flag")
 	private String ir_flag;
 	
-	@Column(name="fois_flag")
-	private String fois_flag;
+//	@Column(name="fois_flag")
+//	private String fois_flag;
 	
 	@Column(name="old_shed_code")
 	private String old_shed_code;
 	
-	@Column(name="fois_old_zone_code")
-	private String fois_old_zone_code;
+//	@Column(name="fois_old_zone_code")
+//	private String fois_old_zone_code;
 	
 	@Column(name="fois_old_shed_code")
 	private String fois_old_shed_code;
@@ -63,13 +62,13 @@ public class MLocoShed {
 		this.ir_flag = ir_flag;
 	}
 
-	public String getFois_flag() {
-		return fois_flag;
-	}
-
-	public void setFois_flag(String fois_flag) {
-		this.fois_flag = fois_flag;
-	}
+//	public String getFois_flag() {
+//		return fois_flag;
+//	}
+//
+//	public void setFois_flag(String fois_flag) {
+//		this.fois_flag = fois_flag;
+//	}
 
 	public String getOld_shed_code() {
 		return old_shed_code;
@@ -79,13 +78,13 @@ public class MLocoShed {
 		this.old_shed_code = old_shed_code;
 	}
 
-	public String getFois_old_zone_code() {
-		return fois_old_zone_code;
-	}
-
-	public void setFois_old_zone_code(String fois_old_zone_code) {
-		this.fois_old_zone_code = fois_old_zone_code;
-	}
+//	public String getFois_old_zone_code() {
+//		return fois_old_zone_code;
+//	}
+//
+//	public void setFois_old_zone_code(String fois_old_zone_code) {
+//		this.fois_old_zone_code = fois_old_zone_code;
+//	}
 
 	public String getFois_old_shed_code() {
 		return fois_old_shed_code;
@@ -160,13 +159,13 @@ public class MLocoShed {
 		this.serving_station = serving_station;
 	}
 
-	public String getShed_type() {
-		return shed_type;
-	}
-
-	public void setShed_type(String shed_type) {
-		this.shed_type = shed_type;
-	}
-	
+//	public String getShed_type() {
+//		return shed_type;
+//	}
+//
+//	public void setShed_type(String shed_type) {
+//		this.shed_type = shed_type;
+//	}
+//	
 
 }

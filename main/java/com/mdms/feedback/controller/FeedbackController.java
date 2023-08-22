@@ -84,6 +84,17 @@ Logger logger=LoggerFactory.getLogger(FeedbackController.class);
 						boolean flag=obj_service.updaterecord(obj_update);
 							return flag;
 					}
+		
+			
+			//status update feedback - Developer - Ritu 19-08-2023	
+			@RequestMapping(method=RequestMethod.POST, value="/updatefeedbackreply")
+			public boolean updatereply(@RequestBody FeedbackModel obj_update) {
+				System.out.println(obj_update.getRequest_id());
+				System.out.println(obj_update.getRequest_reply_comment());		
+						boolean flag=obj_service.updatereply(obj_update);
+							return flag;
+					}
+		
 			
 			@RequestMapping(method=RequestMethod.POST, value="/savefeedbacksnapshort")
 			public boolean addproposal(@RequestParam("file") MultipartFile file, @RequestParam("feedbackproposal") String feedbackproposal) throws JSONException, JsonMappingException, IOException 
@@ -104,46 +115,46 @@ Logger logger=LoggerFactory.getLogger(FeedbackController.class);
 					return obj_service.getrequestid(obj_reqid);
 			}
 		
-			//service call to get request id asset type wise -Developer-Ritu 14.8.2020
+			//service call to get request id asset type wise -Developer-Ritu 19.8.2023
 			@RequestMapping(method=RequestMethod.POST,value="/getsnapfilename")
 			 public String  getfilename(@RequestBody FeedbackSnapshortModel objsnapshort){				
 		System.out.println(objsnapshort.getRequest_id());				
 					return obj_service.getSnapfilename(objsnapshort);
 			}
 			
-			@RequestMapping(method=RequestMethod.POST, value="/addfeedbackreplydbyadmin")
-			public String addFeedbackReplyByAdmin(@RequestParam("form1")  String form1) {
-				
-				FeedbackModel modelObj = null;
-				try {
-					modelObj = new ObjectMapper().readValue(form1,FeedbackModel.class);
-				} catch (JsonParseException e) {
-					// TODO Auto-generated catch block
-					e.getMessage();
-				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
-					e.getMessage();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.getMessage();
-				}
-
-					
-				
-			int response=obj_service.insertFeedbackReplyByAdmin(modelObj);
-			logger.info("controller : FeedbackController || Method : addFeedbackReplyByAdmin || insertFeedbackReplyByAdmin query response: "+response);
-
-			
-		if(response==1) {
-			
-			
-			return JSONObject.quote("Reply Inserted Successfully");
-			
-		}else {
-			return JSONObject.quote("Reply did not insert");
-		}
-				
-					}
+//			@RequestMapping(method=RequestMethod.POST, value="/addfeedbackreplydbyadmin")
+//			public String addFeedbackReplyByAdmin(@RequestParam("form1")  String form1) {
+//				
+//				FeedbackModel modelObj = null;
+//				try {
+//					modelObj = new ObjectMapper().readValue(form1,FeedbackModel.class);
+//				} catch (JsonParseException e) {
+//					// TODO Auto-generated catch block
+//					e.getMessage();
+//				} catch (JsonMappingException e) {
+//					// TODO Auto-generated catch block
+//					e.getMessage();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.getMessage();
+//				}
+//
+//					
+//				
+//			int response=obj_service.insertFeedbackReplyByAdmin(modelObj);
+//			logger.info("controller : FeedbackController || Method : addFeedbackReplyByAdmin || insertFeedbackReplyByAdmin query response: "+response);
+//
+//			
+//		if(response==1) {
+//			
+//			
+//			return JSONObject.quote("Reply Inserted Successfully");
+//			
+//		}else {
+//			return JSONObject.quote("Reply did not insert");
+//		}
+//				
+//					}
 			
 			//service call to get reply as per receiver id 
 			 @RequestMapping(method=RequestMethod.POST,value="/getreplybyadmin")
