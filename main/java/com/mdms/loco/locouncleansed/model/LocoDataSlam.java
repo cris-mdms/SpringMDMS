@@ -1,5 +1,6 @@
 package com.mdms.loco.locouncleansed.model;
 
+
 import java.sql.Date;
 
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ String loco_gauge_type;
 String loco_auxilary;
 String loco_boogie_type;
 String locostatus;
+
 public Integer getLoco_no() {
 	return loco_no;
 }
@@ -132,7 +134,9 @@ public String getLocostatus() {
 public void setLocostatus(String locostatus) {
 	this.locostatus = locostatus;
 }
-   
 
 
 }
+   
+
+

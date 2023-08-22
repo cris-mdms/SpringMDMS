@@ -41,6 +41,5 @@ public String role_type;
 	
 	
 	
-	
 
 }

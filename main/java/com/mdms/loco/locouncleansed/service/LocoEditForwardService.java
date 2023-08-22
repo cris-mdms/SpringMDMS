@@ -619,4 +619,13 @@ private MLocoTypeRepository obj_uncleansedtyperepo;
 						}
 					
 
+
+public List<String> getflagtype(){
+	return obj_elec.getflagtype();
+}
+public List<Integer> getslamdata(){
+	return obj_elec.getslam_locomismatched();
+}
+
+
 }

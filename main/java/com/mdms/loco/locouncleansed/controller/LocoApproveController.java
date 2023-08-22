@@ -75,7 +75,8 @@ Logger logger=LoggerFactory.getLogger(LocoApproveController.class);
  	 	@RequestMapping(method=RequestMethod.POST, value ="/updateEGoldenRecord")
  	 	public boolean updateEGoldenRecord(@RequestBody LocoApprovedData obj_approvedclass)
  	 	{
- 	 		System.out.println("locono"+ obj_approvedclass.getElec_locoNo());	
+ 	 		System.out.println("locono"+ obj_approvedclass.getElec_locoNo());
+ 	 		System.out.println("locotype"+ obj_approvedclass.getElec_locoType());	
  	 		System.out.println("flagtype"+ obj_approvedclass.getFlagType());
  	 		System.out.println("isgps"+ obj_approvedclass.getIsGPSEnabled()); 	
  	 		System.out.println("hotel"+ obj_approvedclass.getElec_locoHotelLoad()); 		
