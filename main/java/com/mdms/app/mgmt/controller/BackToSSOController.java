@@ -28,7 +28,7 @@ import com.mdms.app.mgmt.service.SSOService;
 
 import java.net.URI;
 
-@CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
+@CrossOrigin(origins = {"*"}, maxAge = 4800, allowCredentials = "false")
 @RestController
 public class BackToSSOController {
 	@Autowired

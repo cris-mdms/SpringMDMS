@@ -72,8 +72,8 @@ public class SSOService {
 		 {
 			String role= userprofilerepo.getUserRole(hrmsid);
 			if(role.equals("N"))
-				return 'R';//registred user but not cris user
-			else return 'C';//registred user but cris user
+				return 'R';//registered user but not cris user
+			else return 'C';//registered user but cris user
 			
 		 }
 		 
