@@ -106,11 +106,11 @@ public class LocoApprovedRecords {
 	private String flag_type;
 	   
 	@Column(name = "loco_initial_cost")
-	private float loco_initial_cost;
+	private Float loco_initial_cost;
 	
 	
 	@Column(name = "loco_poh_cost")
-	private float loco_poh_cost;
+	private Float loco_poh_cost;
 	
 	
 	@Column(name = "loco_last_poh_done")
@@ -386,11 +386,11 @@ public class LocoApprovedRecords {
 		return loco_initial_cost;
 	}
 
-	public void setLoco_initial_cost(float loco_initial_cost) {
+	public void setLoco_initial_cost(Float loco_initial_cost) {
 		this.loco_initial_cost = loco_initial_cost;
 	}
 
-	public float getLoco_poh_cost() {
+	public Float getLoco_poh_cost() {
 		return loco_poh_cost;
 	}
 

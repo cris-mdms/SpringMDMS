@@ -582,23 +582,7 @@ public class LocoEditForwardController {
 			        return condemn_repo.loco_status_in_condemnation(Integer.parseInt(loco),shed);
 			        }
 			        
-			        //JYOTI BISHT 2-08-23 saving loco correction details
-			        /*
-			        @PostMapping("/save_loco_correction")
-			        LocoCorrectionByUser save_loco_correction_details(@RequestBody LocoCorrectionByUser loco)
-			        {
-			        	try
-			        	{
-			        	loco.setTxn_date(LocalDateTime.now());
-			        	return loco_correction.save(loco);
-			        	}
-			        	catch(Exception e)
-			        	{
-			        		return null;
-			        	}
-			        }
-			        */
-			        
+			   
 			    
 			    	//Ritu 25-07-23
 			        @GetMapping("/getflagtype")

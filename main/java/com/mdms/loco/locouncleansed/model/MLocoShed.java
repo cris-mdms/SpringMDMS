@@ -43,8 +43,8 @@ public class MLocoShed {
 //	@Column(name="fois_old_zone_code")
 //	private String fois_old_zone_code;
 	
-	@Column(name="fois_old_shed_code")
-	private String fois_old_shed_code;
+//	@Column(name="fois_old_shed_code")
+//	private String fois_old_shed_code;
 	
 	@Column(name="zone_name")
 	private String zone_name;
@@ -86,13 +86,13 @@ public class MLocoShed {
 //		this.fois_old_zone_code = fois_old_zone_code;
 //	}
 
-	public String getFois_old_shed_code() {
-		return fois_old_shed_code;
-	}
-
-	public void setFois_old_shed_code(String fois_old_shed_code) {
-		this.fois_old_shed_code = fois_old_shed_code;
-	}
+//	public String getFois_old_shed_code() {
+//		return fois_old_shed_code;
+//	}
+//
+//	public void setFois_old_shed_code(String fois_old_shed_code) {
+//		this.fois_old_shed_code = fois_old_shed_code;
+//	}
 
 	public String getZone_name() {
 		return zone_name;
