@@ -13,6 +13,7 @@ import com.mdms.dahsboard.model.DailyIntegrationModel;
 import com.mdms.dahsboard.model.LocoDataSlamModel;
 import com.mdms.dashboard.repository.LocoDataSlamRepo;
 import com.mdms.loco.locouncleansed.model.LocoDataSlam;
+import com.mdms.loco.locouncleansed.model.LocoDataSlamJson;
 import com.mdms.mdms_station.stationuncleansed.model.StationTableRbs;
 
 @Service
@@ -47,7 +48,7 @@ public class LocoDataSlamService {
 	 
 	 
 	 
-	 public List<LocoDataSlam> getmdmslocoonly() {
+	 public List<LocoDataSlamJson> getmdmslocoonly() {
 			
 			logger.info("Service : LocoDataSlamService || Method: getmdmslocoonly");			 
 			  
@@ -63,7 +64,7 @@ public class LocoDataSlamService {
 		return jdbcTemplate.query(
 				noofusers,
 		          (rs, rowNum) ->
-		                  new LocoDataSlam(
+		                  new LocoDataSlamJson(
 		                		  rs.getInt("loco_no") ,
 		                		  rs.getString("loco_owning_zone"),
 		                		  rs.getString("loco_owning_shed"),
@@ -73,7 +74,7 @@ public class LocoDataSlamService {
 		                         ));
 		}
 	 
-	 public List<LocoDataSlam> getshedcodemismatche() {
+	 public List<LocoDataSlamJson> getshedcodemismatche() {
 		 logger.info("Service : LocoDataSlamService || Method: getshedcodemismatche");	
 		 final String noofusers="select  a.loco_no, a.loco_owning_shed as loco_owning_shed ,b.loco_owning_shed as loco_owning_sheds from mdms_loco.loco_approved_data as a,mdms_analysis.loco_data_slam_250723 as b"
 		 		+ " where a.loco_flag='E' and a.status<>'CN' and a.loco_owning_shed in (select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)"
@@ -81,7 +82,7 @@ public class LocoDataSlamService {
 		 return jdbcTemplate.query(
 					noofusers,
 			          (rs, rowNum) ->
-			                  new LocoDataSlam(
+			                  new LocoDataSlamJson(
 			                		  rs.getInt("loco_no") ,			                		  
 			                		  rs.getString("loco_owning_shed"),
 			                		  rs.getString("loco_owning_sheds")
@@ -90,7 +91,7 @@ public class LocoDataSlamService {
 	 
 	 
 	 // same  above function using for this query, so loco type will come in owning shed code column .. otherwise we have to create a new model for this only.. 
-	 public List<LocoDataSlam> gettypemismatche() {
+	 public List<LocoDataSlamJson> gettypemismatche() {
 		 logger.info("Service : LocoDataSlamService || Method: gettypemismatche");	
 		 final String noofusers="select  a.loco_no, a.loco_type as loco_owning_shed ,b.loco_type as loco_owning_sheds from mdms_loco.loco_approved_data as a,mdms_analysis.loco_data_slam_250723 as b"
 		 		+ "	 where a.loco_flag='E' and a.status<>'CN' and a.loco_owning_shed in (select  distinct loco_owning_shed  from mdms_analysis.loco_data_slam_250723)"
@@ -98,7 +99,7 @@ public class LocoDataSlamService {
 		 return jdbcTemplate.query(
 					noofusers,
 			          (rs, rowNum) ->
-			                  new LocoDataSlam(
+			                  new LocoDataSlamJson(
 			                		  rs.getInt("loco_no") ,			                		  
 			                		  rs.getString("loco_owning_shed"),
 			                		  rs.getString("loco_owning_sheds")
@@ -106,7 +107,7 @@ public class LocoDataSlamService {
 	 }
 	 
 	 
-	 public List<LocoDataSlam> getalltypemismatche() {
+	 public List<LocoDataSlamJson> getalltypemismatche() {
 		 
 		 logger.info("Service : LocoDataSlamService || Method: getalltypemismatche");	
 		 final String noofusers="select a.loco_no, (case when a.loco_no=b.loco_no then b.loco_type else a.loco_type end ) as loco_type,loco_types\r\n"
@@ -133,14 +134,14 @@ public class LocoDataSlamService {
 		 			 return jdbcTemplate.query(
 							noofusers,
 					          (rs, rowNum) ->
-					                  new LocoDataSlam(
+					                  new LocoDataSlamJson(
 					                		  rs.getInt("loco_no") ,			                		  
 //					                		  rs.getString("loco_owning_shed"),
 					                		  rs.getString("loco_type"),
 					                		  rs.getString("loco_types")
 					                         ));
 }
-	 public List<LocoDataSlam> getallshedmismatched()
+	 public List<LocoDataSlamJson> getallshedmismatched()
 	 {
 	 logger.info("Service : LocoDataSlamService || Method: getallshedmismatched");	
 	 final String noofusers=" select a.loco_no, (case when a.loco_no=b.loco_no then b.loco_owning_shed else a.loco_owning_shed_code end ) as loco_owning_shed,loco_owning_sheds\r\n"
@@ -168,7 +169,7 @@ public class LocoDataSlamService {
 	 return jdbcTemplate.query(
 		noofusers,
           (rs, rowNum) ->
-                  new LocoDataSlam(
+                  new LocoDataSlamJson(
                 		  rs.getInt("loco_no") ,			                		  
                		  rs.getString("loco_owning_shed"),
                 		  rs.getString("loco_owning_sheds")
@@ -176,7 +177,7 @@ public class LocoDataSlamService {
                          ));
 	 
 }
-	 public List<LocoDataSlam> getallmdmslocono_notinslam(){
+	 public List<LocoDataSlamJson> getallmdmslocono_notinslam(){
 		 logger.info("Service :LocoDataSlamService || Method : getallmdmslocono_notinslam");
 	 final String totallococount ="select loco_no, loco_owning_zone_code as loco_owning_zone, loco_owning_shed_code as loco_owning_shed,loco_type, status,loco_traction_code as loco_flag"
 	 		+ "		from  mdms_loco.loco_data_fois where loco_no in (select  distinct loco_no  from  mdms_loco.loco_data_fois"
@@ -188,7 +189,7 @@ public class LocoDataSlamService {
 		 return jdbcTemplate.query(
 				 totallococount,
 			          (rs, rowNum) ->
-			                  new LocoDataSlam(
+			                  new LocoDataSlamJson(
 			                		  rs.getInt("loco_no") ,			                		  
 			               		  rs.getString("loco_owning_zone"),
 			                		  rs.getString("loco_owning_shed"),

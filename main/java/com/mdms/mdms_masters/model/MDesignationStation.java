@@ -23,6 +23,9 @@ public class MDesignationStation {
 	@Column(name="asset")
 	private String asset;
 
+	@Column(name="asset_sub_desig")
+	private String asset_sub_desig;
+	
 	public String getHrms_designation() {
 		return hrms_designation;
 	}
@@ -61,6 +64,14 @@ public class MDesignationStation {
 
 	public void setAsset(String asset) {
 		this.asset = asset;
+	}
+
+	public String getAsset_sub_desig() {
+		return asset_sub_desig;
+	}
+
+	public void setAsset_sub_desig(String asset_sub_desig) {
+		this.asset_sub_desig = asset_sub_desig;
 	}
 
 	

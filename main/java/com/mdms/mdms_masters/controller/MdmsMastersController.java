@@ -119,6 +119,7 @@ public class MdmsMastersController {
 			    return mdm_mstr_serv.getLocoUserDesig(desig);
 		}
 	 
+	 
 
 
 
@@ -206,14 +207,7 @@ public class MdmsMastersController {
 		}
 
 	 
-	 //anshul 17-08-2023
-	 
-	 @RequestMapping(method=RequestMethod.POST, value="/checkassetcodeexist1")
-		public boolean checkassetscodeexist1(@RequestBody MDesignationStation assetcode){ 
-//		 System.out.println("AssetCode"+assetcode.getAsset_designation_code());		
-		//	    System.out.println( "Asset Code"+ mdm_mstr_serv.checkassetscodeexist1(assetcode)); 
-			    return mdm_mstr_serv.checkassetscodeexist1(assetcode);
-		}
+	
 	 
 
 		@RequestMapping(method=RequestMethod.POST, value="/department")
@@ -343,7 +337,33 @@ public class MdmsMastersController {
 				
 		}
 				
+		 //anshul 17-08-2023
+		 
+		 @RequestMapping(method=RequestMethod.POST, value="/checkassetcodeexist1")
+			public boolean checkassetscodeexist1(@RequestBody MDesignationStation assetcode){ 
+//			 System.out.println("AssetCode"+assetcode.getAsset_designation_code());		
+			//	    System.out.println( "Asset Code"+ mdm_mstr_serv.checkassetscodeexist1(assetcode)); 
+				    return mdm_mstr_serv.checkassetscodeexist1(assetcode);
+			}
 		
-		
-		
+		 
+		 //25-10-20323 Anshul
+		 @RequestMapping(method=RequestMethod.POST, value="/getstationassetdesignation")
+			public String getStationUserDesig(@RequestBody MDesignationCode desig){ 
+			 System.out.println("DESIGNATION"+desig.getHrms_designation());
+			
+				  
+				    
+				    return mdm_mstr_serv.getStationUserDesig(desig);
+			}
+		 
+		 //Anshul
+		 //25-10-2023
+		 @RequestMapping (method=RequestMethod.POST , value="/subdesignation")
+		 public String getsubdesignationcode(@RequestBody String designation) {
+			 return mdm_mstr_serv.getsubdesignationcode(designation);
+			 
+		 
+		 }
+	
 }

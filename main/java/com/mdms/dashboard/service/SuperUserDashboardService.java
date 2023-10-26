@@ -20,6 +20,7 @@ import com.mdms.dahsboard.model.DailyIntegrationModel;
 import com.mdms.dahsboard.model.DivisonUsersAssetModel;
 import com.mdms.dahsboard.model.RbUserCount;
 import com.mdms.dahsboard.model.ZonalUsersAssetModel;
+import com.mdms.dahsboard.model.Zone_Shed_Count_Model;
 import com.mdms.dashboard.repository.StationDashboardRepo;
 import com.mdms.mdms_station.stationuncleansed.repository.StationTableRbsRepository;
 
@@ -329,7 +330,7 @@ final String noofuser="select a.zone_name, a.zone_code, COALESCE(r1.count,0)  fr
 		
 		switch(usertype)
 		{
-		case "SU":        querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending,e.uncleansed from public.total_data a"
+		case "SU":   querystring="select a.zone_code , a.total , b.zone_name , b.cleansed , c.draft , d.pending,e.uncleansed from public.total_data a"
 				+ " 			left outer join public.cleansed_data b on a.zone_code=b.zone_code"
 				+ "			left outer join public.draft c on a.zone_code=c.zone_code"
 				+ "			left outer join public.uncleansed_data_stn e on a.zone_code=e.zone_code"
@@ -407,7 +408,34 @@ public List<ZonalUsersAssetModel> getZoneprivateWiseRecords() {
 	                       )   );
 	}
 	
+
+// JYOTI BISHT SHEDWIZE COUNT for dashboard
+public List<Zone_Shed_Count_Model> getShedWizeWiseRecords() {
 	
+	
+	
+	String querystring=null;
+	
+	querystring="SELECT zone_name, loco_owning_zone_code, shed_name, loco_owning_shed_code,total_count, total_uncleansed, total_draft, total_pending, total_cleansed, ir_flag\r\n"
+			+ "	FROM public.dashboard_loco_stats join mdms_loco.m_loco_shed \r\n"
+			+ "	on loco_owning_shed_code=shed_code  order by loco_owning_zone_code,loco_owning_shed_code";
+	 
+	  return jdbcTemplate.query(querystring,  (rs, rowNum) ->
+           new Zone_Shed_Count_Model(
+              rs.getString("zone_name"),
+              rs.getString("loco_owning_zone_code"),
+              rs.getString("shed_name"),
+              rs.getString("loco_owning_shed_code"),
+              rs.getInt("total_count"),
+              rs.getInt("total_uncleansed"),
+              rs.getInt("total_draft"),
+              rs.getInt("total_pending"),
+              rs.getInt("total_cleansed"),
+              rs.getString("ir_flag")
+             
+      ) );
+}
+
 
 	/*
 public List<ZonalUsersAssetModel> getZoneWiseRecords1(String usertype) {

@@ -9,7 +9,7 @@ public class CrisJsonModel {
 	@JsonProperty("name")
 	private String name;
 		
-	@JsonProperty("desig")
+    @JsonProperty("desig")
 	private String desig;
 	
 	@JsonProperty("dept")

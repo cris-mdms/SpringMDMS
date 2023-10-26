@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.mdms.dahsboard.model.DashBoardLocoCountShedWiseModel;
 import com.mdms.loco.locouncleansed.model.LocoApprovedData;
@@ -34,7 +35,7 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
  			+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
  			+ "WHERE loco_owning_zone=?1 \r\n"
  			+ "AND status='A' and  loco_owning_shed not in\r\n"
- 			+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+ 			+ "(select shed_code from mdms_loco.m_loco_shed where ir_flag='N' and validity='Y')\r\n"
  			+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
  			Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShed(String loco_owning_zone_code);
 	
@@ -88,7 +89,15 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 	
 	// JYOTI BISHT 23-06-23
 	@Query(value="select * from mdms_loco.loco_approved_data where loco_no=?1 and loco_owning_shed=?2",nativeQuery = true)
-	LocoApprovedData getLocoCompletedetail(int loco_no,String shed);
+	LocoApprovedData getLocoCompletedetail( int loco_no,String shed);
+	
+	// JYOTI BISHT 31-06-23
+	@Query(value="select * from mdms_loco.loco_approved_data where loco_no=?1",nativeQuery = true)
+	LocoApprovedData getLocoCompletedetail_loco_no( int loco_no);
+	
+	
+	
+	
 		
 	//ritu 13-07-2023 get approved loco
 		@Query(value="SELECT * FROM  mdms_loco.loco_approved_data WHERE loco_no=?1 AND record_status='O'and status ='A'",nativeQuery=true)
@@ -100,7 +109,7 @@ public interface LocoApprovedDataRepository extends CrudRepository<LocoApprovedD
 				+ "mdms_loco.m_loco_shed as b on a.loco_owning_shed=b.shed_code\r\n"
 				+ "WHERE loco_owning_zone=?1 \r\n"
 				+ "AND status='A' and  loco_owning_shed  in\r\n"
-				+ "(select shed_code from mdms_loco.m_loco_shed where private_shed='Y' and validity='Y')\r\n"
+				+ "(select shed_code from mdms_loco.m_loco_shed where ir_flag='N' and validity='Y')\r\n"
 				+ "GROUP BY loco_owning_zone,loco_owning_shed order by 2 ",nativeQuery=true)
 					Collection<DashBoardLocoCountShedWiseModel> getLocoApprovedZoneShedprivate(String loco_owning_zone_code);
 		

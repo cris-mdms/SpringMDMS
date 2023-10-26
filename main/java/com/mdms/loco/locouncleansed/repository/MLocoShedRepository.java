@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.mdms.loco.locouncleansed.model.MLocoShed;
 
 
-
+@Repository
 public interface MLocoShedRepository extends CrudRepository <MLocoShed,Long>{
 
 	@Query(value="SELECT * FROM mdms_loco.m_loco_shed where shed_flag='E' and validity='Y' and ir_flag='Y'",nativeQuery=true)
@@ -18,7 +19,7 @@ public interface MLocoShedRepository extends CrudRepository <MLocoShed,Long>{
 	List<MLocoShed> findDShed();
 	
 	@Query(value="select distinct zone_code FROM mdms_loco.m_loco_shed WHERE shed_code=?1 and validity='Y' and ir_flag='Y'",nativeQuery=true)	
-	String findzone(String shedcode);	
+	String findzone(String shedcode);
 	
 
 	@Query(value="SELECT * FROM mdms_loco.m_loco_shed WHERE validity='Y' and ir_flag='Y'",nativeQuery=true)

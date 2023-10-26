@@ -33,6 +33,7 @@ import com.mdms.mdms_station.stationuncleansed.repository.MStationJunctionReposi
 import com.mdms.mdms_station.stationuncleansed.repository.MTractionRepository;
 import com.mdms.mdms_station.stationuncleansed.repository.MTrafficTypeRepository;
 import com.mdms.mdms_station.stationuncleansed.repository.StationCleansedDataRepository;
+import com.mdms.mdms_station.stationuncleansed.repository.StationTablePRSRepository;
 import com.mdms.mdms_station.stationuncleansed.repository.StationTableRbsRepository;
 import com.mdms.mdms_station.stationuncleansed.repository.StationUncleansedDataRepository;
 import com.mdms.mdms_station.stationuncleansed.repository.StationUncleansedTestRepository;
@@ -99,6 +100,9 @@ public class StationEditForwardService {
 	MInterlockingStandardRepository interlockng_repo;
 	@Autowired
 	MStationJunctionRepository junction_repo;
+	
+	@Autowired
+	StationTablePRSRepository stn_prs;
 	
 	Logger logger=LoggerFactory.getLogger(StationEditForwardService.class);
 	
@@ -1432,6 +1436,13 @@ catch(Exception e)
 			{
 
 				return stn_unclsnd_repo.getDraftStationByUser(user_id);
+				
+			}
+			
+			//Anshul 17-10-2023
+			public String getShortNamePrs(String stn_code)
+			{
+				return stn_prs.getShortNamePrs(stn_code);
 				
 			}
 			

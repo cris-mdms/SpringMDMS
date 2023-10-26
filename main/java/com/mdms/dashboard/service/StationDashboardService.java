@@ -1392,8 +1392,6 @@ public class StationDashboardService {
 						Collection<DashBoardLocoCountShedWiseModel> draftpvtCountLists= loco_tbl_repo.getDraftLocoApprovalZoneshedprivate(loco_owning_zone_code);
 						logger.info("Service : DashBoardStationService || Method: getDraftLocoApprovalZoneshedprivate || getDraftLocoApprovalZoneshedprivate Query list return : "+draftpvtCountLists.size());			
 						draftpvtCountLists.forEach(DashBoardLocoCountShedWiseModel -> callDraftLocoApprovalZonepvt(DashBoardLocoCountShedWiseModel,list));	
-										
-						
 						return list;
 					
 				}

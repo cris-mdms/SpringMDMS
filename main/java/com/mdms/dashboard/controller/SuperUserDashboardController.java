@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +23,8 @@ import com.mdms.dahsboard.model.DailyIntegrationModel;
 import com.mdms.dahsboard.model.DivisonUsersAssetModel;
 import com.mdms.dahsboard.model.RbUserCount;
 import com.mdms.dahsboard.model.ZonalUsersAssetModel;
+import com.mdms.dahsboard.model.Zone_Shed_Count_Model;
+import com.mdms.dashboard.repository.StationDashboardRepo;
 import com.mdms.dashboard.service.SuperUserDashboardService;
 
 @CrossOrigin(origins = {"*"}, maxAge = 4800, allowCredentials = "false")
@@ -32,6 +34,10 @@ public class SuperUserDashboardController {
 	
 	@Autowired
 	SuperUserDashboardService su_dash_servc;
+	
+	
+	StationDashboardRepo repo_for_shed_count;
+	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/getTotalAsset")
 	public HashMap<String,Integer> getTotalAssets(){
@@ -174,7 +180,15 @@ public class SuperUserDashboardController {
 	return su_dash_servc.getDivisionWiseRecords1(usertype,division, role);
 	}
 	
-
+	
+	// JYOTI BISHT 26-07-2023 for new dashboard
+	
+    @GetMapping("/get_shed_wize_count")
+    List<Zone_Shed_Count_Model> getShedWizeCount()
+    {
+    	return su_dash_servc.getShedWizeWiseRecords();
+    	
+    }
 	 
 		
 	

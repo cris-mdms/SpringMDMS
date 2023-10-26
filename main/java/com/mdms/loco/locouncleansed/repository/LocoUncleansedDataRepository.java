@@ -123,6 +123,10 @@ public interface LocoUncleansedDataRepository extends CrudRepository<LocoUnclean
    // Jyoti Bisht (for condemnation module)
 	  @Query(value="SELECT * from mdms_loco.loco_uncleansed_data WHERE loco_no=?1 and loco_owning_shed=?2 ",nativeQuery = true)
 	  Optional<LocoUncleansedData> find_loco(int loco_no,String shed);
+	  
+	 // Jyoti Bisht (for loco search)
+     @Query(value="SELECT * from mdms_loco.loco_uncleansed_data WHERE loco_no=?1",nativeQuery = true)
+     Optional<LocoUncleansedData> find_loco_by_no(int loco_no);
 
 	  
 	  //Anshul 05-07-2023 // to check if loco number exist in approved table

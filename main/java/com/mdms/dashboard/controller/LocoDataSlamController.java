@@ -15,6 +15,7 @@ import com.mdms.app.mgmt.controller.UserLoginController;
 import com.mdms.dahsboard.model.LocoDataSlamModel;
 import com.mdms.dashboard.service.LocoDataSlamService;
 import com.mdms.loco.locouncleansed.model.LocoDataSlam;
+import com.mdms.loco.locouncleansed.model.LocoDataSlamJson;
 
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
 @RestController
@@ -39,7 +40,7 @@ public class LocoDataSlamController {
 	}
 
 	@RequestMapping(method=RequestMethod.POST, value ="/getmdmsloco_only")
-	public List<LocoDataSlam> getmdmsloco()
+	public List<LocoDataSlamJson> getmdmsloco()
 	{
 		logger.info("Controller : LocoDataSlamController || Method : getmdmsloco");
 		return obj_service.getmdmslocoonly();
@@ -47,7 +48,7 @@ public class LocoDataSlamController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value ="/getmismatchedsheddata")
-	public List<LocoDataSlam> getmismatchedsheddata()
+	public List<LocoDataSlamJson> getmismatchedsheddata()
 	{
 		logger.info("Controller : LocoDataSlamController || Method : getmismatchedsheddata");
 		return obj_service.getshedcodemismatche();
@@ -55,7 +56,7 @@ public class LocoDataSlamController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value ="/gettypemismatched")
-	public List<LocoDataSlam> gettypemismatche()
+	public List<LocoDataSlamJson> gettypemismatche()
 	{
 		logger.info("Controller : LocoDataSlamController || Method : gettypemismatche");
 		return obj_service.gettypemismatche();
@@ -63,7 +64,7 @@ public class LocoDataSlamController {
 	}
 
 	@RequestMapping(method=RequestMethod.POST, value ="/getalltypemismatched")
-	public List<LocoDataSlam> getalltypemismatche()
+	public List<LocoDataSlamJson> getalltypemismatche()
 	{
 		logger.info("Controller : LocoDataSlamController || Method : gettypemismatche");
 		return obj_service.getalltypemismatche();
@@ -71,7 +72,7 @@ public class LocoDataSlamController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value ="/getallshedmismatched")
-	public List<LocoDataSlam> getallshedmismatched()
+	public List<LocoDataSlamJson> getallshedmismatched()
 	{
 		logger.info("Controller : LocoDataSlamController || Method : getallshedmismatched");
 		return obj_service.getallshedmismatched();
@@ -79,7 +80,7 @@ public class LocoDataSlamController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value ="/getallmdmsloco_notin_slam")
-	public List<LocoDataSlam> getallmdmsloco_not_inslam()
+	public List<LocoDataSlamJson> getallmdmsloco_not_inslam()
 	{
 		logger.info("Controller : LocoDataSlamController || Method : getallmdmsloco_not_inslam");
 		return obj_service.getallmdmslocono_notinslam();

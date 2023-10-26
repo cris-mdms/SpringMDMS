@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedData;
 import com.mdms.loco.locouncleansed.model.LocoUncleansedDataElectric;
+
 import com.mdms.loco.locouncleansed.service.LocoDraftService;
 @CrossOrigin(origins = {"http://localhost:4200","http://mdms-ng-dev.s3-website.ap-south-1.amazonaws.com"}, maxAge = 4800, allowCredentials = "false")
 
@@ -25,6 +26,9 @@ Logger logger=LoggerFactory.getLogger(LocoDraftController.class);
 	
 	@Autowired
 	 private LocoDraftService obj_uncleasedservice;
+	
+
+
 	
 	
 	//add eloco cleansed data in loco unclenased data table

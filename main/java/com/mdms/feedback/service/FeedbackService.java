@@ -67,10 +67,10 @@ public class FeedbackService {
 }
 	
 	public List<FeedbackModel>getsuperuserfeedbackinbox(FeedbackModel objsuperuserFeedinbox) {
-	    obj_repo.superuserfeedback();
+	    obj_repo.superuserfeedback(objsuperuserFeedinbox.getSender_zone());
 		List<FeedbackModel> objownerfeedback=new ArrayList<>();		
-		obj_repo.superuserfeedback().forEach(objownerfeedback::add);
-		return obj_repo.superuserfeedback();
+		obj_repo.superuserfeedback(objsuperuserFeedinbox.getSender_zone()).forEach(objownerfeedback::add);
+		return obj_repo.superuserfeedback(objsuperuserFeedinbox.getSender_zone());
 }
 	
 	public boolean updaterecord(FeedbackModel obj_updatestatus) {
@@ -126,17 +126,33 @@ public class FeedbackService {
 		
 }
 	
-	public int insertFeedbackReplyByAdmin(FeedbackModel modelObj) {
-		System.out.println("reply inserting");
-		System.out.println(modelObj.getReceiver_id());
-		int insertResponse=	obj_repo.insertReplyByAdmin(modelObj.getRequest_title(),modelObj.getAsset_module(),modelObj.getRequest_status(),modelObj.getSender_id(),modelObj.getSender_name(),
-				modelObj.getSender_designation(),modelObj.getAsset_ownerid(),modelObj.getAsset_type(),modelObj.getRequest_reply_id(),modelObj.getRequest_reply_comment(),modelObj.getReceiver_id());		
-		logger.info("Service : FeedbackService|| Method: insertFeedbackReplyByAdmin || insertReplyByAdmin Query resonse: "+insertResponse);
-		System.out.println(insertResponse );
-		return insertResponse;
-		
-			
+//	public int insertFeedbackReplyByAdmin(FeedbackModel modelObj) {
+//		System.out.println("reply inserting");
+//		System.out.println(modelObj.getReceiver_id());
+//		int insertResponse=	obj_repo.insertReplyByAdmin(modelObj.getRequest_reply_id(),modelObj.getRequest_reply_comment(),modelObj.getReceiver_id());		
+//		logger.info("Service : FeedbackService|| Method: insertFeedbackReplyByAdmin || insertReplyByAdmin Query resonse: "+insertResponse);
+//		System.out.println(insertResponse );
+//		return insertResponse;
+//		
+//		//modelObj.getRequest_title(),modelObj.getAsset_module(),modelObj.getRequest_status(),modelObj.getSender_id(),modelObj.getSender_name(),
+//		//modelObj.getSender_designation(),modelObj.getAsset_ownerid(),modelObj.getAsset_type()
+//		}
+	//reply update
+	public boolean updatereply(FeedbackModel obj_updatestatus) {
+		try{					
+		String var1=obj_updatestatus.getRequest_reply_comment();
+		Long rid=obj_updatestatus.getRequest_id();
+		System.out.println(var1);
+		System.out.println(rid);		
+		obj_repo.updateReplyByAdmin(var1, rid);
+		return  true ;	
 		}
+		catch(Exception e){
+			
+			System.out.println(e);
+			return false;
+		}			
+	}
 	
 	
 	//get  reply 

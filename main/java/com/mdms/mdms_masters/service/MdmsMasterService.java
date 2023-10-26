@@ -113,10 +113,14 @@ public List<String> getZonewiseDivisionCode(String zone) throws Exception{
 //	
 //	}
 	public boolean verifyStnUserDesig(MDesignation userdesig) {
-	   String udesigname=userdesig.getDesignation_name();       
-	   String desig=desig_repo.findStnDesignation(udesigname);
-	   if((desig!=null )&&(desig.equals(desig)) ){
-	    	return true;
+	   String udesigname=userdesig.getDesignation_name();      
+	   String desig=mdesstationrepo.getassetsDesignation(udesigname);
+	   System.out.println( "designation received=  "+udesigname);
+;	  
+	   if(desig!=null){
+	    
+//		   System.out.println( "asset designation =  "+desig.get(0).getAsset_designation_code());
+		   return true;
 	       	
 	    	
 	    } else {
@@ -193,6 +197,16 @@ public List<String> getZonewiseDivisionCode(String zone) throws Exception{
 				 		    }
 				 		   
 				 		}
+	
+	
+	//Anshul
+	public String getsubdesignationcode(String designation) {
+		
+		 String assetsubcode;
+		return assetsubcode=mdesstationrepo.getsubdesignationcode(designation);
+			 
+		
+	}
 			   
 			  
 			
@@ -438,6 +452,28 @@ public List<String> getZonewiseDivisionCode(String zone) throws Exception{
 	// JYOTI BISHT 24-01-23
 	public List<MShedMgmt> display_approved_NewShedCode(String zone, String division){
 		return shedmgmtRepoObj.display_approved_shed(zone,division);		
+	}
+
+//25-10-2023 Anshul
+	public String getStationUserDesig(MDesignationCode desig) {
+		
+		  String udesigname=desig.getHrms_designation();     
+		  if((udesigname!=null) )
+		   {
+			  	List<MDesignationStation> mdesig=mdesstationrepo.getassetsStationDesignation(udesigname);
+		   
+		  
+		  		if(mdesig!=null){
+		  			return mdesig.get(0).getAsset_designation_code();
+		  		}
+		  		else return null;
+		    	   	
+		    	
+		    }
+		  else
+			  return null;
+		   
+		
 	}
 	
 }
