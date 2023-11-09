@@ -566,7 +566,7 @@ public class StationEditForwardController {
 			 		
 
 //Anshul 17-10-2023
-			 		@RequestMapping(method=RequestMethod.POST, value="/getshortname")
+			 		@RequestMapping(method=RequestMethod.POST, value="/getshortnamep")
 			 		public String getShortNamePrs(@RequestBody String station_code) throws Exception {
 			 			 logger.error("controller : StationEditForwardController || Method : getShortNamePrs || input recieved Stn_code: "+station_code);		 
 			 		return stn_edit_fwd_serv.getShortNamePrs(station_code);

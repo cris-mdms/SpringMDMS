@@ -70,7 +70,7 @@ public String saveCmiCleansedDraft(StationUncleansedData stationdraftcmi)throws 
 					stationdraftcmi.getStation_class() ,stationdraftcmi.getJunction_flag(), stationdraftcmi.getInterchange_flag() , 
 					stationdraftcmi.getState(), stationdraftcmi.getPincode() , stationdraftcmi.getDistrict(),stationdraftcmi.getTehsil(), 
 					stationdraftcmi.getStation_short_name(), stationdraftcmi.getInterlocking_standard() , stationdraftcmi.getWorking_division(),
-					stationdraftcmi.getWeight_bridge(), stationdraftcmi.getSiding() , stationdraftcmi.getBooking_type() , stationdraftcmi.getCmi_status(), date ,stationdraftcmi.getBooking_resource()  );
+					stationdraftcmi.getWeight_bridge(), stationdraftcmi.getSiding() , stationdraftcmi.getBooking_type() , stationdraftcmi.getCmi_status(), date ,stationdraftcmi.getBooking_resource() ,stationdraftcmi.getStation_status() );
 			returnstmt="DRAFT UPDATED SUCCESSFULLY";	
 			
 			}
@@ -135,7 +135,7 @@ public String forwardToDCM(StationUncleansedData stationdataapprovebydcm) throws
 					  stationdataapprovebydcm.getStation_class() ,stationdataapprovebydcm.getJunction_flag(), stationdataapprovebydcm.getInterchange_flag() , 
 					  stationdataapprovebydcm.getState(), stationdataapprovebydcm.getPincode() , stationdataapprovebydcm.getDistrict(),stationdataapprovebydcm.getTehsil(), 
 					  stationdataapprovebydcm.getStation_short_name(), stationdataapprovebydcm.getInterlocking_standard() , stationdataapprovebydcm.getWorking_division(),
-					  stationdataapprovebydcm.getWeight_bridge(), stationdataapprovebydcm.getSiding() ,  stationdataapprovebydcm.getBooking_type() , cmi_status, date ,stationdataapprovebydcm.getBooking_resource());
+					  stationdataapprovebydcm.getWeight_bridge(), stationdataapprovebydcm.getSiding() ,  stationdataapprovebydcm.getBooking_type() , cmi_status, date ,stationdataapprovebydcm.getBooking_resource(),stationdataapprovebydcm.getStation_status());
 		returnstmt="RECORD FORWARDED TO DCM SUCCESSFULLY";
 			}
 			
